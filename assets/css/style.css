@@ -447,6 +447,10 @@ footer {
   text-decoration: none;
 }
 
+.overlay {
+  top: -2.5rem;
+}
+
 .container h1 {
   font-weight: 800;
   color: #676767;
@@ -481,6 +485,7 @@ footer {
   margin: 0;
   padding: 0 1rem 0 0;
   font-weight: normal;
+  line-height: 0;
 }
 .col-6 table p, .col-6 th p, .col-6 tr p, .col-6 td p {
   font-size: 1rem;
