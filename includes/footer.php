@@ -33,12 +33,12 @@
             <?php include('includes/breadcrumb.php'); ?>
         </div>
         <div class="more-infos__links-box">
-            <a class="more-infos__link" href="#"> <i class="fas fa-envelope"></i>Contact us </a>
-            <a class="more-infos__link" href="#"> <i class="fas fa-shield-alt"></i> The team </a>
-            <a class="more-infos__link" href="#"> <i class="fas fa-check"></i> Terms </a>
-            <a class="more-infos__link" href="../policy.htm"> <i class="fas fa-lock"></i> Privacy </a>
-            <a class="more-infos__link" href="#"> <i class="fas fa-users"></i> Members </a>
-            <a class="more-infos__link" href="#"> <i class="fas fa-trash-alt"></i> Delete cookies </a>
+            <a href="#"> <i class="fas fa-envelope"></i> Contact us </a>
+            <a href="#"> <i class="fas fa-shield-alt"></i> The team </a>
+            <a href="#"> <i class="fas fa-check"></i> Terms </a>
+            <a href="../policy.htm"> <i class="fas fa-lock"></i> Privacy </a>
+            <a href="#"> <i class="fas fa-users"></i> Members </a>
+            <a href="#"> <i class="fas fa-trash-alt"></i> Delete cookies </a>
             All times are UTC
         </div>
 
@@ -46,14 +46,16 @@
 
     <!-- Copyrights design (same than the given design on becode's repo) -->
     <p id="design-cpright" class="d-flex justify-content-start align-items-center">
-        Powered by <a class="design-cpright__link" href="#">Des gens</a>&trade; &bull; Design by <a  class="design-cpright__link" href="#">Planet Styles</a>
+        Powered by <a href="#">Des gens</a>&trade; &bull; Design by <a  class="design-cpright__link" href="#">Planet Styles</a>
     </p>
 </footer>
 <!-- Footer -->
 <!-- <script src="/bcbb-the-who/assets/bootstrap/jquery.js"></script> -->
 <!-- <script src="/bcbb-the-who/assets/bootstrap/bootstrap.bundle.min.js"></script> -->
 
-
+<script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
+<script src="/assets/js/script.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </body>
+</html>
