@@ -292,6 +292,17 @@ body abbr[title] {
 /* —————————————————————————————————— */
 /* —————— !! HEADER (S)CSS !! —————— */
 /* —————————————————————————————————— */
+.header a {
+  color: white;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.header a:hover {
+  color: rgba(224, 87, 211, 0.7);
+  text-decoration: none;
+}
+
 .header {
   height: 25rem;
   display: flex;
@@ -464,7 +475,7 @@ footer {
 }
 
 .card__cat {
-  height: 17rem;
+  height: 17.5rem;
   width: 108%;
   margin-top: 1rem;
   padding: 0.5rem;
