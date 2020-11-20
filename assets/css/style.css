@@ -422,32 +422,6 @@ footer {
 /* ———————————————————————————————— */
 /* —————— !! INDEX (S)CSS !! —————— */
 /* ———————————————————————————————— */
-/* -------- ! GENEREAL ! -------- */
-a:link {
-  color: #999999;
-  text-decoration: none;
-}
-
-a:active {
-  color: #999999;
-}
-
-a:visited {
-  color: #999999;
-}
-
-a:hover {
-  color: #b06ab3;
-  text-decoration: none;
-}
-
-/* BREADCRUMB */
-.arr__bread {
-  padding: 0;
-  list-style: none;
-  background-color: white;
-}
-
 .breadcrumb-item + .breadcrumb-item::before {
   font-family: "fontAwesome";
   content: "‹" !important;
@@ -455,6 +429,24 @@ a:hover {
 
 /* -------- ! LEFT SIDE ! -------- */
 /* CONTAINER */
+.container a:link {
+  color: #999999;
+  text-decoration: none;
+}
+
+.container a:active {
+  color: #999999;
+}
+
+.container a:visited {
+  color: #999999;
+}
+
+.container a:hover {
+  color: #b06ab3;
+  text-decoration: none;
+}
+
 .container h1 {
   font-weight: 800;
   color: #676767;
@@ -468,10 +460,7 @@ a:hover {
 }
 
 .card__cat {
-  border-radius: 1rem;
-  box-shadow: 0px 0px 5px -5px #333333;
-  border: none;
-  height: 18rem;
+  height: 17rem;
   width: 108%;
   margin-top: 1rem;
   padding: 0.5rem;
@@ -521,27 +510,29 @@ a:hover {
   color: #b06ab3;
 }
 
-.accordion .card {
-  border: none;
+#accordionGroup {
   border-bottom: 1px solid #e9e9e9;
 }
-.accordion .form-group {
-  color: #b6b6b6;
-}
-.accordion .btn-login {
+#accordionGroup .btn-login {
   background-color: #b06ab3;
 }
-.accordion .btn-collapse {
-  color: #999999;
-  font-weight: 600;
+#accordionGroup .greytext {
+  color: #b6b6b6;
 }
-.accordion .fa {
-  color: #999999;
-  font-size: 1rem;
-  padding-top: 1rem;
+
+.accordion-btn {
+  position: relative;
 }
-.accordion #headingOne {
-  border-bottom: 1px solid #e9e9e9;
+
+.accordion-btn:before {
+  position: absolute;
+  content: "+";
+  right: 10px;
+  top: 5px;
+}
+
+.accordion-btn[aria-expanded=true]:before {
+  content: "-";
 }
 
 .grad {
@@ -552,7 +543,7 @@ a:hover {
 }
 
 .last-posts {
-  height: 32rem;
+  height: 42rem;
   overflow: auto;
 }
 
