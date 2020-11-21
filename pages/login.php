@@ -8,13 +8,13 @@
 
 <p class="pl-5 pb-3"><a href="http://localhost:8888/"><i class="fas fa-home"></i> Home</a></p>
       
-<div class="container-lg signin">
+<div class="container-lg board-util">
 <h1 class="pl-5"><i class="far fa-arrow-alt-circle-right"></i> Log in</h1>
 <div class="container d-flex justify-content-center">
 
-<div class="card signin border-0 w-50">
+<div class="card board-util border-0 w-50">
  <div class="card-body">
-   <form class="signin-form p-5">
+   <form class="board-util-form p-5">
 
      <label class="w-100 mt-3 text-secondary" for="username"><h5>Username</h5></label>
        <div class="input-group border">
@@ -41,7 +41,7 @@
        </label>
      </div>
 
-     <button class="btn text-white font-weight-bold btn-block my-4 border-0 rounded rounded-pill signin__btn" type="submit">Log in</button>
+     <button class="btn text-white font-weight-bold btn-block my-4 border-0 rounded rounded-pill board-util__btn" type="submit">Log in</button>
  
    
  </form>
