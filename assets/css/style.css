@@ -522,6 +522,10 @@ footer {
   height: 0.1rem;
 }
 
+.cog {
+  color: #b06ab3;
+}
+
 .magnifying-glass {
   color: #b06ab3;
 }
