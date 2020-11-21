@@ -22,8 +22,8 @@
         </div>
 
         <div class="header__button header__Flex">
-            <button type="button" class="header__button1"><i class="far fa-clipboard"></i>  Register</button>
-            <button type="button" class="header__button2"><i class="far fa-arrow-alt-circle-right"></i>  Login</button>
+        <button type="button" class="header__button1"><a href="http://localhost:8888/pages/register.php"><i class="far fa-clipboard"></i>  Register</a></button>
+            <button type="button" class="header__button2"><a href="http://localhost:8888/pages/login.php"><i class="far fa-arrow-alt-circle-right"></i>  Login</a></button>
         </div>
 
     </header>
