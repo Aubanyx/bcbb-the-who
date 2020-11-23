@@ -1,5 +1,4 @@
-
-<?php include_once "./includes/header.php" ?>
+<?php include_once "../includes/header.php" ?>
    
    <!-- forum body -->
 
@@ -7,195 +6,141 @@
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">          
 <nav aria-label="breadcrumb">
 <ol class="breadcrumb bg-transparent pt-5">
-<li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i> Home</a></li>
+<li class="breadcrumb-item"><a href="http://localhost/bcbb-the-who/index.php#"><i class="fas fa-home"></i> Home</a></li>
 <li class="breadcrumb-item active" aria-current="page">Board Index</li>
 </ol>
 </nav>
+
+
+
+
+
+
+
 
 <div class="container-lg">
 
 <div class="row">  
 
-<div class="col-xl-9 themed-grid-col">
-  <h1>Category One</h1>
-  <div class="row bg-light forums__list">
-
-<div class="col-6 col-sm-4">
-<a href="http://localhost/bcbb-the-who/pages/topicRead.php">  
-  <div class="card rounded border-0 shadow-sm card__cat">
-  <div class="card-body">
-     
-      <img src="assets/images/icons/svg/013-comment.svg" class="float-left">
-      <h4 class="card-title">Title</h4>
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-     <hr>
-     <table class="table table-borderless table-responsive">
-      <thead>
-        <tr>
-          <td><p><span>459</span></p></td>
-          <td><p><span>908</span></p></td>
-          <td><p><span>Sun Feb 3</span></p></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th><p>Topics</p></th>
-          <th><p>Posts</p></th>
-          <th><p>Last posts</p></th>
-        </tr> </tbody>
-    </table>
-    </div>
-
-  </div>
-</div>
-</a>
-
-<div class="col-6 col-sm-4">
-  <div class="card border-0 shadow-sm card__cat">
-    <div class="card-body"><img src="./assets/images/icons/svg/007-chat.svg" class="float-left">
-      <h4 class="card-title">Title</h4>
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-      <hr>
-
-      <table class="table table-borderless table-responsive">
-          <thead>
-            <tr>
-              <td><p><span>459</span></p></td>
-              <td><p><span>908</span></p></td>
-              <td><p><span>Sun Feb 3</span></p></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th><p>Topics</p></th>
-              <th><p>Posts</p></th>
-              <th><p>Last posts</p></th>
-            </tr> </tbody>
-        </table>
-
-    </div>
-
-  </div>
+<div class="col-sm-9 px-0 mx-0 themed-grid-col">
+<h3>Topic Read (hot)</h3>
+<div class="forumRules px-4 py-3 rounded border-left border-11">
+<p>Forum rules</p>
 </div>
 
-<div class="col-6 col-sm-4">
-  <div class="card border-0 shadow-sm card__cat">
-    <div class="card-body"><img src="assets/images/icons/svg/008-notification.svg" class="float-left">
-      <h4 class="card-title">Title</h4>
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      <hr>
-     <table class="table table-borderless table-responsive">
-      <thead>
-        <tr>
-          <td><p><span>459</span></p></td>
-          <td><p><span>908</span></p></td>
-          <td><p><span>Sun Feb 3</span></p></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th><p>Topics</p></th>
-          <th><p>Posts</p></th>
-          <th><p>Last posts</p></th>
-        </tr> </tbody>
-    </table>
-    </div>
 
-  </div>
-</div>
 
-<div class="col-6 col-sm-4">
-  <div class="card border-0 shadow-sm card__cat">
-    <div class="card-body"><img src="assets/images/icons/svg/037-keyboard.svg" class="float-left">
-      <h4 class="card-title">Title</h4>
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      <hr>
-     <table class="table table-borderless table-responsive">
-      <thead>
-        <tr>
-          <td><p><span>459</span></p></td>
-          <td><p><span>908</span></p></td>
-          <td><p><span>Sun Feb 3</span></p></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th><p>Topics</p></th>
-          <th><p>Posts</p></th>
-          <th><p>Last posts</p></th>
-        </tr> </tbody>
-    </table>
-    </div>
+<div class="board-util d-flex pt-3">
+ <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">New topic <i class="fas fa-pencil-alt"></i></button>
+<!-- searchbar -->
+    <div class="bg-light rounded rounded-pill border w-25 ml-3">
+      <div class="input-group">
+        <input type="search" placeholder="Search this forum..." aria-describedby="button-addon1" class="form-control  bg-light rounded rounded-pill border-0">
+        <div class="input-group-append">          
+          <button id="button-addon1" type="submit" class="btn btn-link text-primary border-right"><i class="fa fa-search magnifying-glass"></i></button>
+          <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fas fa-cog cog"></i></button>
 
-  </div>
-</div>
-</div>    
-<h1 class="pt-3">Category Two</h1>
-<div class="row bg-light forums__list">
-  <div class="col-6 col-sm-4">
-      <div class="card border-0 shadow-sm card__cat">
-        <div class="card-body">
-         
-          <img src="assets/images/icons/svg/005-user.svg" class="float-left">
-          <h4 class="card-title">Title</h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-         <hr>
-         <table class="table table-borderless table-responsive">
-          <thead>
-            <tr>
-              <td><p><span>459</span></p></td>
-              <td><p><span>908</span></p></td>
-              <td><p><span>Sun Feb 3</span></p></td>
-            </tr>
-           </thead>
-           <tbody>
-            <tr>
-              <th><p>Topics</p></th>
-              <th><p>Posts</p></th>
-              <th><p>Last posts</p></th>
-            </tr> </tbody>
-            </table>
         </div>
-
       </div>
-   </div>
+    </div>  
+ <p class="ml-auto font-weight-normal greytext pt-2"> 12 topics · Page <strong>1</strong> of <strong>1</strong></p>
+
+  <!-- /searchbar -->
+  </div> 
 
 </div>
 
-<h1 class="pt-3">Category Three</h1>
 
-<div class="row bg-light forums__list">
-  <div class="col-6 col-sm-4">
-      <div class="card border-0 shadow-sm card__cat">
-        <div class="card-body">
-         
-          <img src="assets/images/icons/svg/033-promote.svg" class="float-left">
-          <h4 class="card-title">Title</h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-         <hr>
-         <table class="table table-borderless table-responsive">
-          <thead>
-            <tr>
-              <td><p><span>459</span></p></td>
-              <td><p><span>908</span></p></td>
-              <td><p><span>Sun Feb 3</span></p></td>
-            </tr>
-           </thead>
-           <tbody>
-            <tr>
-              <th><p>Topics</p></th>
-              <th><p>Posts</p></th>
-              <th><p>Last posts</p></th>
-            </tr> </tbody>
-            </table>
+
+
+
+
+
+
+
+<div class="my-4 col-sm-9 bg-light">
+
+
+<div class="themed-grid-col">
+  <div class="card w-100 d-inline-flex p-3 card__users my-3">
+    <div class="d-inline-flex p-3">
+      <div class="SandrineParent">
+        <div class="flex-column mx-3 w-25 d-flex">
+          <img src="../assets/images/icons-users/svg/072-woman.svg" alt="profile-image" class="Sandrine">
+          <p class="h5 text-danger">PlanetStyles</p>
+          <p class="h6 text-secondary mb-3">Site Admin</p>
+          <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary"> 43</span></p>
+          <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary"> UK</span></p>
         </div>
-
       </div>
-   </div>
+
+      <div class="flex-column w-75">
+        <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> Sun Oct 09, 2016 6:03 pm</p>
+        <p class="py-3 h6">This is a topic that as the 'read' icons.</p>
+        <p class="border-top py-3">This is a signature.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="themed-grid-col">
+  <div class="card w-100 d-inline-flex p-3 card__users my-3">
+    <div class="d-inline-flex p-3">
+      <div class="flex-column mx-3 w-25 d-flex justify-content-center">
+        <img src="../assets/images/icons-users/svg/072-woman.svg" alt="profile-image" class="w-25 text-center">
+        <p class="h5 text-danger">PlanetStyles</p>
+        <p class="h6 text-secondary mb-3">Site Admin</p>
+        <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary"> 43</span></p>
+        <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary"> UK</span></p>
+      </div>
+
+      <div class="flex-column w-75">
+        <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> Sun Oct 09, 2016 6:03 pm</p>
+        <p class="py-3 h6">This is a topic that as the 'read' icons.</p>
+        <p class="border-top py-3">This is a signature.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 </div>
 
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- start of right side -->
 
@@ -301,7 +246,7 @@
               <div class="card rounded border-0 w-100 m-1 pd-1">
                   <div class="card-body text-center">
 
-                   <img src="./assets/images/icons-users/svg/079-man.svg">
+                   <img src="../assets/images/icons-users/svg/079-man.svg">
 
                       <p class="pt-2"><span>#Ben198</span>
                           <br>
@@ -312,7 +257,7 @@
              
               <div class="card rounded border-0 w-100 m-1 pd-1">
                   <div class="card-body text-center">
-                      <img src="./assets/images/icons-users/svg/072-woman.svg" alt="profile-image">
+                      <img src="../assets/images/icons-users/svg/072-woman.svg" alt="profile-image">
                       <p class="pt-2"><span>#Lora298</span>
                       <br>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -322,7 +267,7 @@
 
               <div class="card rounded border-0 w-100 m-1 pd-1">
                   <div class="card-body text-center">
-                      <img src="./assets/images/icons-users/svg/026-woman.svg" alt="profile-image">
+                      <img src="../assets/images/icons-users/svg/026-woman.svg" alt="profile-image">
                       <p class="pt-2"><span>#Mary933</span>
                           <br>
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -349,5 +294,4 @@
 </div>
 
 <script src="./assets/js/script.js"></script>
-<?php include_once "./includes/footer.php" ?>
-
+<?php include_once "../includes/footer.php" ?>
