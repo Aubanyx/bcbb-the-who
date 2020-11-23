@@ -21,7 +21,7 @@
     <nav class="navbar navbar-expand-lg navbar-light justify-content-end p-5">
         <div class="" id="navbarNavAltMarkup">
             <div class=" h4 navbar-nav">
-                <a class="nav-item nav-link active text-light mx-3" href="http://localhost/bcbb-the-who/index.php#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active text-light mx-3" href="http://localhost/bcbb-the-who/index.php#"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link text-light mx-3" href="http://localhost/bcbb-the-who/pages/register.php"><i class="far fa-arrow-alt-circle-right"></i> Register</a>
                 <a class="nav-item nav-link text-light mx-3" href="http://localhost/bcbb-the-who/pages/login.php"><i class="far fa-clipboard"></i> Login</a>
             </div>

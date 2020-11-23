@@ -22,20 +22,32 @@
 
 <div class="row">  
 
-<div class="col-sm-9 px-0 mx-0 themed-grid-col">
+<div class="col-xl-9 themed-grid-col">
 <h3>Topic Read (hot)</h3>
-<div class="forumRules px-4 py-3 rounded border-left border-11">
-<p>Forum rules</p>
+<div class="alert alert-danger" role="alert">
+Forum rules
 </div>
 
 
-
 <div class="board-util d-flex pt-3">
- <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">New topic <i class="fas fa-pencil-alt"></i></button>
+ <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">Post reply <i class="fas fa-reply"></i></button>
 <!-- searchbar -->
+<div class="dropdown">
+  <button class="btn bg-light rounded ml-3 rounded-pill border dropdown-toggle"
+          type="button" id="dropdownMenu1" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fas fas fa-wrench text-black-50"></i>
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <a class="dropdown-item" href="#!">Delete topic</a>
+    <a class="dropdown-item" href="#!">Lock topic</a>
+    <a class="dropdown-item" href="#!">Reply</a>
+  </div>
+</div>
+
     <div class="bg-light rounded rounded-pill border w-25 ml-3">
       <div class="input-group">
-        <input type="search" placeholder="Search this forum..." aria-describedby="button-addon1" class="form-control  bg-light rounded rounded-pill border-0">
+        <input type="search" placeholder="Search this topic..." aria-describedby="button-addon1" class="form-control  bg-light rounded rounded-pill border-0">
         <div class="input-group-append">          
           <button id="button-addon1" type="submit" class="btn btn-link text-primary border-right"><i class="fa fa-search magnifying-glass"></i></button>
           <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fas fa-cog cog"></i></button>
@@ -43,66 +55,59 @@
         </div>
       </div>
     </div>  
- <p class="ml-auto font-weight-normal greytext pt-2"> 12 topics · Page <strong>1</strong> of <strong>1</strong></p>
+ <p class="ml-auto font-weight-normal greytext pt-2"> 3 replies · Page <strong>1</strong> of <strong>1</strong></p>
 
   <!-- /searchbar -->
   </div> 
 
-</div>
+
+<div class="themed-grid-col mt-4 p-3 rounded bg-light">
+  <!-- post-reply -->
+    <div class="row rounded bg-white p-4 m-0 mb-3">
+   
+        <div class="col-2 flex-column d-flex text-center mr-3">
+          <img src="../assets/images/icons-users/svg/072-woman.svg" alt="profile-image" class="pb-3" style="height:75px;">
+          <p class="h5 text-danger">PlanetStyles  <span class="h6 d-block text-secondary mb-3">Site Admin</span></p>
+      
+          <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary"> 43</span></p>
+          <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary"> UK</span></p>
+        </div>
 
 
-
-
-
-
-
-
-
-<div class="my-4 col-sm-9 bg-light">
-
-
-<div class="themed-grid-col">
-  <div class="card w-100 d-inline-flex p-3 card__users my-3">
-    <div class="d-inline-flex p-3">
-      <div class="flex-column mx-3 w-25 d-flex align-items-center">
-        <img src="../assets/images/icons-users/svg/072-woman.svg" alt="profile-image" class="w-25 text-center">
-        <p class="h5 text-danger">PlanetStyles</p>
-        <p class="h6 text-secondary mb-3">Site Admin</p>
-        <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary"> 43</span></p>
-        <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary"> UK</span></p>
-      </div>
-
-      <div class="flex-column w-75">
+      <div class="col-9 flex-column">
         <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> Sun Oct 09, 2016 6:03 pm</p>
         <p class="py-3 h6">This is a topic that as the 'read' icons.</p>
         <p class="border-top py-3">This is a signature.</p>
       </div>
 
     </div>
-  </div>
+<!-- / post-reply -->
+
+  <!-- post-reply -->
+  <div class="row rounded bg-white p-4 m-0 mb-3">
+   
+   <div class="col-2 flex-column d-flex text-center mr-3">
+     <img src="../assets/images/icons-users/svg/072-woman.svg" alt="profile-image" class="pb-3" style="height:75px;">
+     <p class="h5 text-danger">PlanetStyles  <span class="h6 d-block text-secondary mb-3">Site Admin</span></p>
+ 
+     <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary"> 43</span></p>
+     <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary"> UK</span></p>
+   </div>
+
+
+ <div class="col-9 flex-column">
+   <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> Sun Oct 09, 2016 6:03 pm</p>
+   <p class="py-3 h6">This is a topic that as the 'read' icons.</p>
+   <p class="border-top py-3">This is a signature.</p>
+ </div>
+
+</div>
+<!-- / post-reply -->
+
+    
+
 </div>
 
-
-<div class="themed-grid-col">
-  <div class="card w-100 d-inline-flex p-3 card__users my-3">
-    <div class="d-inline-flex p-3">
-      <div class="flex-column mx-3 w-25 d-flex justify-content-center">
-        <img src="../assets/images/icons-users/svg/072-woman.svg" alt="profile-image" class="w-25 text-center">
-        <p class="h5 text-danger">PlanetStyles</p>
-        <p class="h6 text-secondary mb-3">Site Admin</p>
-        <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary"> 43</span></p>
-        <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary"> UK</span></p>
-      </div>
-
-      <div class="flex-column w-75">
-        <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> Sun Oct 09, 2016 6:03 pm</p>
-        <p class="py-3 h6">This is a topic that as the 'read' icons.</p>
-        <p class="border-top py-3">This is a signature.</p>
-      </div>
-
-    </div>
-  </div>
-</div>
 
 
 </div>

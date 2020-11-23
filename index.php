@@ -20,13 +20,12 @@
   <h1>Category One</h1>
   <div class="row bg-light forums__list">
 
-<div class="col-6 col-sm-4">
-<a href="http://localhost/bcbb-the-who/pages/topicRead.php">  
+<div class="col-6 col-sm-4">  
   <div class="card rounded border-0 shadow-sm card__cat">
   <div class="card-body">
      
       <img src="assets/images/icons/svg/013-comment.svg" class="float-left">
-      <h4 class="card-title">Title</h4>
+      <h4 class="card-title"><a href="http://localhost/bcbb-the-who/pages/topicIcon.php">Forum One</a></h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
      <hr>
      <table class="table table-borderless table-responsive">
@@ -48,7 +47,6 @@
 
   </div>
 </div>
-</a>
 
 <div class="col-6 col-sm-4">
   <div class="card border-0 shadow-sm card__cat">
