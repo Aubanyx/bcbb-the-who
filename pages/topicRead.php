@@ -64,14 +64,12 @@
 <div class="themed-grid-col">
   <div class="card w-100 d-inline-flex p-3 card__users my-3">
     <div class="d-inline-flex p-3">
-      <div class="SandrineParent">
-        <div class="flex-column mx-3 w-25 d-flex">
-          <img src="../assets/images/icons-users/svg/072-woman.svg" alt="profile-image" class="Sandrine">
-          <p class="h5 text-danger">PlanetStyles</p>
-          <p class="h6 text-secondary mb-3">Site Admin</p>
-          <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary"> 43</span></p>
-          <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary"> UK</span></p>
-        </div>
+      <div class="flex-column mx-3 w-25 d-flex align-items-center">
+        <img src="../assets/images/icons-users/svg/072-woman.svg" alt="profile-image" class="w-25 text-center">
+        <p class="h5 text-danger">PlanetStyles</p>
+        <p class="h6 text-secondary mb-3">Site Admin</p>
+        <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary"> 43</span></p>
+        <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary"> UK</span></p>
       </div>
 
       <div class="flex-column w-75">

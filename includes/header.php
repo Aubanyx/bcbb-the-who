@@ -15,15 +15,19 @@
 
 </head>
 <body class="bg-light">
-    <header class="header shadow-sm">
+    
+<header class="header">
 
-        <div class="header__Title header__Flex">
-            <h1 class="header__Title1">TRACKER</h1>
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-end p-5">
+        <div class="" id="navbarNavAltMarkup">
+            <div class=" h4 navbar-nav">
+                <a class="nav-item nav-link active text-light mx-3" href="http://localhost/bcbb-the-who/index.php#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link text-light mx-3" href="http://localhost/bcbb-the-who/pages/register.php"><i class="far fa-arrow-alt-circle-right"></i> Register</a>
+                <a class="nav-item nav-link text-light mx-3" href="http://localhost/bcbb-the-who/pages/login.php"><i class="far fa-clipboard"></i> Login</a>
+            </div>
         </div>
+    </nav>
 
-        <div class="header__button header__Flex">
-        <button type="button" class="header__button1"><a href="http://localhost/bcbb-the-who/pages/register.php"><i class="far fa-clipboard"></i>  Register</a></button>
-            <button type="button" class="header__button2"><a href="http://localhost/bcbb-the-who/pages/login.php"><i class="far fa-arrow-alt-circle-right"></i>  Login</a></button>
-        </div>
+    <h1 class="text-center titre__Header align-items-center">TRACKER</h1>
 
     </header>
