@@ -29,7 +29,7 @@
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
      <hr>
 <!--Table-->
-<table class="h-25">
+<table class="h-25 pt-2">
   <thead>
     <tr>
       <th><p><span>303</span></p></th>
@@ -59,7 +59,7 @@
       <hr>
 
 <!--Table-->
-<table class="h-25">
+<table class="h-25 pt-2">
   <thead>
     <tr>
       <th><p><span>303</span></p></th>
@@ -89,7 +89,7 @@
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
       <hr>
 <!--Table-->
-<table class="h-25">
+<table class="h-25 pt-2">
   <thead>
     <tr>
       <th><p><span>303</span></p></th>
@@ -118,7 +118,7 @@
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
       <hr>
 <!--Table-->
-<table class="h-25">
+<table class="h-25 pt-2">
   <thead>
     <tr>
       <th><p><span>303</span></p></th>
@@ -151,7 +151,7 @@
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
          <hr>
 <!--Table-->
-<table class="h-25">
+<table class="h-25 pt-2">
   <thead>
     <tr>
       <th><p><span>303</span></p></th>
@@ -187,7 +187,7 @@
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
          <hr>
 <!--Table-->
-<table class="h-25">
+<table class="h-25 pt-2">
   <thead>
     <tr>
       <th><p><span>303</span></p></th>
