@@ -1,5 +1,13 @@
-
-<?php include_once "./includes/header.php" ?>
+<?php
+session_start();
+if (!isset($_SESSION["user"])) {
+    header("Location: ./pages/login.php");
+}
+require_once "./library/functions.php";
+$dbh = connect();
+$page = "Home";
+include_once "./includes/header.php";
+?>
    
    <!-- forum body -->
 

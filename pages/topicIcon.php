@@ -1,6 +1,5 @@
-
 <?php include_once "../includes/header.php" ?>
-   
+
 <!-- forum body -->
 
 <!-- main container -->
@@ -547,23 +546,9 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 
         </div>
         </div>
+        <!-- end container-lg -->
     </div>
-  </div>
- 
-</div>
-
-<!-- /blank widget -->
-
-
-
-
-</div> 
-
-<!-- end of row -->
-</div>       
-<!-- end container-lg -->
-</div>
-<!-- end main container -->
+    <!-- end main container -->
 
 </div>
 
