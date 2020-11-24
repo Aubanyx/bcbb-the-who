@@ -24,21 +24,21 @@
                     endif;
                 endif;
                 ?>
-                <a class="nav-item nav-link active text-light mx-3" href="http://localhost/bcbb-the-who/index.php#">
-                    <i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active text-light mx-3" href="https://bcbb-thewho.herokuapp.com/">
+                    <i class="fas fa-home"></i> Home</a>
                 <?php
                 if (isset($_SESSION["user"])) :
                     ?>
-                    <a class="nav-item nav-link active text-light mx-3" href="http://localhost/bcbb-the-who/pages/profile.php"><i
-                                class="far fa-id-card"></i> Profile <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link text-light mx-3" href="http://localhost/bcbb-the-who/pages/logout.php"><i
+                    <a class="nav-item nav-link active text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/profile.php"><i
+                                class="far fa-id-card"></i> Profile</a>
+                    <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/"><i
                                 class="fas fa-sign-out-alt"></i> Logout</a>
                 <?php
                 else :
                     ?>
-                    <a class="nav-item nav-link text-light mx-3" href="http://localhost/bcbb-the-who/pages/register.php">
+                    <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/register.php">
                         <i class="far fa-arrow-alt-circle-right"></i> Register</a>
-                    <a class="nav-item nav-link text-light mx-3" href="http://localhost/bcbb-the-who/pages/login.php">
+                    <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/login.php">
                         <i class="far fa-clipboard"></i> Login</a>
                 <?php
                 endif;
