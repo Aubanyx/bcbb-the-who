@@ -25,10 +25,10 @@
   <div class="card-body">
      
       <img src="assets/images/icons/svg/013-comment.svg" class="float-left">
-      <h4 class="card-title"><a href="http://localhost/bcbb-the-who/pages/topicIcon.php">Forum One</a></h4>
+      <h4 class="card-title"><a href="https://bcbb-thewho.herokuapp.com/topicIcon.php">Forum One</a></h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
      <hr>
-     <table class="table table-borderless table-responsive">
+     <table class="table table-borderless">
       <thead>
         <tr>
           <td><p><span>459</span></p></td>
