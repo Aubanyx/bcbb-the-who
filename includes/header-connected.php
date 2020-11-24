@@ -14,15 +14,15 @@
     <nav class="navbar navbar-expand-lg navbar-light justify-content-end p-5">
         <div class="" id="navbarNavAltMarkup">
             <div class=" h4 navbar-nav">
-                <a class="nav-item nav-link text-light mx-3" href="#"><i
+                <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/"><i
                             class="fas fa-home"></i> Home</a>
-                <a class="nav-item nav-link text-light mx-3" href="#"><i
+                <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/"><i
                             class="fas fa-search"></i> Search</a>
-                <a class="nav-item nav-link text-light mx-3" href="#"><i
+                <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/"><i
                             class="fas fa-users"></i> Members</a>
                 <a class="nav-item nav-link active text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/profile.php"><i
                             class="far fa-id-card"></i> Profile <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link text-light mx-3" href="#"><i
+                <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/"><i
                             class="far fa-envelope"></i> Mailbox</a>
                 <a class="nav-item nav-link text-light mx-3" href="#"><i
                             class="fas fa-sign-out-alt"></i> Logout</a>

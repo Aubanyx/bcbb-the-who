@@ -15,7 +15,7 @@
         <div class="" id="navbarNavAltMarkup">
             <div class=" h4 navbar-nav">
                 <a class="nav-item nav-link active text-light mx-3" href="#">
-                    <i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+                    <i class="fas fa-home"></i><a href="https://bcbb-thewho.herokuapp.com/"> Home </a>
                 <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/register.php">
                     <i class="far fa-arrow-alt-circle-right"></i> Register</a>
                 <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/login.php">
