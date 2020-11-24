@@ -161,12 +161,12 @@ function infos() {
 }
 
 // Profile
-function profile() {
-    global $dbh;
+// function profile() {
+//    global $dbh;
 
-    extract($_POST);
+//    extract($_POST);
 
-    $sql = "SELECT userId, userNname, userFname, userLname, userEmail, userSign, userLevel FROM users WHERE userId = ?";
+//    $sql = "SELECT userId, userNname, userFname, userLname, userEmail, userSign, userLevel FROM users WHERE userId = ?";
 
 
-}
+//}
