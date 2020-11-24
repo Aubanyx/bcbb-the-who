@@ -28,21 +28,24 @@
       <h4 class="card-title"><a href="https://bcbb-thewho.herokuapp.com/pages/topicIcon.php">Forum One</a></h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
      <hr>
-     <table class="table table-borderless">
-      <thead>
-        <tr>
-          <td><p><span>459</span></p></td>
-          <td><p><span>908</span></p></td>
-          <td><p><span>Sun Feb 3</span></p></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th><p>Topics</p></th>
-          <th><p>Posts</p></th>
-          <th><p>Last posts</p></th>
-        </tr> </tbody>
-    </table>
+<!--Table-->
+<table class="h-25">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
     </div>
 
   </div>
@@ -55,21 +58,24 @@
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
       <hr>
 
-      <table class="table table-borderless table-responsive">
-          <thead>
-            <tr>
-              <td><p><span>459</span></p></td>
-              <td><p><span>908</span></p></td>
-              <td><p><span>Sun Feb 3</span></p></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th><p>Topics</p></th>
-              <th><p>Posts</p></th>
-              <th><p>Last posts</p></th>
-            </tr> </tbody>
-        </table>
+<!--Table-->
+<table class="h-25">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
 
     </div>
 
@@ -82,21 +88,24 @@
       <h4 class="card-title">Title</h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
       <hr>
-     <table class="table table-borderless table-responsive">
-      <thead>
-        <tr>
-          <td><p><span>459</span></p></td>
-          <td><p><span>908</span></p></td>
-          <td><p><span>Sun Feb 3</span></p></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th><p>Topics</p></th>
-          <th><p>Posts</p></th>
-          <th><p>Last posts</p></th>
-        </tr> </tbody>
-    </table>
+<!--Table-->
+<table class="h-25">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
     </div>
 
   </div>
@@ -108,21 +117,24 @@
       <h4 class="card-title">Title</h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
       <hr>
-     <table class="table table-borderless table-responsive">
-      <thead>
-        <tr>
-          <td><p><span>459</span></p></td>
-          <td><p><span>908</span></p></td>
-          <td><p><span>Sun Feb 3</span></p></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th><p>Topics</p></th>
-          <th><p>Posts</p></th>
-          <th><p>Last posts</p></th>
-        </tr> </tbody>
-    </table>
+<!--Table-->
+<table class="h-25">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
     </div>
 
   </div>
@@ -138,21 +150,24 @@
           <h4 class="card-title">Title</h4>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
          <hr>
-         <table class="table table-borderless table-responsive">
-          <thead>
-            <tr>
-              <td><p><span>459</span></p></td>
-              <td><p><span>908</span></p></td>
-              <td><p><span>Sun Feb 3</span></p></td>
-            </tr>
-           </thead>
-           <tbody>
-            <tr>
-              <th><p>Topics</p></th>
-              <th><p>Posts</p></th>
-              <th><p>Last posts</p></th>
-            </tr> </tbody>
-            </table>
+<!--Table-->
+<table class="h-25">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
         </div>
 
       </div>
@@ -171,21 +186,24 @@
           <h4 class="card-title">Title</h4>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
          <hr>
-         <table class="table table-borderless table-responsive">
-          <thead>
-            <tr>
-              <td><p><span>459</span></p></td>
-              <td><p><span>908</span></p></td>
-              <td><p><span>Sun Feb 3</span></p></td>
-            </tr>
-           </thead>
-           <tbody>
-            <tr>
-              <th><p>Topics</p></th>
-              <th><p>Posts</p></th>
-              <th><p>Last posts</p></th>
-            </tr> </tbody>
-            </table>
+<!--Table-->
+<table class="h-25">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
         </div>
 
       </div>
