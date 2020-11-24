@@ -2,9 +2,9 @@
 
 // DB
 function connect() {
-    $dsn = 'mysql:dbname=bcbb;host=localhost;charset=utf8';
-    $user = 'bcbb-the-who';
-    $password = 'bcbb-the-who';
+    $dsn = 'mysql:dbname=bcbbthewho;host=db4free.net;charset=utf8';
+    $user = 'bcbbthewho';
+    $password = 'bcbbthewho';
 
     try {
         $dbh = new PDO($dsn, $user, $password);
