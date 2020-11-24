@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(isset($_SESSION["user"])) {
-    header("Location: compte.php");
+    header("Location: profile.php");
 }
 require_once "../library/functions.php";
 $dbh = connect();
@@ -132,6 +132,5 @@ include_once "../includes/header.php";
 <!-- end main container -->
 </div>
 
-<script src="/bcbb-the-who/assets/js/script.js"></script>
 <?php include_once "../includes/footer.php" ?>
 

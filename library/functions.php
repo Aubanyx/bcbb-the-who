@@ -159,3 +159,14 @@ function infos() {
 
     return $user;
 }
+
+// Profile
+function profile() {
+    global $dbh;
+
+    extract($_POST);
+
+    $sql = "SELECT userId, userNname, userFname, userLname, userEmail, userSign, userLevel FROM users WHERE userId = ?";
+
+
+}
