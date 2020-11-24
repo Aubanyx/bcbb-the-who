@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once "./library/functions.php";
+require_once "/library/functions.php";
 $dbh = connect();
 $page = "Home";
-include_once "./includes/header.php";
+include_once "/includes/header.php";
 ?>
    
    <!-- forum body -->
