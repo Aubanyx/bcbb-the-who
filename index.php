@@ -27,9 +27,9 @@
       <img src="assets/images/icons/svg/013-comment.svg" class="float-left">
       <h4 class="card-title"><a href="https://bcbb-thewho.herokuapp.com/pages/topicIcon.php">Forum One</a></h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-     <hr>
+      <hr class="mb-4">
 <!--Table-->
-<table class="h-25 pt-2">
+<table class="h-25">
   <thead>
     <tr>
       <th><p><span>303</span></p></th>
@@ -56,7 +56,7 @@
     <div class="card-body"><img src="./assets/images/icons/svg/007-chat.svg" class="float-left">
       <h4 class="card-title">Title</h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-      <hr>
+      <hr class="mb-4">
 
 <!--Table-->
 <table class="h-25 pt-2">
@@ -87,7 +87,7 @@
     <div class="card-body"><img src="assets/images/icons/svg/008-notification.svg" class="float-left">
       <h4 class="card-title">Title</h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      <hr>
+      <hr class="mb-4">
 <!--Table-->
 <table class="h-25 pt-2">
   <thead>
@@ -116,7 +116,7 @@
     <div class="card-body"><img src="assets/images/icons/svg/037-keyboard.svg" class="float-left">
       <h4 class="card-title">Title</h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      <hr>
+      <hr class="mb-4">
 <!--Table-->
 <table class="h-25 pt-2">
   <thead>
@@ -149,7 +149,7 @@
           <img src="assets/images/icons/svg/005-user.svg" class="float-left">
           <h4 class="card-title">Title</h4>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-         <hr>
+          <hr class="mb-4">
 <!--Table-->
 <table class="h-25 pt-2">
   <thead>
@@ -185,7 +185,7 @@
           <img src="assets/images/icons/svg/033-promote.svg" class="float-left">
           <h4 class="card-title">Title</h4>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-         <hr>
+          <hr class="mb-4">
 <!--Table-->
 <table class="h-25 pt-2">
   <thead>
@@ -227,7 +227,7 @@
       </div>
     </div>
   <!-- /searchbar -->
-  <hr>
+  <hr class="mb-4">
   <!-- login - register card -->
 <div id="accordionGroup">
 <button type="button" class="btn bg-transparent font-weight-bold text-black-50 btn-block mb-2 text-left accordion-btn" data-toggle="collapse" data-target="#demo">Login · Register </button>
