@@ -1,10 +1,4 @@
-<?php
-session_start();
-require_once "./library/functions.php";
-$dbh = connect();
-$page = "Home";
-include_once "./includes/header.php";
-?>
+<?php include_once "../includes/header.php" ?>
    
    <!-- forum body -->
 
@@ -12,211 +6,103 @@ include_once "./includes/header.php";
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">          
 <nav aria-label="breadcrumb">
 <ol class="breadcrumb bg-transparent pt-5">
-<li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i> Home</a></li>
+<li class="breadcrumb-item"><a href="http://localhost/bcbb-the-who/index.php#"><i class="fas fa-home"></i> Home</a></li>
 <li class="breadcrumb-item active" aria-current="page">Board Index</li>
 </ol>
 </nav>
+
+
+
+
+
+
+
 
 <div class="container-lg">
 
 <div class="row">  
 
 <div class="col-xl-9 themed-grid-col">
-  <h1>Category One</h1>
-  <div class="row bg-light forums__list">
+<h3>Topic Read (hot)</h3>
+<div class="alert alert-danger" role="alert">
+Forum rules
+</div>
 
-<div class="col-6 col-sm-4">  
-  <div class="card rounded border-0 shadow-sm card__cat">
-  <div class="card-body">
-     
-      <img src="assets/images/icons/svg/013-comment.svg" class="float-left">
-      <h4 class="card-title"><a href="https://bcbb-thewho.herokuapp.com/pages/topicIcon.php">Forum One</a></h4>
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-      <hr class="mb-4">
-<!--Table-->
-<table class="h-25">
-  <thead>
-    <tr>
-      <th><p><span>303</span></p></th>
-      <th><p><p><span>267</span></p></p></th>
-      <th><p><p><span>Tue Nov 24</span></p></p></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><p>Topics</p></td>
-      <td><p>Posts</p></td>
-      <td><p>Last Post</p></td>
-    </tr>
-  </tbody>
-</table>
-<!--Table-->
-    </div>
 
+<div class="board-util d-flex pt-3">
+ <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">Post reply <i class="fas fa-reply"></i></button>
+<!-- searchbar -->
+<div class="dropdown">
+  <button class="btn bg-light rounded ml-3 rounded-pill border dropdown-toggle"
+          type="button" id="dropdownMenu1" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fas fas fa-wrench text-black-50"></i>
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <a class="dropdown-item" href="#!">Delete topic</a>
+    <a class="dropdown-item" href="#!">Lock topic</a>
+    <a class="dropdown-item" href="#!">Reply</a>
   </div>
 </div>
 
-<div class="col-6 col-sm-4">
-  <div class="card border-0 shadow-sm card__cat">
-    <div class="card-body"><img src="./assets/images/icons/svg/007-chat.svg" class="float-left">
-      <h4 class="card-title">Title</h4>
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-      <hr class="mb-4">
+    <div class="bg-light rounded rounded-pill border w-25 ml-3">
+      <div class="input-group">
+        <input type="search" placeholder="Search this topic..." aria-describedby="button-addon1" class="form-control  bg-light rounded rounded-pill border-0">
+        <div class="input-group-append">          
+          <button id="button-addon1" type="submit" class="btn btn-link text-primary border-right"><i class="fa fa-search magnifying-glass"></i></button>
+          <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fas fa-cog cog"></i></button>
 
-<!--Table-->
-<table class="h-25 pt-2">
-  <thead>
-    <tr>
-      <th><p><span>303</span></p></th>
-      <th><p><p><span>267</span></p></p></th>
-      <th><p><p><span>Tue Nov 24</span></p></p></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><p>Topics</p></td>
-      <td><p>Posts</p></td>
-      <td><p>Last Post</p></td>
-    </tr>
-  </tbody>
-</table>
-<!--Table-->
-
-    </div>
-
-  </div>
-</div>
-
-<div class="col-6 col-sm-4">
-  <div class="card border-0 shadow-sm card__cat">
-    <div class="card-body"><img src="assets/images/icons/svg/008-notification.svg" class="float-left">
-      <h4 class="card-title">Title</h4>
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      <hr class="mb-4">
-<!--Table-->
-<table class="h-25 pt-2">
-  <thead>
-    <tr>
-      <th><p><span>303</span></p></th>
-      <th><p><p><span>267</span></p></p></th>
-      <th><p><p><span>Tue Nov 24</span></p></p></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><p>Topics</p></td>
-      <td><p>Posts</p></td>
-      <td><p>Last Post</p></td>
-    </tr>
-  </tbody>
-</table>
-<!--Table-->
-    </div>
-
-  </div>
-</div>
-
-<div class="col-6 col-sm-4">
-  <div class="card border-0 shadow-sm card__cat">
-    <div class="card-body"><img src="assets/images/icons/svg/037-keyboard.svg" class="float-left">
-      <h4 class="card-title">Title</h4>
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      <hr class="mb-4">
-<!--Table-->
-<table class="h-25 pt-2">
-  <thead>
-    <tr>
-      <th><p><span>303</span></p></th>
-      <th><p><p><span>267</span></p></p></th>
-      <th><p><p><span>Tue Nov 24</span></p></p></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><p>Topics</p></td>
-      <td><p>Posts</p></td>
-      <td><p>Last Post</p></td>
-    </tr>
-  </tbody>
-</table>
-<!--Table-->
-    </div>
-
-  </div>
-</div>
-</div>    
-<h1 class="pt-3">Category Two</h1>
-<div class="row bg-light forums__list">
-  <div class="col-6 col-sm-4">
-      <div class="card border-0 shadow-sm card__cat">
-        <div class="card-body">
-         
-          <img src="assets/images/icons/svg/005-user.svg" class="float-left">
-          <h4 class="card-title">Title</h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-          <hr class="mb-4">
-<!--Table-->
-<table class="h-25 pt-2">
-  <thead>
-    <tr>
-      <th><p><span>303</span></p></th>
-      <th><p><p><span>267</span></p></p></th>
-      <th><p><p><span>Tue Nov 24</span></p></p></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><p>Topics</p></td>
-      <td><p>Posts</p></td>
-      <td><p>Last Post</p></td>
-    </tr>
-  </tbody>
-</table>
-<!--Table-->
         </div>
-
       </div>
-   </div>
+    </div>  
+ <p class="ml-auto font-weight-normal greytext pt-2"> 3 replies · Page <strong>1</strong> of <strong>1</strong></p>
+
+  <!-- /searchbar -->
+  </div> 
+
+
+<div class="themed-grid-col mt-4 p-3 rounded bg-light">
+ 
+ ec ec ec !!!   
 
 </div>
 
-<h1 class="pt-3">Category Three</h1>
 
-<div class="row bg-light forums__list">
-  <div class="col-6 col-sm-4">
-      <div class="card border-0 shadow-sm card__cat">
-        <div class="card-body">
-         
-          <img src="assets/images/icons/svg/033-promote.svg" class="float-left">
-          <h4 class="card-title">Title</h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-          <hr class="mb-4">
-<!--Table-->
-<table class="h-25 pt-2">
-  <thead>
-    <tr>
-      <th><p><span>303</span></p></th>
-      <th><p><p><span>267</span></p></p></th>
-      <th><p><p><span>Tue Nov 24</span></p></p></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><p>Topics</p></td>
-      <td><p>Posts</p></td>
-      <td><p>Last Post</p></td>
-    </tr>
-  </tbody>
-</table>
-<!--Table-->
-        </div>
-
-      </div>
-   </div>
 
 </div>
 
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- start of right side -->
 
@@ -232,7 +118,7 @@ include_once "./includes/header.php";
       </div>
     </div>
   <!-- /searchbar -->
-  <hr class="mb-4">
+  <hr>
   <!-- login - register card -->
 <div id="accordionGroup">
 <button type="button" class="btn bg-transparent font-weight-bold text-black-50 btn-block mb-2 text-left accordion-btn" data-toggle="collapse" data-target="#demo">Login · Register </button>
@@ -322,7 +208,7 @@ include_once "./includes/header.php";
               <div class="card rounded border-0 w-100 m-1 pd-1">
                   <div class="card-body text-center">
 
-                   <img src="./assets/images/icons-users/svg/079-man.svg">
+                   <img src="../assets/images/icons-users/svg/079-man.svg">
 
                       <p class="pt-2"><span>#Ben198</span>
                           <br>
@@ -333,7 +219,7 @@ include_once "./includes/header.php";
              
               <div class="card rounded border-0 w-100 m-1 pd-1">
                   <div class="card-body text-center">
-                      <img src="./assets/images/icons-users/svg/072-woman.svg" alt="profile-image">
+                      <img src="../assets/images/icons-users/svg/072-woman.svg" alt="profile-image">
                       <p class="pt-2"><span>#Lora298</span>
                       <br>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -343,7 +229,7 @@ include_once "./includes/header.php";
 
               <div class="card rounded border-0 w-100 m-1 pd-1">
                   <div class="card-body text-center">
-                      <img src="./assets/images/icons-users/svg/026-woman.svg" alt="profile-image">
+                      <img src="../assets/images/icons-users/svg/026-woman.svg" alt="profile-image">
                       <p class="pt-2"><span>#Mary933</span>
                           <br>
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -370,5 +256,4 @@ include_once "./includes/header.php";
 </div>
 
 <script src="./assets/js/script.js"></script>
-<?php include_once "./includes/footer.php" ?>
-
+<?php include_once "../includes/footer.php" ?>
