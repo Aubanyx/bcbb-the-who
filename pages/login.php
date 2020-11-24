@@ -5,7 +5,7 @@
 <!-- main container -->
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pt-5 pb-5">   
 
-<p class="pl-5 pb-3"><a href="#"><i class="fas fa-home"></i> Home</a></p>
+<p class="pl-5 pb-3"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></p>
       
 <div class="container-lg board-util">
 <h1 class="pl-5"><i class="far fa-arrow-alt-circle-right"></i> Log in</h1>
