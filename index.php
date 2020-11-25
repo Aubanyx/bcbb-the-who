@@ -1,5 +1,5 @@
 
-<?php include_once "./includes/header.php" ?>
+<?php include_once "./includes/header-connected.php" ?>
    
    <!-- forum body -->
 
