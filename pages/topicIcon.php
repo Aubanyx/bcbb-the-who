@@ -1,15 +1,14 @@
-
 <?php include_once "../includes/header.php" ?>
-   
+
 <!-- forum body -->
 
 <!-- main container -->
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">          
 <nav aria-label="breadcrumb">
 <ol class="breadcrumb bg-transparent pt-5">
-<li class="breadcrumb-item"><a href="http://localhost:8888/"><i class="fas fa-home"></i> Home</a></li>
-<li class="breadcrumb-item" aria-current="page"><a href="http://localhost:8888/">Board Index</a></li>
-<li class="breadcrumb-item" aria-current="page"><a href="http://localhost:8888/">Category One</a></li>
+<li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></li>
+<li class="breadcrumb-item"><a href="/">Board Index</a></li>
+<li class="breadcrumb-item"><a href="/parent">Category One</a></li>
 <li class="breadcrumb-item active" aria-current="page">Forum One</li>
 </ol>
 </nav>
@@ -59,7 +58,7 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
         <div class="forumslist shadow-sm bg-white mt-1 p-3">
         <div class="row no-gutters text-black-50 align-items-center">
                          <div class="col-1 text-center"><i class="fas fa-bullhorn forumslist__grey"></i></div>
-                         <div class="col"><a href="http://localhost/bcbb-the-who/pages/topicRead.php#">This is an announcement!</a>
+                         <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php">This is an announcement!</a>
                         <p class="text-secondary small">by <a href="#">Bastien</a> » in <a href="#">Unread Forum</a></p></div>
                          <p class="ml-auto greytext pr-4"><i class="fas fa-bullhorn cog"></i></p>
 
@@ -97,7 +96,7 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 <!-- sujet -->
     <div class="row no-gutters py-3 text-black-50 align-items-center">
                      <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-                     <div class="col"><a href="http://localhost/bcbb-the-who/pages/topicread.php">Won't Get Fooled Again</a>
+                     <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php">Won't Get Fooled Again</a>
                     <p class="text-secondary small">by <a href="#">Sandrine</a></p></div>
 
                      <div class="d-none d-md-block col-6">
@@ -114,7 +113,7 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
      <!-- sujet -->
      <div class="row no-gutters py-3 text-black-50 align-items-center">
       <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-      <div class="col"><a href="http://localhost/bcbb-the-who/topicread.php">Who Are You</a>
+      <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php">Who Are You</a>
      <p class="text-secondary small">by <a href="#">Auban</a></p></div>
 
       <div class="d-none d-md-block col-6">
@@ -131,7 +130,7 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
      <!-- sujet -->
      <div class="row no-gutters py-3 text-black-50 align-items-center">
       <div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-      <div class="col"><a href="#">Anyway, Anyhow, Anywhere</a>
+      <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php">Anyway, Anyhow, Anywhere</a>
      <p class="text-secondary small">by <a href="#">Anne</a></p></div>
 
       <div class="d-none d-md-block col-6">
@@ -547,23 +546,9 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 
         </div>
         </div>
+        <!-- end container-lg -->
     </div>
-  </div>
- 
-</div>
-
-<!-- /blank widget -->
-
-
-
-
-</div> 
-
-<!-- end of row -->
-</div>       
-<!-- end container-lg -->
-</div>
-<!-- end main container -->
+    <!-- end main container -->
 
 </div>
 

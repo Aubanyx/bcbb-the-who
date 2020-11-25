@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 
 <?php include_once "./includes/header-connected.php" ?>
+=======
+<?php
+session_start();
+require_once "./library/functions.php";
+$dbh = connect();
+$page = "Home";
+include_once "./includes/header.php";
+?>
+>>>>>>> development
    
    <!-- forum body -->
 
@@ -25,24 +35,27 @@
   <div class="card-body">
      
       <img src="assets/images/icons/svg/013-comment.svg" class="float-left">
-      <h4 class="card-title"><a href="http://localhost/bcbb-the-who/pages/topicIcon.php">Forum One</a></h4>
+      <h4 class="card-title"><a href="https://bcbb-thewho.herokuapp.com/pages/topicIcon.php">Forum One</a></h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-     <hr>
-     <table class="table table-borderless table-responsive">
-      <thead>
-        <tr>
-          <td><p><span>459</span></p></td>
-          <td><p><span>908</span></p></td>
-          <td><p><span>Sun Feb 3</span></p></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th><p>Topics</p></th>
-          <th><p>Posts</p></th>
-          <th><p>Last posts</p></th>
-        </tr> </tbody>
-    </table>
+      <hr class="mb-4">
+<!--Table-->
+<table class="h-25">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
     </div>
 
   </div>
@@ -53,23 +66,26 @@
     <div class="card-body"><img src="./assets/images/icons/svg/007-chat.svg" class="float-left">
       <h4 class="card-title">Title</h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-      <hr>
+      <hr class="mb-4">
 
-      <table class="table table-borderless table-responsive">
-          <thead>
-            <tr>
-              <td><p><span>459</span></p></td>
-              <td><p><span>908</span></p></td>
-              <td><p><span>Sun Feb 3</span></p></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th><p>Topics</p></th>
-              <th><p>Posts</p></th>
-              <th><p>Last posts</p></th>
-            </tr> </tbody>
-        </table>
+<!--Table-->
+<table class="h-25 pt-2">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
 
     </div>
 
@@ -81,22 +97,25 @@
     <div class="card-body"><img src="assets/images/icons/svg/008-notification.svg" class="float-left">
       <h4 class="card-title">Title</h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      <hr>
-     <table class="table table-borderless table-responsive">
-      <thead>
-        <tr>
-          <td><p><span>459</span></p></td>
-          <td><p><span>908</span></p></td>
-          <td><p><span>Sun Feb 3</span></p></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th><p>Topics</p></th>
-          <th><p>Posts</p></th>
-          <th><p>Last posts</p></th>
-        </tr> </tbody>
-    </table>
+      <hr class="mb-4">
+<!--Table-->
+<table class="h-25 pt-2">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
     </div>
 
   </div>
@@ -107,22 +126,25 @@
     <div class="card-body"><img src="assets/images/icons/svg/037-keyboard.svg" class="float-left">
       <h4 class="card-title">Title</h4>
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      <hr>
-     <table class="table table-borderless table-responsive">
-      <thead>
-        <tr>
-          <td><p><span>459</span></p></td>
-          <td><p><span>908</span></p></td>
-          <td><p><span>Sun Feb 3</span></p></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th><p>Topics</p></th>
-          <th><p>Posts</p></th>
-          <th><p>Last posts</p></th>
-        </tr> </tbody>
-    </table>
+      <hr class="mb-4">
+<!--Table-->
+<table class="h-25 pt-2">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
     </div>
 
   </div>
@@ -137,22 +159,25 @@
           <img src="assets/images/icons/svg/005-user.svg" class="float-left">
           <h4 class="card-title">Title</h4>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-         <hr>
-         <table class="table table-borderless table-responsive">
-          <thead>
-            <tr>
-              <td><p><span>459</span></p></td>
-              <td><p><span>908</span></p></td>
-              <td><p><span>Sun Feb 3</span></p></td>
-            </tr>
-           </thead>
-           <tbody>
-            <tr>
-              <th><p>Topics</p></th>
-              <th><p>Posts</p></th>
-              <th><p>Last posts</p></th>
-            </tr> </tbody>
-            </table>
+          <hr class="mb-4">
+<!--Table-->
+<table class="h-25 pt-2">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
         </div>
 
       </div>
@@ -170,22 +195,25 @@
           <img src="assets/images/icons/svg/033-promote.svg" class="float-left">
           <h4 class="card-title">Title</h4>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-         <hr>
-         <table class="table table-borderless table-responsive">
-          <thead>
-            <tr>
-              <td><p><span>459</span></p></td>
-              <td><p><span>908</span></p></td>
-              <td><p><span>Sun Feb 3</span></p></td>
-            </tr>
-           </thead>
-           <tbody>
-            <tr>
-              <th><p>Topics</p></th>
-              <th><p>Posts</p></th>
-              <th><p>Last posts</p></th>
-            </tr> </tbody>
-            </table>
+          <hr class="mb-4">
+<!--Table-->
+<table class="h-25 pt-2">
+  <thead>
+    <tr>
+      <th><p><span>303</span></p></th>
+      <th><p><p><span>267</span></p></p></th>
+      <th><p><p><span>Tue Nov 24</span></p></p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>Topics</p></td>
+      <td><p>Posts</p></td>
+      <td><p>Last Post</p></td>
+    </tr>
+  </tbody>
+</table>
+<!--Table-->
         </div>
 
       </div>
@@ -209,7 +237,7 @@
       </div>
     </div>
   <!-- /searchbar -->
-  <hr>
+  <hr class="mb-4">
   <!-- login - register card -->
 <div id="accordionGroup">
 <button type="button" class="btn bg-transparent font-weight-bold text-black-50 btn-block mb-2 text-left accordion-btn" data-toggle="collapse" data-target="#demo">Login · Register </button>
