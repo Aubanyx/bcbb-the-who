@@ -6,8 +6,8 @@
     <title>bcbb - <?= $page ?></title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link href="/bcbb-the-who/assets/fontawesome/css/all.css" rel="stylesheet">
-    <link href="/bcbb-the-who/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/fontawesome/css/all.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 <header class="header">
