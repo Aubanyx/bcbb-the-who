@@ -59,14 +59,14 @@ include_once "../includes/header.php";
                                 <div class="border rounded validate-input mt-2" data-validate="Type first name">
                                     <input class="input100 border-0 form-control-plaintext p-3" type="text"
                                            placeholder="<?= $infos["userFname"] ?>"
-                                           value="<?php if (isset($_POST["userFname"])) echo $_POST["userFname"] ?>">
+                                           value="<?php if (isset($_POST["fName"])) echo $_POST["fName"] ?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
                                 <div class="border rounded validate-input mt-2" data-validate="Type last name">
                                     <input class="input100 border-0 form-control-plaintext p-3" type="text"
                                            placeholder="<?= $infos["userLname"] ?>"
-                                           value="<?php if (isset($_POST["userLname"])) echo $_POST["userLname"] ?>">
+                                           value="<?php if (isset($_POST["lName"])) echo $_POST["lName"] ?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
@@ -79,7 +79,7 @@ include_once "../includes/header.php";
                                     <input type="username" class="input100 border-0 form-control-plaintext p-3"
                                     type="text"
                                     placeholder="<?= $infos["userNname"] ?>"
-                                    value="<?php if (isset($_POST["userNname"])) echo $_POST["userNname"] ?>">
+                                    value="<?php if (isset($_POST["username"])) echo $_POST["username"] ?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
@@ -87,7 +87,8 @@ include_once "../includes/header.php";
                                 <div class="border rounded validate-input mt-2"
                                      data-validate="Valid email is required: ex@abc.xyz">
                                     <input id="email" class="input100 border-0 form-control-plaintext p-3" type="text"
-                                           name="email" placeholder="<?= $infos["userEmail"] ?>">
+                                           name="email" placeholder="<?= $infos["userEmail"] ?>"
+                                           value="<?php if (isset($_POST["email"])) echo $_POST["email"] ?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
@@ -172,7 +173,7 @@ include_once "../includes/header.php";
                                 <div class="border rounded validate-input mt-2"
                                      data-validate="Valid email is required: ex@abc.xyz">
                                 <textarea class="input100 border-0 form-control-plaintext p-3"
-                                          id="exampleFormControlTextarea1"></textarea>
+                                          id="exampleFormControlTextarea1"><?php if (isset($_POST["sign"])) echo $_POST["sign"] ?>"</textarea>
                                     <span class="focus-input100"></span>
                                 </div>
                             </div>

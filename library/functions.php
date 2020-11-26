@@ -161,12 +161,22 @@ function infos() {
 }
 
 // Profile
-// function profile() {
-//    global $dbh;
+ function changeInfosProfile() {
+    global $dbh;
 
-//    extract($_POST);
+    extract($_POST);
 
-//    $sql = "SELECT userId, userNname, userFname, userLname, userEmail, userSign, userLevel FROM users WHERE userId = ?";
+    $sql = "UPDATE users
+            SET userNname = :username,
+                userFname = :fName,
+                userLname = :lName,
+                userEmail = :email,
+                userSign = :sign 
+            WHERE userId = ?";
 
+     $user = $dbh->prepare($sql);
+     $user->execute([$_SESSION["user"]]);
+     $user = $user->fetch();
 
-//}
+     return $user;
+}
