@@ -58,7 +58,7 @@ include_once "../includes/header.php";
 
                                 <div class="border rounded validate-input mt-2" data-validate="Type first name">
                                     <input class="input100 border-0 form-control-plaintext p-3" type="text"
-                                           placeholder="<?= $infos["userFname"] ?>"
+                                           placeholder="ok ok"
                                            value="<?php if (isset($_POST["fName"])) echo $_POST["fName"] ?>">
                                     <span class="focus-input100"></span>
                                 </div>
