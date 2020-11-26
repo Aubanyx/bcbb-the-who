@@ -2,9 +2,9 @@
 
 // DB
 function connect() {
-    $dsn = 'mysql:dbname=bcbbthewho;host=db4free.net;charset=utf8';
-    $user = 'bcbbthewho';
-    $password = 'bcbbthewho';
+    $dsn = 'mysql:dbname=bcbb;host=localhost;charset=utf8';
+    $user = 'bcbb-the-who';
+    $password = 'bcbb-the-who';
 
     try {
         $dbh = new PDO($dsn, $user, $password);
@@ -17,17 +17,17 @@ function connect() {
 }
 
 // users
-//function user() {
-//    global $dbh;
-//
-//    $sql = "SELECT userId, userNname, userFname, userLname, userEmail FROM users";
-//
-//    $user = $dbh->prepare($sql);
-//    $user->execute();
-//    $user = $user->fetch(PDO::FETCH_ASSOC);
-//
-//    return $user;
-//}
+function user() {
+   global $dbh;
+
+   $sql = "SELECT userId, userNname, userFname, userLname, userEmail FROM users";
+
+   $user = $dbh->prepare($sql);
+   $user->execute();
+   $user = $user->fetch(PDO::FETCH_ASSOC);
+
+   return $user;
+}
 //
 //function users() {
 //    global $dbh;
@@ -170,3 +170,26 @@ function infos() {
 
 
 //}
+function topics() {
+    global $dbh;
+
+    $sql = "SELECT * FROM topics";
+
+    $topicsRequest = $dbh->prepare($sql);
+    $topicsRequest->execute([$_SESSION["topics"]]);
+    $topicsRequest = $topicsRequest->fetchAll(PDO::FETCH_ASSOC);
+
+    return $topicsRequest;
+}
+
+function topicsName($id) {
+    global $dbh;
+
+    $sql = "SELECT userNname FROM users WHERE userId=?";
+
+    $topicsNameRequest = $dbh->prepare($sql);
+    $topicsNameRequest->execute([$id]);
+    $topicsNameRequest = $topicsNameRequest->fetch(PDO::FETCH_ASSOC);
+
+    return $topicsNameRequest["userNname"];
+}

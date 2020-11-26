@@ -1,4 +1,12 @@
-<?php include_once "../includes/header.php" ?>
+<?php
+session_start();
+require_once "../library/functions.php";
+$dbh = connect();
+$page = "topicIcon";
+include_once "../includes/header.php";
+$topics = topics();
+?>
+
 
 <!-- forum body -->
 
@@ -93,250 +101,37 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
   </div>
   <div class="card-body bg-light">
     <div class="forumslist shadow-sm bg-white mt-1 p-3">
-<!-- sujet -->
-    <div class="row no-gutters py-3 text-black-50 align-items-center">
-                     <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-                     <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php">Won't Get Fooled Again</a>
-                    <p class="text-secondary small">by <a href="#">Sandrine</a></p></div>
 
-                     <div class="d-none d-md-block col-6">
-                         <div class="row no-gutters pl-2 align-items-center">
-                             <div class="col-3">25</div>
-                             <div class="col-3">433</div>
-                             <div class="media col-6 align-items-center"> 
-                               <p>by <a href="#"">Sandrine</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-                               <span class="d-block">Sat Nov 20, 2020 7:10pm</span></p></div>
-                          </div>
-                      </div>
-   </div>
-         <!-- /sujet -->
-     <!-- sujet -->
+
+<!-- sujet -->
+
+<?php
+  foreach($topics as $topic) :
+  $userName = topicsName($topic['topicBy']);
+?>
+
      <div class="row no-gutters py-3 text-black-50 align-items-center">
       <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-      <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php">Who Are You</a>
-     <p class="text-secondary small">by <a href="#">Auban</a></p></div>
+      <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php"> <?=$topic['topicSubject'];?></a>
+
+     <p class="text-secondary small">by <a href="#"><?=$userName;?></a></p></div>
 
       <div class="d-none d-md-block col-6">
           <div class="row no-gutters pl-2 align-items-center">
               <div class="col-3">21</div>
               <div class="col-3">327</div>
               <div class="media col-6 align-items-center"> 
-                <p>by <a href="#"">Auban</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
+                <p>by <a href="#">Auban</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
                 <span class="d-block">Sat Nov 20, 2020 7:20pm</span></p></div>
            </div>
        </div>
 </div>
+
+<?php
+  endforeach;
+?>
 <!-- /sujet -->
-     <!-- sujet -->
-     <div class="row no-gutters py-3 text-black-50 align-items-center">
-      <div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-      <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php">Anyway, Anyhow, Anywhere</a>
-     <p class="text-secondary small">by <a href="#">Anne</a></p></div>
 
-      <div class="d-none d-md-block col-6">
-          <div class="row no-gutters pl-2 align-items-center">
-              <div class="col-3">116</div>
-              <div class="col-3">244</div>
-              <div class="media col-6 align-items-center"> 
-                <p>by <a href="#"">Anne</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-                <span class="d-block">Sat Nov 20, 2020 7:30pm</span></p></div>
-           </div>
-       </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-     <div class="row no-gutters py-3 text-black-50 align-items-center">
-      <div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-      <div class="col"><a href="#">Saturday Night's Alright for Fighting</a>
-     <p class="text-secondary small">by <a href="#">Bastien</a></p></div>
-
-      <div class="d-none d-md-block col-6">
-          <div class="row no-gutters pl-2 align-items-center">
-              <div class="col-3">89</div>
-              <div class="col-3">188</div>
-              <div class="media col-6 align-items-center"> 
-                <p>by <a href="#"">Bastien</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-                <span class="d-block">Sat Nov 20, 2020 7:40pm</span></p></div>
-           </div>
-       </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-  <div class="col-1 text-center"><i class="fas fa-times forumslist__red"></i></div>
-  <div class="col"><a href="#">Baba o'Riley (Locked)</a>
- <p class="text-secondary small">by <a href="#">Sandrine</a></p></div>
- <p class="ml-auto greytext pr-4"><i class="fas fa-lock cog"></i></p>
-
-
-  <div class="d-none d-md-block col-6">
-      <div class="row no-gutters pl-2 align-items-center">
-          <div class="col-3">109</div>
-          <div class="col-3">203</div>
-          <div class="media col-6 align-items-center"> 
-            <p>by <a href="#"">Sandrine</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-            <span class="d-block">Sat Nov 20, 2020 7:50pm</span></p></div>
-       </div>
-   </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-  <div class="col-1 text-center"><i class="fas fa-times forumslist__grey"></i></div>
-  <div class="col"><a href="#">Dr. Jekyll and Mr. Hyde (Locked)</a>
- <p class="text-secondary small">by <a href="#">Auban</a></p></div>
- <p class="ml-auto greytext pr-4"><i class="fas fa-lock cog"></i></p>
-
-  <div class="d-none d-md-block col-6">
-      <div class="row no-gutters pl-2 align-items-center">
-          <div class="col-3">299</div>
-          <div class="col-3">563</div>
-          <div class="media col-6 align-items-center"> 
-            <p>by <a href="#"">Auban</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-            <span class="d-block">Sat Nov 20, 2020 8:00pm</span></p></div>
-       </div>
-   </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-     <div class="row no-gutters py-3 text-black-50 align-items-center">
-      <div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-      <div class="col"><a href="#">Summertime Blues</a>
-     <p class="text-secondary small">by <a href="#">Anne</a></p></div>
-
-      <div class="d-none d-md-block col-6">
-          <div class="row no-gutters pl-2 align-items-center">
-              <div class="col-3">256</div>
-              <div class="col-3">540</div>
-              <div class="media col-6 align-items-center"> 
-                <p>by <a href="#"">Anne</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-                <span class="d-block">Sat Nov 20, 2020 8:10pm</span></p></div>
-           </div>
-       </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-  <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-  <div class="col"><a href="#">Won't Get Fooled Again</a>
- <p class="text-secondary small">by <a href="#">Sandrine</a></p></div>
-
-  <div class="d-none d-md-block col-6">
-      <div class="row no-gutters pl-2 align-items-center">
-          <div class="col-3">25</div>
-          <div class="col-3">433</div>
-          <div class="media col-6 align-items-center"> 
-            <p>by <a href="#"">Sandrine</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-            <span class="d-block">Sat Nov 20, 2020 7:10pm</span></p></div>
-       </div>
-   </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-<div class="col"><a href="#">Who Are You</a>
-<p class="text-secondary small">by <a href="#">Auban</a></p></div>
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">21</div>
-<div class="col-3">327</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Auban</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 7:20pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-<div class="col"><a href="#">Anyway, Anyhow, Anywhere</a>
-<p class="text-secondary small">by <a href="#">Anne</a></p></div>
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">116</div>
-<div class="col-3">244</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Anne</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 7:30pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-<div class="col"><a href="#">Saturday Night's Alright for Fighting</a>
-<p class="text-secondary small">by <a href="#">Bastien</a></p></div>
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">89</div>
-<div class="col-3">188</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Bastien</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 7:40pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-times forumslist__red"></i></div>
-<div class="col"><a href="#">Baba o'Riley (Locked)</a>
-<p class="text-secondary small">by <a href="#">Sandrine</a></p></div>
-<p class="ml-auto greytext pr-4"><i class="fas fa-lock cog"></i></p>
-
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">109</div>
-<div class="col-3">203</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Sandrine</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 7:50pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-times forumslist__grey"></i></div>
-<div class="col"><a href="#">Dr. Jekyll and Mr. Hyde (Locked)</a>
-<p class="text-secondary small">by <a href="#">Auban</a></p></div>
-<p class="ml-auto greytext pr-4"><i class="fas fa-lock cog"></i></p>
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">299</div>
-<div class="col-3">563</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Auban</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 8:00pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-<div class="col"><a href="#">Summertime Blues</a>
-<p class="text-secondary small">by <a href="#">Anne</a></p></div>
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">256</div>
-<div class="col-3">540</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Anne</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 8:10pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
 </div>   
 </div>
 </div>
@@ -550,6 +345,11 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
     </div>
     <!-- end main container -->
 
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 <script src="./assets/js/script.js"></script>

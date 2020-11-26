@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-<?php include_once "./includes/header-connected.php" ?>
-=======
 <?php
 session_start();
 require_once "./library/functions.php";
@@ -9,7 +5,6 @@ $dbh = connect();
 $page = "Home";
 include_once "./includes/header.php";
 ?>
->>>>>>> development
    
    <!-- forum body -->
 
