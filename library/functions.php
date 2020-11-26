@@ -193,3 +193,15 @@ function topicsName($id) {
 
     return $topicsNameRequest["userNname"];
 }
+
+function topicsLastMsg($id) {
+    global $dbh;
+
+    $sql = "SELECT userNname FROM users WHERE userId=?";
+
+    $topicsNameRequest = $dbh->prepare($sql);
+    $topicsNameRequest->execute([$id]);
+    $topicsNameRequest = $topicsNameRequest->fetch(PDO::FETCH_ASSOC);
+
+    return $topicsNameRequest["userNname"];
+}
