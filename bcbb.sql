@@ -1,8 +1,9 @@
-CREATE DATABASE IF NOT EXISTS bcbb;
-# CREATE USER 'bcbb-the-who'@'%' IDENTIFIED WITH mysql_native_password BY 'bcbb-the-who';
-GRANT ALL ON bcbb.* TO 'bcbb-the-who';
 
-USE bcbb;
+CREATE DATABASE IF NOT EXISTS tKrWsqaR52;
+# CREATE USER 'tKrWsqaR52'@'%' IDENTIFIED WITH mysql_native_password BY 'tKrWsqaR52';
+GRANT ALL ON tKrWsqaR52.* TO 'tKrWsqaR52';
+
+USE tKrWsqaR52;
 
 -- mySQL Table structure
 -- =====================

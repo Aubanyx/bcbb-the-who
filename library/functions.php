@@ -2,9 +2,10 @@
 
 // DB
 function connect() {
-    $dsn = 'mysql:dbname=bcbb;host=localhost;charset=utf8';
-    $user = 'bcbb-the-who';
-    $password = 'bcbb-the-who';
+
+    $dsn = 'mysql:dbname=tKrWsqaR52;host=remotemysql.com:3306;charset=utf8';
+    $user = 'tKrWsqaR52';
+    $password = 'KEgiRtJGfk';
 
     try {
         $dbh = new PDO($dsn, $user, $password);
@@ -17,28 +18,111 @@ function connect() {
 }
 
 // users
-//function user() {
+function user() {
+   global $dbh;
+
+   $sql = "SELECT userId, userNname, userFname, userLname, userEmail FROM users";
+
+   $user = $dbh->prepare($sql);
+   $user->execute();
+   $user = $user->fetch(PDO::FETCH_ASSOC);
+
+   return $user;
+}
+//
+
+// Boards
+
+
+function displayBoards($id) {
+ global $dbh;
+
+    $sql = "SELECT * FROM boards WHERE categoryId = :id";
+
+    $resultsCat = $dbh->prepare($sql);
+    $resultsCat->execute(array(":id"=>$id));
+    $resultsCat = $resultsCat->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultsCat;
+}
+
+
+function displayCategories() {
+   global $dbh;
+
+    $sql = "SELECT * FROM categories";
+
+    $resultsCat = $dbh->query($sql);
+    $resultsCat = $resultsCat->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultsCat;
+}
+
+function displayPosts($id) {
+    global $dbh;
+
+    $sql = "SELECT postContent FROM posts WHERE postTopic = ?";
+
+    $resultsPosts= $dbh->prepare($sql);
+    $resultsPosts->execute([$id]);
+    $resultsPosts = $resultsPosts->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultsPosts;
+}
+
+function displayLastT() {
+    global $dbh;
+
+    $sql = "SELECT * FROM topics";
+
+    $resultsLastP = $dbh->query($sql);
+    $resultsLastP = $resultsLastP->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultsLastP;
+}
+
+function getTimeAgo( $ptime )
+{
+    $estimate_time = time() - $ptime;
+
+    if( $estimate_time < 1 )
+    {
+        return 'just now';
+    }
+
+    $condition = array(
+        12 * 30 * 24 * 60 * 60  =>  'year',
+        30 * 24 * 60 * 60       =>  'month',
+        24 * 60 * 60            =>  'day',
+        60 * 60                 =>  'hour',
+        60                      =>  'minute',
+        1                       =>  'second'
+    );
+
+    foreach( $condition as $secs => $str )
+    {
+        $d = $estimate_time / $secs;
+
+        if( $d >= 1 )
+        {
+            $r = round( $d );
+            return  $r . ' ' . $str . ( $r > 1 ? 's' : '' ) . ' ago';
+        }
+    }
+}
+
+
+
+// function displayBoards() {
 //    global $dbh;
-//
-//    $sql = "SELECT userId, userNname, userFname, userLname, userEmail FROM users";
-//
-//    $user = $dbh->prepare($sql);
-//    $user->execute();
-//    $user = $user->fetch(PDO::FETCH_ASSOC);
-//
-//    return $user;
-//}
-//
-//function users() {
-//    global $dbh;
-//
-//    $sql = "SELECT userId, userNname, userFname, userLname, userEmail FROM users";
-//
-//    $users = $dbh->query($sql);
-//    $users = $users->fetchAll(PDO::FETCH_ASSOC);
-//
-//    return $users;
-//}
+
+//    $sql = "SELECT * FROM boards";
+
+//  $results = $dbh->query($sql);
+//  $results = $results->fetchAll(PDO::FETCH_ASSOC);
+
+//    return $results;
+// }
 
 // Inscription
 function inscription() {
@@ -67,7 +151,7 @@ function inscription() {
 
     if (existe($username)) {
         $validation = false;
-        $erreur[] = "Ce pseudo est déjà prit";
+        $erreur[] = "Ce pseudo est déjà pris";
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -180,3 +264,42 @@ function infos() {
 //
 //     return $user;
 //}
+
+
+
+//}
+function topics() {
+    global $dbh;
+
+    $sql = "SELECT * FROM topics";
+
+    $topicsRequest = $dbh->prepare($sql);
+    $topicsRequest->execute([$_SESSION["topics"]]);
+    $topicsRequest = $topicsRequest->fetchAll(PDO::FETCH_ASSOC);
+
+    return $topicsRequest;
+}
+
+function topicsName($id) {
+    global $dbh;
+
+    $sql = "SELECT userNname FROM users WHERE userId=?";
+
+    $topicsNameRequest = $dbh->prepare($sql);
+    $topicsNameRequest->execute([$id]);
+    $topicsNameRequest = $topicsNameRequest->fetch(PDO::FETCH_ASSOC);
+
+    return $topicsNameRequest["userNname"];
+}
+
+function topicsLastMsg($id) {
+    global $dbh;
+
+    $sql = "SELECT userNname FROM users WHERE userId=?";
+
+    $topicsNameRequest = $dbh->prepare($sql);
+    $topicsNameRequest->execute([$id]);
+    $topicsNameRequest = $topicsNameRequest->fetch(PDO::FETCH_ASSOC);
+
+    return $topicsNameRequest["userNname"];
+}

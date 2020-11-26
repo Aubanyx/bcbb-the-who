@@ -1,4 +1,12 @@
-<?php include_once "../includes/header.php" ?>
+<?php
+session_start();
+require_once "../library/functions.php";
+$dbh = connect();
+$page = "topicIcon";
+include_once "../includes/header.php";
+$topics = topics();
+$lasttopics = displayLastT();
+?>
 
 <!-- forum body -->
 
@@ -93,250 +101,38 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
   </div>
   <div class="card-body bg-light">
     <div class="forumslist shadow-sm bg-white mt-1 p-3">
-<!-- sujet -->
-    <div class="row no-gutters py-3 text-black-50 align-items-center">
-                     <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-                     <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php">Won't Get Fooled Again</a>
-                    <p class="text-secondary small">by <a href="#">Sandrine</a></p></div>
 
-                     <div class="d-none d-md-block col-6">
-                         <div class="row no-gutters pl-2 align-items-center">
-                             <div class="col-3">25</div>
-                             <div class="col-3">433</div>
-                             <div class="media col-6 align-items-center"> 
-                               <p>by <a href="#"">Sandrine</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-                               <span class="d-block">Sat Nov 20, 2020 7:10pm</span></p></div>
-                          </div>
-                      </div>
-   </div>
-         <!-- /sujet -->
-     <!-- sujet -->
+
+<!-- sujet -->
+
+<?php
+  foreach($topics as $topic) :
+  $userName = topicsName($topic['topicBy']);
+?>
+
      <div class="row no-gutters py-3 text-black-50 align-items-center">
       <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-      <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php">Who Are You</a>
-     <p class="text-secondary small">by <a href="#">Auban</a></p></div>
+      <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php"> <?=$topic['topicSubject'];?></a>
+
+     <p class="text-secondary small">by <a href="#"><?=$userName;?></a></p></div>
 
       <div class="d-none d-md-block col-6">
           <div class="row no-gutters pl-2 align-items-center">
               <div class="col-3">21</div>
               <div class="col-3">327</div>
               <div class="media col-6 align-items-center"> 
-                <p>by <a href="#"">Auban</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
+                <p>by <a href="#">Auban</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
                 <span class="d-block">Sat Nov 20, 2020 7:20pm</span></p></div>
            </div>
        </div>
 </div>
+
+
+<?php
+  endforeach;
+?>
 <!-- /sujet -->
-     <!-- sujet -->
-     <div class="row no-gutters py-3 text-black-50 align-items-center">
-      <div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-      <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php">Anyway, Anyhow, Anywhere</a>
-     <p class="text-secondary small">by <a href="#">Anne</a></p></div>
 
-      <div class="d-none d-md-block col-6">
-          <div class="row no-gutters pl-2 align-items-center">
-              <div class="col-3">116</div>
-              <div class="col-3">244</div>
-              <div class="media col-6 align-items-center"> 
-                <p>by <a href="#"">Anne</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-                <span class="d-block">Sat Nov 20, 2020 7:30pm</span></p></div>
-           </div>
-       </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-     <div class="row no-gutters py-3 text-black-50 align-items-center">
-      <div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-      <div class="col"><a href="#">Saturday Night's Alright for Fighting</a>
-     <p class="text-secondary small">by <a href="#">Bastien</a></p></div>
-
-      <div class="d-none d-md-block col-6">
-          <div class="row no-gutters pl-2 align-items-center">
-              <div class="col-3">89</div>
-              <div class="col-3">188</div>
-              <div class="media col-6 align-items-center"> 
-                <p>by <a href="#"">Bastien</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-                <span class="d-block">Sat Nov 20, 2020 7:40pm</span></p></div>
-           </div>
-       </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-  <div class="col-1 text-center"><i class="fas fa-times forumslist__red"></i></div>
-  <div class="col"><a href="#">Baba o'Riley (Locked)</a>
- <p class="text-secondary small">by <a href="#">Sandrine</a></p></div>
- <p class="ml-auto greytext pr-4"><i class="fas fa-lock cog"></i></p>
-
-
-  <div class="d-none d-md-block col-6">
-      <div class="row no-gutters pl-2 align-items-center">
-          <div class="col-3">109</div>
-          <div class="col-3">203</div>
-          <div class="media col-6 align-items-center"> 
-            <p>by <a href="#"">Sandrine</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-            <span class="d-block">Sat Nov 20, 2020 7:50pm</span></p></div>
-       </div>
-   </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-  <div class="col-1 text-center"><i class="fas fa-times forumslist__grey"></i></div>
-  <div class="col"><a href="#">Dr. Jekyll and Mr. Hyde (Locked)</a>
- <p class="text-secondary small">by <a href="#">Auban</a></p></div>
- <p class="ml-auto greytext pr-4"><i class="fas fa-lock cog"></i></p>
-
-  <div class="d-none d-md-block col-6">
-      <div class="row no-gutters pl-2 align-items-center">
-          <div class="col-3">299</div>
-          <div class="col-3">563</div>
-          <div class="media col-6 align-items-center"> 
-            <p>by <a href="#"">Auban</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-            <span class="d-block">Sat Nov 20, 2020 8:00pm</span></p></div>
-       </div>
-   </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-     <div class="row no-gutters py-3 text-black-50 align-items-center">
-      <div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-      <div class="col"><a href="#">Summertime Blues</a>
-     <p class="text-secondary small">by <a href="#">Anne</a></p></div>
-
-      <div class="d-none d-md-block col-6">
-          <div class="row no-gutters pl-2 align-items-center">
-              <div class="col-3">256</div>
-              <div class="col-3">540</div>
-              <div class="media col-6 align-items-center"> 
-                <p>by <a href="#"">Anne</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-                <span class="d-block">Sat Nov 20, 2020 8:10pm</span></p></div>
-           </div>
-       </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-  <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-  <div class="col"><a href="#">Won't Get Fooled Again</a>
- <p class="text-secondary small">by <a href="#">Sandrine</a></p></div>
-
-  <div class="d-none d-md-block col-6">
-      <div class="row no-gutters pl-2 align-items-center">
-          <div class="col-3">25</div>
-          <div class="col-3">433</div>
-          <div class="media col-6 align-items-center"> 
-            <p>by <a href="#"">Sandrine</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-            <span class="d-block">Sat Nov 20, 2020 7:10pm</span></p></div>
-       </div>
-   </div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-<div class="col"><a href="#">Who Are You</a>
-<p class="text-secondary small">by <a href="#">Auban</a></p></div>
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">21</div>
-<div class="col-3">327</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Auban</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 7:20pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-<div class="col"><a href="#">Anyway, Anyhow, Anywhere</a>
-<p class="text-secondary small">by <a href="#">Anne</a></p></div>
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">116</div>
-<div class="col-3">244</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Anne</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 7:30pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-<div class="col"><a href="#">Saturday Night's Alright for Fighting</a>
-<p class="text-secondary small">by <a href="#">Bastien</a></p></div>
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">89</div>
-<div class="col-3">188</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Bastien</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 7:40pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-times forumslist__red"></i></div>
-<div class="col"><a href="#">Baba o'Riley (Locked)</a>
-<p class="text-secondary small">by <a href="#">Sandrine</a></p></div>
-<p class="ml-auto greytext pr-4"><i class="fas fa-lock cog"></i></p>
-
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">109</div>
-<div class="col-3">203</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Sandrine</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 7:50pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-times forumslist__grey"></i></div>
-<div class="col"><a href="#">Dr. Jekyll and Mr. Hyde (Locked)</a>
-<p class="text-secondary small">by <a href="#">Auban</a></p></div>
-<p class="ml-auto greytext pr-4"><i class="fas fa-lock cog"></i></p>
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">299</div>
-<div class="col-3">563</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Auban</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 8:00pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
-<!-- sujet -->
-<div class="row no-gutters py-3 text-black-50 align-items-center">
-<div class="col-1 text-center"><i class="fas fa-minus forumslist__grey"></i></div>
-<div class="col"><a href="#">Summertime Blues</a>
-<p class="text-secondary small">by <a href="#">Anne</a></p></div>
-
-<div class="d-none d-md-block col-6">
-<div class="row no-gutters pl-2 align-items-center">
-<div class="col-3">256</div>
-<div class="col-3">540</div>
-<div class="media col-6 align-items-center"> 
-<p>by <a href="#"">Anne</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-<span class="d-block">Sat Nov 20, 2020 8:10pm</span></p></div>
-</div>
-</div>
-</div>
-<!-- /sujet -->
 </div>   
 </div>
 </div>
@@ -390,168 +186,22 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 </div>
 
 <!-- start of right side -->
-
-
-<div class="col-xl-3 themed-grid-col">
-<!-- searchbar -->
-<div class="bg-light rounded rounded-pill border mt-5">
-   <div class="input-group">
-     <input type="search" placeholder="Search..." aria-describedby="button-addon1" class="form-control  bg-light rounded rounded-pill border-0">
-     <div class="input-group-append">
-       <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search magnifying-glass"></i></button>
-     </div>
-   </div>
- </div>
-<!-- /searchbar -->
-<hr>
-<!-- login - register card -->
-<div id="accordionGroup">
-<button type="button" class="btn bg-transparent font-weight-bold text-black-50 btn-block mb-2 text-left accordion-btn" data-toggle="collapse" data-target="#demo">Login · Register </button>
-<div id="demo" class="collapse show" data-parent="#accordionGroup">
-<div class="card-body">
-                        <form>
-                       <div class="form-group">
-                           <label class="greytext">Username</label>
-                           <input name="" class="form-control bg-light rounded rounded-pill" type="username">
-                       </div> <!-- form-group// -->
-                       <div class="form-group">
-                           <label class="greytext">Password</label>
-                           <input class="form-control bg-light rounded rounded-pill" type="password">
-                       </div> <!-- form-group// --> 
-                       <div class="form-group"> 
-                       <div class="checkbox">
-                         <label class="greytext"> <input type="checkbox"> Save password </label>
-                       </div> <!-- checkbox .// -->
-                       </div> <!-- form-group// -->  
-                       <div class="form-group">
-                           <button type="submit" class="btn text-white btn-login btn-block rounded rounded-pill"> Login  </button>
-                       </div> <!-- form-group// -->                                                           
-                   </form>
-
-
-           </div>
-</div>
-</div>
-<p class="p-1"><a href="#">I forgot my password</a></p>
-
-<!-- /login - register card -->
-
-<!-- last posts -->
-<div class="card mt-5 border-0 height-5">
-   <div class="grad">
-     <h4 class="text-white font-weight-normal">Last posts</h4>
-   </div>
-   <div class="card-body bg-light last-posts">
-       <div class="last-posts__desc">
-     <div class="card-text rounded bg-white mt-3 p-3"><h5>Post - category 3 <span class="float-right font-weight-normal"> 2 hours ago</span></h5> 
-         <p>With supporting text below as a natural lead-in to additional content.
-         <p class="font-italic pt-1">Tags: test, work, eat, repeat </p>
-         </p></div>
-       </div>
-   
-
-   
-       <div class="last-posts__desc">
-     <div class="card-text rounded bg-white mt-3 p-3"><h5>Post - category 3 <span class="float-right font-weight-normal"> 2 hours ago</span></h5> 
-         <p>With supporting text below as a natural lead-in to additional content.
-         <p class="font-italic pt-1">Tags: test, work, eat, repeat </p>
-         </p></div>
-       </div>
-   
-
-   
-       <div class="last-posts__desc">
-     <div class="card-text rounded bg-white mt-3 p-3"><h5>Post - category 3 <span class="float-right font-weight-normal"> 2 hours ago</span></h5> 
-         <p>With supporting text below as a natural lead-in to additional content.
-         <p class="font-italic pt-1">Tags: test, work, eat, repeat </p>
-         </p></div>
-       </div>
-   
-
-   
-       <div class="last-posts__desc">
-     <div class="card-text rounded bg-white mt-3 p-3"><h5>Post - category 3 <span class="float-right font-weight-normal"> 2 hours ago</span></h5> 
-         <p>With supporting text below as a natural lead-in to additional content.
-         <p class="font-italic pt-1">Tags: test, work, eat, repeat </p>
-         </p></div>
-       </div>
-   </div>
-
-
- </div>
- 
-<!-- /last posts -->
-
-<!-- last active users -->
-<div class="card mt-5 border-0">
-     <div class="grad">
-     <h4 class="text-white font-weight-normal">Last active users</h4>
-    </div>
-   <div class="card-body bg-light last-users">
-       
-       <div class="d-flex flex-row">
-           <div class="card rounded border-0 w-100 m-1 pd-1">
-               <div class="card-body text-center">
-
-                <img src="https://www.flaticon.com/svg/static/icons/svg/3011/3011277.svg">
-
-                   <p class="pt-2"><span>#Ben198</span>
-                       <br>
-                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                       </p>
-               </div>
-           </div>
-          
-           <div class="card rounded border-0 w-100 m-1 pd-1">
-               <div class="card-body text-center">
-                   <img src="https://www.flaticon.com/svg/static/icons/svg/3011/3011288.svg" alt="profile-image">
-                   <p class="pt-2"><span>#Lora298</span>
-                   <br>
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                   </p>
-               </div>
-           </div>
-
-           <div class="card rounded border-0 w-100 m-1 pd-1">
-               <div class="card-body text-center">
-                   <img src="https://www.flaticon.com/svg/static/icons/svg/3011/3011289.svg" alt="profile-image">
-                   <p class="pt-2"><span>#Mary933</span>
-                       <br>
-                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                       </p>
-               </div>
-           </div>
-
-         </div>
-
-
-   </div>
-</div>   
-<!-- /last active users -->
-
-<!-- blank widget -->
-
-<div id="accordion" role="tablist">
-  <div class="card border-0 mt-5">
-    <div class="grad" role="tab" id="headingOne">
-      <h5 class="mb-0">
-        <button type="button" class="btn m-0 p-0 bg-transparent text-left font-weight-bold text-white btn-block accordion-btn" data-toggle="collapse" data-target="#blankwidget"><h4 class="font-weight-normal">Blank widget</h4> </button>
-
-      </h5>
-    </div>
-    <div id="blankwidget" class="collapse" data-parent="#accordion" role="tabpanel" aria-labelledby="headingOne">
-      <div class="card-body bg-light">
-        <div class="forumslist shadow-sm bg-white mt-1 p-3">
-<p><a href="https://www.youtube.com/watch?v=x2KRpRMSu4g&list=PLB2359E68D19BA3C0">The Who Playlist</a></p>
-
-        </div>
-        </div>
+    <?php include_once "../includes/sidebar.php" ?>
         <!-- end container-lg -->
     </div>
     <!-- end main container -->
 
 </div>
+<<<<<<< HEAD
+</div>
+</div>
+</div>
+</div>
+</div>
 
 <script src="./assets/js/script.js"></script>
+=======
+</div></div></div></div></div>
+>>>>>>> development
 <?php include_once "../includes/footer.php" ?>
 
