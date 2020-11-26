@@ -1,13 +1,13 @@
-// <?php
-//session_start();
-//if (!isset($_SESSION["user"])) {
-//header("Location: login.php");
-//}
-//require_once "../library/functions.php";
-//$dbh = connect();
-//$page = "Profile";
-//include_once "../includes/header.php";
-//?> 
+<?php
+session_start();
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+}
+require_once "../library/functions.php";
+$dbh = connect();
+$page = "Profile";
+include_once "../includes/header.php";
+?>
 <!-- forum body -->
 <!-- main container -->
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pt-5 pb-5">
