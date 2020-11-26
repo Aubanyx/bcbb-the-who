@@ -47,5 +47,5 @@
             </div>
         </div>
     </nav>
-    <h1 class="text-center titre__Header align-items-center">TRACKER</h1>
+    <h1 class="text-center titre__Header align-items-center">COFFEE STORIES</h1>
 </header>
