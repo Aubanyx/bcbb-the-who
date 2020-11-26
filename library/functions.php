@@ -245,25 +245,26 @@ function infos() {
 }
 
 // Profile
-// function changeInfosProfile() {
-//    global $dbh;
-//
-//    extract($_POST);
-//
-//    $sql = "UPDATE users
-//            SET userNname = :username,
-//                userFname = :fName,
-//                userLname = :lName,
-//                userEmail = :email,
-//                userSign = :sign
-//            WHERE userId = ?";
-//
-//     $user = $dbh->prepare($sql);
-//     $user->execute([$_SESSION["user"]]);
-//     $user = $user->fetch();
-//
-//     return $user;
-//}
+ function changeInfosProfile() {
+    global $dbh;
+
+    extract($_POST);
+
+    $sql = "UPDATE users
+            SET userNname = :username,
+                userFname = :fName,
+                userLname = :lName,
+                userEmail = :email,
+                userSign  = :sign
+            WHERE userId = ?";
+
+     $user = $dbh->prepare($sql);
+     $user->execute([$_SESSION["user"]]);
+     $user = $user->fetch();
+
+     
+     return $user;
+}
 
 
 
