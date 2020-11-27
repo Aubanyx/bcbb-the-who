@@ -250,24 +250,38 @@ function infos() {
 
     extract($_POST);
 
+    $validation = true;
+    $erreur = [];
     $sql = "UPDATE users
-            SET userNname = :username,
-                userFname = :fName,
-                userLname = :lName,
-                userEmail = :email,
-                userSign  = :sign
+            SET userNname = ?,
+                userFname = ?,
+                userLname = ?,
+                userEmail = ?,
+                userSign  = ?
             WHERE userId = ?";
 
-     $user = $dbh->prepare($sql);
-     $user->execute([
-         $_SESSION["user"],
-         "usermane" => htmlentities($form["username"]),
-         "fName" => htmlentities($form["fName"]),
-         "lName" => htmlentities($form["lName"]),
-         "email" => htmlentities($form["email"]),
-         "sign" => htmlentities($form["sign"])
-     ]);
-     $user = $user->fetch();
+     if (empty($fName) && empty($lName) && empty($username) && empty($email) && empty($sign)) {
+         $validation = false;
+         $erreur[] = "Veuillez modifier au moins un champ";
+     }
+
+     if (existe($username)) {
+         $validation = false;
+         $erreur[] = "Ce pseudo est déjà pris";
+     }
+
+     if ($validation) {
+         $user = $dbh->prepare($sql);
+         $user->execute([
+             htmlentities($form["username"]),
+             htmlentities($form["fName"]),
+             htmlentities($form["lName"]),
+             htmlentities($form["email"]),
+             htmlentities($form["sign"]),
+             $_SESSION["user"]
+         ]);
+//         $user = $user->fetch(PDO::FETCH_ASSOC);
+     }
 
      unset($_POST["username"]);
      unset($_POST["fName"]);
@@ -275,10 +289,8 @@ function infos() {
      unset($_POST["email"]);
      unset($_POST["sign"]);
 
-     return $user;
+     return $erreur;
 }
-
-
 
 //}
 function topics() {
