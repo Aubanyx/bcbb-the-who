@@ -39,7 +39,7 @@ include_once "./includes/header.php";
                     foreach($boards as $board) :
 
                     ?>
-                    <div class="col-6 col-sm-4">
+                    <div class="col-6 col-sm-4" id="<?= $board["boardId"]?>">
 
 
                         <div class="card border-0 shadow-sm card__cat">
@@ -47,18 +47,43 @@ include_once "./includes/header.php";
 
                             <div class="card-body">
                                 <img src="assets/images/icons-coffee/<?= $board['boardImage']; ?>" class="float-left"/>
-                                <h4 class="card-title"><a href="https://bcbb-thewho.herokuapp.com/pages/topicIcon.php"><?= $board["boardName"]; ?></a></h4>
+                                <h4 class="card-title"><a href="https://bcbb-thewho.herokuapp.com/pages/topicIcon.php?id=<?= $board["boardId"]?>"><?= $board["boardName"]; ?></a></h4>
                                 <p class="card-text"><?= $board["boardDescription"]; ?>. </p>
                                 <hr class="mb-4">
                                 <!--Table-->
+
                                 <table class="h-25">
                                     <thead>
                                     <tr>
-                                        <th><p><span>300
-                                                       </span></p>
-                                        </th>
-                                        <th><p><p><span>267</span></p></p></th>
-                                        <th><p><p><span>Tue Nov 24</span></p></p></th>
+
+                                        <?php
+                                        $countTopics=countTopics($board["boardId"]);
+                                        foreach($countTopics as $count) :
+                                        ?>
+                                        <th><p><span><?= $count["nbrOfTopics"]; ?> </span></p></th>
+                                          <?php
+                                          endforeach;
+                                          ?>
+
+                                        <?php
+                                        $countPosts=countPosts($board["boardId"]);
+                                        foreach($countPosts as $countP) :
+                                        ?>
+                                        <th><p><p><span><?= $countP["nbrOfPosts"]; ?> </span></p></p></th>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                        <?php
+                                        $BoardLastTopics=BoardLastPost($board["boardId"]);
+                                        foreach($BoardLastTopics as $boardLP) :
+                                        ?>
+                                        <th><p><p><span><?php
+                                                    $dateSrc = $boardLP['postDate'];
+                                                    $dateTime = new DateTime($dateSrc);
+                                                    echo date('D M d', strtotime($dateSrc)); ?></span></p></p></th>
+                                        <?php
+                                        endforeach;
+                                        ?>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -69,6 +94,7 @@ include_once "./includes/header.php";
                                     </tr>
                                     </tbody>
                                 </table>
+
                                 <!--Table-->
 
                         </div>

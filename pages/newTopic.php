@@ -70,9 +70,30 @@ Forum rules
 
 
 <div class="themed-grid-col mt-4 p-3 rounded bg-light">
+ <!-- start form !-->
+    <form>
+        <div class="form-group">
+            <label for="text">Topic title</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-comment"></i>
+                    </div>
+                </div>
+                <input id="text" name="text" type="text" required="required" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="textarea1">Content</label>
+            <textarea id="my-text-area" name="textarea1" cols="40" rows="5" required="required" class="form-control"></textarea>
+           
+        </div>
+        <div class="form-group">
+            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
  
- ec ec ec !!!   
-
+ <!-- end form ! -->
 </div>
 
 
@@ -91,6 +112,6 @@ Forum rules
 <!-- end main container -->
 
 </div>
+>>>>>>> development
 
-<script src="./assets/js/script.js"></script>
 <?php include_once "../includes/footer.php" ?>

@@ -1,7 +1,9 @@
 <?php
 
+
 // DB
 function connect() {
+
     $dsn = 'mysql:dbname=tKrWsqaR52;host=remotemysql.com:3306;charset=utf8';
     $user = 'tKrWsqaR52';
     $password = 'KEgiRtJGfk';
@@ -28,10 +30,20 @@ function user() {
 
    return $user;
 }
-//
 
 // Boards
 
+
+function displayCategories() {
+    global $dbh;
+
+    $sql = "SELECT * FROM categories";
+
+    $resultsCat = $dbh->query($sql);
+    $resultsCat = $resultsCat->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultsCat;
+}
 
 function displayBoards($id) {
  global $dbh;
@@ -45,23 +57,34 @@ function displayBoards($id) {
     return $resultsCat;
 }
 
-
-function displayCategories() {
-   global $dbh;
-
-    $sql = "SELECT * FROM categories";
-
-    $resultsCat = $dbh->query($sql);
-    $resultsCat = $resultsCat->fetchAll(PDO::FETCH_ASSOC);
-
-    return $resultsCat;
+function countTopics($id){
+    global $dbh;
+    $sql = "SELECT count(topicId) as nbrOfTopics FROM topics WHERE topicBoard = ?";
+    $totalCountTopics = $dbh->prepare($sql);
+    $totalCountTopics->execute([$id]);
+    $totalCountTopics = $totalCountTopics->fetchAll(PDO::FETCH_ASSOC);
+    return $totalCountTopics;
 }
+
+
+
+function countPosts($id){
+    global $dbh;
+    $sql = "SELECT count(postId) as nbrOfPosts FROM topics JOIN posts ON postTopic = topicId WHERE topicBoard = ?";
+
+    $totalCountPosts = $dbh->prepare($sql);
+    $totalCountPosts->execute([$id]);
+    $totalCountPosts = $totalCountPosts->fetchAll(PDO::FETCH_ASSOC);
+    return $totalCountPosts;
+}
+
+
+
 
 function displayPosts($id) {
     global $dbh;
 
-    $sql = "SELECT postContent FROM posts WHERE postTopic = ?";
-
+    $sql = "SELECT postContent FROM posts WHERE postTopic = ? LIMIT 1";
     $resultsPosts= $dbh->prepare($sql);
     $resultsPosts->execute([$id]);
     $resultsPosts = $resultsPosts->fetchAll(PDO::FETCH_ASSOC);
@@ -69,10 +92,23 @@ function displayPosts($id) {
     return $resultsPosts;
 }
 
+function BoardLastPost($id) {
+    global $dbh;
+
+    $sql = "SELECT postDate FROM posts JOIN topics ON postTopic = topicId WHERE topicBoard = ? LIMIT 1";
+
+    $resultsBLP = $dbh->prepare($sql);
+    $resultsBLP->execute([$id]);
+    $resultsBLP = $resultsBLP->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultsBLP;
+}
+
+
 function displayLastT() {
     global $dbh;
 
-    $sql = "SELECT * FROM topics";
+    $sql = "SELECT * FROM topics ORDER BY topicDate DESC LIMIT 4";
 
     $resultsLastP = $dbh->query($sql);
     $resultsLastP = $resultsLastP->fetchAll(PDO::FETCH_ASSOC);
@@ -109,7 +145,6 @@ function getTimeAgo( $ptime )
         }
     }
 }
-
 
 
 // function displayBoards() {
@@ -244,12 +279,39 @@ function infos() {
 }
 
 // Profile
-// function profile() {
-//    global $dbh;
+ function changeInfosProfile($form) {
+    global $dbh;
 
-//    extract($_POST);
+    extract($_POST);
 
-//    $sql = "SELECT userId, userNname, userFname, userLname, userEmail, userSign, userLevel FROM users WHERE userId = ?";
+    $sql = "UPDATE users
+            SET userNname = :username,
+                userFname = :fName,
+                userLname = :lName,
+                userEmail = :email,
+                userSign  = :sign
+            WHERE userId = ?";
+
+     $user = $dbh->prepare($sql);
+     $user->execute([
+         $_SESSION["user"],
+         "usermane" => htmlentities($form["username"]),
+         "fName" => htmlentities($form["fName"]),
+         "lName" => htmlentities($form["lName"]),
+         "email" => htmlentities($form["email"]),
+         "sign" => htmlentities($form["sign"])
+     ]);
+     $user = $user->fetch();
+
+     unset($_POST["username"]);
+     unset($_POST["fName"]);
+     unset($_POST["lName"]);
+     unset($_POST["email"]);
+     unset($_POST["sign"]);
+
+     return $user;
+}
+
 
 
 //}

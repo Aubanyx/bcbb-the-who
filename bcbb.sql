@@ -1,8 +1,9 @@
+
 CREATE DATABASE IF NOT EXISTS tKrWsqaR52;
 # CREATE USER 'tKrWsqaR52'@'%' IDENTIFIED WITH mysql_native_password BY 'tKrWsqaR52';
 GRANT ALL ON tKrWsqaR52.* TO 'tKrWsqaR52';
 
-USE bcbb;
+USE tKrWsqaR52;
 
 -- mySQL Table structure
 -- =====================
