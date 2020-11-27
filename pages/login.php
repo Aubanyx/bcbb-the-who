@@ -20,7 +20,7 @@ include_once "../includes/header.php";
     <div class="container-lg board-util">
         <h1 class="pl-5"><i class="far fa-arrow-alt-circle-right"></i> Log in</h1>
         <div class="container d-flex justify-content-center">
-            <div class="card board-util border-0 w-50">
+            <div class="card board-util border-0">
                 <div class="card-body">
                     <form class="board-util-form p-5" method="post" action="">
                         <?php

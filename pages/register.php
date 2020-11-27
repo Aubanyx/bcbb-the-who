@@ -20,7 +20,7 @@ include_once "../includes/header.php";
         <h1 class="pl-5"><i class="far fa-arrow-alt-circle-right"></i> Register</h1>
         <h2 class="pl-5 text-muted">Join the community</h2>
         <div class="container d-flex justify-content-center pt-5">
-            <div class="card board-util w-50">
+            <div class="card board-util">
                 <div class="card-header text-white gradient">
                     <h4>Sign in</h4>
                 </div>

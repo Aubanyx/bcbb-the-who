@@ -1,5 +1,6 @@
 <?php
 
+
 // DB
 function connect() {
 
@@ -29,10 +30,20 @@ function user() {
 
    return $user;
 }
-//
 
 // Boards
 
+
+function displayCategories() {
+    global $dbh;
+
+    $sql = "SELECT * FROM categories";
+
+    $resultsCat = $dbh->query($sql);
+    $resultsCat = $resultsCat->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultsCat;
+}
 
 function displayBoards($id) {
  global $dbh;
@@ -46,23 +57,34 @@ function displayBoards($id) {
     return $resultsCat;
 }
 
-
-function displayCategories() {
-   global $dbh;
-
-    $sql = "SELECT * FROM categories";
-
-    $resultsCat = $dbh->query($sql);
-    $resultsCat = $resultsCat->fetchAll(PDO::FETCH_ASSOC);
-
-    return $resultsCat;
+function countTopics($id){
+    global $dbh;
+    $sql = "SELECT count(topicId) as nbrOfTopics FROM topics WHERE topicBoard = ?";
+    $totalCountTopics = $dbh->prepare($sql);
+    $totalCountTopics->execute([$id]);
+    $totalCountTopics = $totalCountTopics->fetchAll(PDO::FETCH_ASSOC);
+    return $totalCountTopics;
 }
+
+
+
+function countPosts($id){
+    global $dbh;
+    $sql = "SELECT count(postId) as nbrOfPosts FROM topics JOIN posts ON postTopic = topicId WHERE topicBoard = ?";
+
+    $totalCountPosts = $dbh->prepare($sql);
+    $totalCountPosts->execute([$id]);
+    $totalCountPosts = $totalCountPosts->fetchAll(PDO::FETCH_ASSOC);
+    return $totalCountPosts;
+}
+
+
+
 
 function displayPosts($id) {
     global $dbh;
 
-    $sql = "SELECT postContent FROM posts WHERE postTopic = ?";
-
+    $sql = "SELECT postContent FROM posts WHERE postTopic = ? LIMIT 1";
     $resultsPosts= $dbh->prepare($sql);
     $resultsPosts->execute([$id]);
     $resultsPosts = $resultsPosts->fetchAll(PDO::FETCH_ASSOC);
@@ -70,10 +92,23 @@ function displayPosts($id) {
     return $resultsPosts;
 }
 
+function BoardLastPost($id) {
+    global $dbh;
+
+    $sql = "SELECT postDate FROM posts JOIN topics ON postTopic = topicId WHERE topicBoard = ? LIMIT 1";
+
+    $resultsBLP = $dbh->prepare($sql);
+    $resultsBLP->execute([$id]);
+    $resultsBLP = $resultsBLP->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultsBLP;
+}
+
+
 function displayLastT() {
     global $dbh;
 
-    $sql = "SELECT * FROM topics";
+    $sql = "SELECT * FROM topics ORDER BY topicDate DESC LIMIT 4";
 
     $resultsLastP = $dbh->query($sql);
     $resultsLastP = $resultsLastP->fetchAll(PDO::FETCH_ASSOC);
@@ -110,7 +145,6 @@ function getTimeAgo( $ptime )
         }
     }
 }
-
 
 
 // function displayBoards() {
@@ -296,10 +330,16 @@ function infos() {
 function topics() {
     global $dbh;
 
-    $sql = "SELECT * FROM topics";
+    $sql = "SELECT * FROM topics WHERE topicBoard = ?";
 
     $topicsRequest = $dbh->prepare($sql);
-    $topicsRequest->execute([$_SESSION["topics"]]);
+
+    $topicsRequest->execute(
+        [
+        $_GET['id']
+        ]
+    );
+
     $topicsRequest = $topicsRequest->fetchAll(PDO::FETCH_ASSOC);
 
     return $topicsRequest;
@@ -320,11 +360,37 @@ function topicsName($id) {
 function topicsLastMsg($id) {
     global $dbh;
 
+    $sql = "SELECT postBy, postDate FROM posts WHERE postTopic=? ORDER BY postId DESC LIMIT 1";
+    $topicsLastPostRequest = $dbh->prepare($sql);
+    $topicsLastPostRequest->execute([$id]);
+    $topicsLastPostRequest = $topicsLastPostRequest->fetch(PDO::FETCH_ASSOC);
+
+
     $sql = "SELECT userNname FROM users WHERE userId=?";
 
-    $topicsNameRequest = $dbh->prepare($sql);
-    $topicsNameRequest->execute([$id]);
-    $topicsNameRequest = $topicsNameRequest->fetch(PDO::FETCH_ASSOC);
+    $topicsLastPostRequestName = $dbh->prepare($sql);
+    $topicsLastPostRequestName->execute([$topicsLastPostRequest["postBy"]]);
+    $topicsLastPostRequestName = $topicsLastPostRequestName->fetch(PDO::FETCH_ASSOC);
 
-    return $topicsNameRequest["userNname"];
+    return [$topicsLastPostRequestName["userNname"], $topicsLastPostRequest["postDate"]];
 }
+
+function countPostsOnTopic($id){
+    global $dbh;
+    $sql = "SELECT count(postId) AS countPosts FROM posts WHERE postTopic = ?";
+    $totalCountPosts = $dbh->prepare($sql);
+    $totalCountPosts->execute([$id]);
+    $totalCountPosts = $totalCountPosts->fetch(PDO::FETCH_ASSOC);
+    return $totalCountPosts;
+} 
+
+// function postsOnTopics($id){
+//     global $dbh;
+//     $sql = "SELECT postId FROM posts WHERE postTopic = ?";
+//     $postsOnTopic = $dbh->prepare($sql);
+//     $postsOnTopic->execute([$id]);
+
+//     $test = $sql->fetchColumn();
+
+//     return $test;
+// } 
