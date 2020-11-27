@@ -4,12 +4,14 @@ if (!isset($_SESSION["user"])) {
     header("Location: login.php");
 }
 require_once "../library/functions.php";
-if (isset($_POST["submitProfile"])) {
-    changeInfosProfile($_POST);
-}
 $dbh = connect();
+//if (isset($_POST["submitProfile"])) {
+//    changeInfosProfile($_POST);
+//}
+if (!empty($_POST)) {
+    $erreurs = changeInfosProfile($_POST);
+}
 $infos = infos();
-//$profile = changeInfosProfile($_POST);
 $page = "Profile";
 include_once "../includes/header.php";
 ?>
@@ -20,6 +22,31 @@ include_once "../includes/header.php";
     <div class="container-lg">
         <h1 class="pl-5"><i class="far fa-arrow-alt-circle-right"></i> Profile</h1>
         <h2 class="pl-5 text-muted">Edit and personalize your profile </h2>
+        <?php
+        if (isset($erreurs)) :
+            if ($erreurs) :
+                foreach($erreurs as $erreur) :
+                    ?>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="alert alert-danger"><?= $erreur ?></div>
+                        </div>
+                    </div>
+                <?php
+                endforeach;
+            else :
+                ?>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="alert alert-success">
+                            Vos changements ont bien été pris en compte !
+                        </div>
+                    </div>
+                </div>
+            <?php
+            endif;
+        endif;
+        ?>
         <div class="container d-flex justify-content-center">
             <div class="card border-0 w-100">
                 <div class="card-body board-util">
@@ -60,14 +87,14 @@ include_once "../includes/header.php";
                                 <label class="w-100 mt-3 text-secondary" for="first-name"><h5>Your name</h5></label>
 
                                 <div class="border rounded validate-input mt-2" data-validate="Type first name">
-                                    <input class="input100 border-0 form-control-plaintext p-3" type="text"
+                                    <input class="input100 border-0 form-control-plaintext p-3" type="text" name="fName"
                                            placeholder="<?= $infos["userFname"] ?>"
                                            value="<?php if (isset($_POST["fName"])) echo $_POST["fName"] ?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
                                 <div class="border rounded validate-input mt-2" data-validate="Type last name">
-                                    <input class="input100 border-0 form-control-plaintext p-3" type="text"
+                                    <input class="input100 border-0 form-control-plaintext p-3" type="text" name="lName"
                                            placeholder="<?= $infos["userLname"] ?>"
                                            value="<?php if (isset($_POST["lName"])) echo $_POST["lName"] ?>">
                                     <span class="focus-input100"></span>
@@ -80,7 +107,7 @@ include_once "../includes/header.php";
                                         <i class="fas fa-at"></i></span>
                                     </div>
                                     <input type="username" class="input100 border-0 form-control-plaintext p-3"
-                                           type="text"
+                                           type="text" name="username"
                                            placeholder="<?= $infos["userNname"] ?>"
                                            value="<?php if (isset($_POST["username"])) echo $_POST["username"] ?>">
                                     <span class="focus-input100"></span>
@@ -171,7 +198,7 @@ include_once "../includes/header.php";
                                 <label class="w-100 mt-3 text-secondary" for="email"><h5>Signature</h5></label>
                                 <div class="border rounded validate-input mt-2"
                                      data-validate="Valid email is required: ex@abc.xyz">
-                                <textarea class="input100 border-0 form-control-plaintext p-3"
+                                <textarea class="input100 border-0 form-control-plaintext p-3" name="sign"
                                           id="exampleFormControlTextarea1"><?php if (isset($_POST["sign"])) echo $_POST["sign"] ?></textarea>
                                     <span class="focus-input100"></span>
                                 </div>

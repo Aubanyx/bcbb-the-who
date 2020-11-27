@@ -10,7 +10,6 @@
     <link href="/assets/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/markdown/dist/toastui-editor.css">
     <link rel="stylesheet" href="/assets/markdown/dist/toastui-editor-viewer.css">
-
 </head>
 <body class="bg-light">
 <header class="header">
