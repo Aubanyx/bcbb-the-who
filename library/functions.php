@@ -1,5 +1,6 @@
 <?php
 
+
 // DB
 function connect() {
 
@@ -29,7 +30,6 @@ function user() {
 
    return $user;
 }
-//
 
 // Boards
 
@@ -104,9 +104,6 @@ function BoardLastPost($id) {
     return $resultsBLP;
 }
 
-function convertTime(){
-
-}
 
 function displayLastT() {
     global $dbh;
@@ -148,8 +145,6 @@ function getTimeAgo( $ptime )
         }
     }
 }
-
-
 
 
 // function displayBoards() {
@@ -284,25 +279,38 @@ function infos() {
 }
 
 // Profile
-// function changeInfosProfile() {
-//    global $dbh;
-//
-//    extract($_POST);
-//
-//    $sql = "UPDATE users
-//            SET userNname = :username,
-//                userFname = :fName,
-//                userLname = :lName,
-//                userEmail = :email,
-//                userSign = :sign
-//            WHERE userId = ?";
-//
-//     $user = $dbh->prepare($sql);
-//     $user->execute([$_SESSION["user"]]);
-//     $user = $user->fetch();
-//
-//     return $user;
-//}
+ function changeInfosProfile($form) {
+    global $dbh;
+
+    extract($_POST);
+
+    $sql = "UPDATE users
+            SET userNname = :username,
+                userFname = :fName,
+                userLname = :lName,
+                userEmail = :email,
+                userSign  = :sign
+            WHERE userId = ?";
+
+     $user = $dbh->prepare($sql);
+     $user->execute([
+         $_SESSION["user"],
+         "usermane" => htmlentities($form["username"]),
+         "fName" => htmlentities($form["fName"]),
+         "lName" => htmlentities($form["lName"]),
+         "email" => htmlentities($form["email"]),
+         "sign" => htmlentities($form["sign"])
+     ]);
+     $user = $user->fetch();
+
+     unset($_POST["username"]);
+     unset($_POST["fName"]);
+     unset($_POST["lName"]);
+     unset($_POST["email"]);
+     unset($_POST["sign"]);
+
+     return $user;
+}
 
 
 

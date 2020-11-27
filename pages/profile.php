@@ -4,8 +4,12 @@ if (!isset($_SESSION["user"])) {
     header("Location: login.php");
 }
 require_once "../library/functions.php";
+if (isset($_POST["submitProfile"])) {
+    changeInfosProfile($_POST);
+}
 $dbh = connect();
 $infos = infos();
+//$profile = changeInfosProfile($_POST);
 $page = "Profile";
 include_once "../includes/header.php";
 ?>
@@ -23,16 +27,15 @@ include_once "../includes/header.php";
                         <div class="d-flex bg-light rounded align-items-center justify-content-center py-3 profilesettings">
                             <img src="https://www.flaticon.com/svg/static/icons/svg/3011/3011513.svg" class="img"
                                  alt="">
-                            <div class="pl-sm-4 pl-2 img-fluid text-secondary"><p class="display-4 pb-2 text-dark"><?= $infos["userFname"] . " " . $infos["userLname"] ?></p>
+                            <div class="pl-sm-4 pl-2 img-fluid text-secondary"><p
+                                        class="display-4 pb-2 text-dark"><?= $infos["userFname"] . " " . $infos["userLname"] ?></p>
                                 <p class="h4"><?= $infos["userNname"] ?><span class="badge badge-light">
                                         <?php
                                         if ($infos["userLevel"] == 2) {
                                             echo "Admin";
-                                        }
-                                        else if ($infos["userLevel"] == 1) {
+                                        } else if ($infos["userLevel"] == 1) {
                                             echo "Modo";
-                                        }
-                                        else {
+                                        } else {
                                             echo "Member";
                                         }
                                         ?>
@@ -77,9 +80,9 @@ include_once "../includes/header.php";
                                         <i class="fas fa-at"></i></span>
                                     </div>
                                     <input type="username" class="input100 border-0 form-control-plaintext p-3"
-                                    type="text"
-                                    placeholder="<?= $infos["userNname"] ?>"
-                                    value="<?php if (isset($_POST["username"])) echo $_POST["username"] ?>">
+                                           type="text"
+                                           placeholder="<?= $infos["userNname"] ?>"
+                                           value="<?php if (isset($_POST["username"])) echo $_POST["username"] ?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
@@ -115,13 +118,12 @@ include_once "../includes/header.php";
                                                         <span class="focus-input100"></span>
                                                     </div>
 
-
                                                     <label class="w-100 pt-3 text-secondary" for="password1"><h5>New
                                                             password</h5></label>
                                                     <div class="border rounded validate-input mt-2">
                                                         <input type="password"
                                                                class="input100 border-0 form-control-plaintext p-3"
-                                                               placeholder="******" id="password1" required name="up">
+                                                               placeholder="******" id="password1" name="up">
                                                         <span class="focus-input100"></span>
                                                     </div>
 
@@ -138,11 +140,9 @@ include_once "../includes/header.php";
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <!-- / change password -->
                             </div>
-
                             <div class="contactinfos flex-fill p-5">
                                 <label class="w-100 mt-4 text-secondary" for="email"><h5>Date of Birth</h5></label>
                                 <div class="border rounded validate-input input-with-post-icon datepicker">
@@ -168,12 +168,11 @@ include_once "../includes/header.php";
                                     <span class="focus-input100"></span>
                                 </div>
 
-
                                 <label class="w-100 mt-3 text-secondary" for="email"><h5>Signature</h5></label>
                                 <div class="border rounded validate-input mt-2"
                                      data-validate="Valid email is required: ex@abc.xyz">
                                 <textarea class="input100 border-0 form-control-plaintext p-3"
-                                          id="exampleFormControlTextarea1"><?php if (isset($_POST["sign"])) echo $_POST["sign"] ?>"</textarea>
+                                          id="exampleFormControlTextarea1"><?php if (isset($_POST["sign"])) echo $_POST["sign"] ?></textarea>
                                     <span class="focus-input100"></span>
                                 </div>
                             </div>
@@ -181,7 +180,7 @@ include_once "../includes/header.php";
                         <!-- / personal infos + contact infos -->
                         <div class="text-center pt-3">
                             <button class="btn w-25 text-white font-weight-bold my-4 border-0 rounded rounded-pill board-util__btn m-auto"
-                                    type="submit">Save Changes
+                                    type="submit" name="submitProfile">Save Changes
                             </button>
                         </div>
                     </form>
@@ -198,4 +197,3 @@ include_once "../includes/header.php";
 <!-- end main container -->
 </div>
 <?php include_once "../includes/footer.php" ?>
-
