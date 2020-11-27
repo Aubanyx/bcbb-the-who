@@ -51,6 +51,7 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
   </div>
 
   <!-- announcements -->
+  
   <div class="card mt-5 border-0">
       <div class="grad text-white row no-gutters align-items-center w-100">
         <div class="col"><h4 class="font-weight-light">Announcements</h4></div> 
@@ -108,6 +109,9 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 <?php
   foreach($topics as $topic) :
   $userName = topicsName($topic['topicBy']);
+  [$lastUserName, $lastDate] = topicsLastMsg($topic['topicId']);
+  //$postTopic = countPosts($topic['postId']);
+  $countPosts = countPostsOnTopic($topic['topicId']);
 ?>
 
      <div class="row no-gutters py-3 text-black-50 align-items-center">
@@ -118,11 +122,11 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 
       <div class="d-none d-md-block col-6">
           <div class="row no-gutters pl-2 align-items-center">
-              <div class="col-3">21</div>
+              <div class="col-3"><?=$countPosts['countPosts']; //var_dump($countPosts); ?> </div>
               <div class="col-3">327</div>
               <div class="media col-6 align-items-center"> 
-                <p>by <a href="#">Auban</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-                <span class="d-block">Sat Nov 20, 2020 7:20pm</span></p></div>
+                <p>by <a href="#"><?=$lastUserName;?></a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
+                <span class="d-block"><?=$lastDate;?></span></p></div>
            </div>
        </div>
 </div>
@@ -192,16 +196,6 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
     <!-- end main container -->
 
 </div>
-<<<<<<< HEAD
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<script src="./assets/js/script.js"></script>
-=======
 </div></div></div></div></div>
->>>>>>> development
 <?php include_once "../includes/footer.php" ?>
 
