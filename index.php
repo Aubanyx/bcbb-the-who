@@ -26,64 +26,65 @@ include_once "./includes/header.php";
 
             <div class="col-xl-9 themed-grid-col">
                 <?php
-                foreach($categories as $cats) :
+                foreach ($categories as $cats) :
                     $boards = displayBoards($cats["categoryId"]);
 
                     ?>
-                <h1><?= $cats["categoryName"]; ?></h1>
+                    <h1><?= $cats["categoryName"]; ?></h1>
 
-                <div class="row bg-light forums__list">
-                    <!-- board -->
-                    <?php
+                    <div class="row bg-light forums__list">
+                        <!-- board -->
+                        <?php
 
-                    foreach($boards as $board) :
+                        foreach ($boards as $board) :
 
-                    ?>
-                    <div class="col-6 col-sm-4">
+                            ?>
+                            <div class="col-6 col-sm-4">
+                                <div class="card border-0 shadow-sm card__cat">
+                                    <div class="card-body">
+                                        <img src="assets/images/icons-coffee/<?= $board['boardImage']; ?>"
+                                             class="float-left"/>
+                                        <h4 class="card-title"><a href="https://bcbb-thewho.herokuapp.com/pages/topicIcon.php"><?= $board["boardName"]; ?></a></h4>
+                                        <p class="card-text"><?= $board["boardDescription"]; ?>. </p>
+                                        <hr class="mb-4">
+                                        <!--Table-->
+                                        <table class="h-25">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    <p>
+                                                        <span>300</span>
+                                                    </p>
+                                                </th>
+                                                <th><p>
+                                                    <p><span>267</span></p></p></th>
+                                                <th><p>
+                                                    <p><span>Tue Nov 24</span></p></p></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><p>Topics</p></td>
+                                                <td><p>Posts</p></td>
+                                                <td><p>Last Post</p></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <!--Table-->
+
+                                    </div>
 
 
-                        <div class="card border-0 shadow-sm card__cat">
+                                </div>
 
+                                <!-- /board -->
+                            </div>
+                        <?php
 
-                            <div class="card-body">
-                                <img src="assets/images/icons-coffee/<?= $board['boardImage']; ?>" class="float-left"/>
-                                <h4 class="card-title"><a href="https://bcbb-thewho.herokuapp.com/pages/topicIcon.php"><?= $board["boardName"]; ?></a></h4>
-                                <p class="card-text"><?= $board["boardDescription"]; ?>. </p>
-                                <hr class="mb-4">
-                                <!--Table-->
-                                <table class="h-25">
-                                    <thead>
-                                    <tr>
-                                        <th><p><span>300
-                                                       </span></p>
-                                        </th>
-                                        <th><p><p><span>267</span></p></p></th>
-                                        <th><p><p><span>Tue Nov 24</span></p></p></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td><p>Topics</p></td>
-                                        <td><p>Posts</p></td>
-                                        <td><p>Last Post</p></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <!--Table-->
+                        endforeach;
 
-                        </div>
-
-
+                        ?>
                     </div>
-
-                        <!-- /board -->
-                    </div>
-                    <?php
-
-                    endforeach;
-
-                    ?>
-                </div>
                 <?php
                 endforeach;
                 ?>

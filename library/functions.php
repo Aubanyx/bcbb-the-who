@@ -245,7 +245,7 @@ function infos() {
 }
 
 // Profile
- function changeInfosProfile() {
+ function changeInfosProfile($form) {
     global $dbh;
 
     extract($_POST);
@@ -259,10 +259,22 @@ function infos() {
             WHERE userId = ?";
 
      $user = $dbh->prepare($sql);
-     $user->execute([$_SESSION["user"]]);
+     $user->execute([
+         $_SESSION["user"],
+         "usermane" => htmlentities($form["username"]),
+         "fName" => htmlentities($form["fName"]),
+         "lName" => htmlentities($form["lName"]),
+         "email" => htmlentities($form["email"]),
+         "sign" => htmlentities($form["sign"])
+     ]);
      $user = $user->fetch();
 
-     
+     unset($_POST["username"]);
+     unset($_POST["fName"]);
+     unset($_POST["lName"]);
+     unset($_POST["email"]);
+     unset($_POST["sign"]);
+
      return $user;
 }
 
