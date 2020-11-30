@@ -107,12 +107,20 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 <!-- sujet -->
 
 <?php
+  if ($_GET['id'] == 8) { 
+    $topics = topicsRandom(); 
+  } else {
+    $topics = topics();
+  }
   foreach($topics as $topic) :
   $userName = topicsName($topic['topicBy']);
   [$lastUserName, $lastDate] = topicsLastMsg($topic['topicId']);
   //$postTopic = countPosts($topic['postId']);
   $countPosts = countPostsOnTopic($topic['topicId']);
 ?>
+
+
+
 
      <div class="row no-gutters py-3 text-black-50 align-items-center">
       <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
