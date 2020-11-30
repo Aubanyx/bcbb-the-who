@@ -19,17 +19,17 @@ function connect() {
 }
 
 // users
-function user() {
-   global $dbh;
-
-   $sql = "SELECT * FROM users";
-
-   $user = $dbh->prepare($sql);
-   $user->execute();
-   $user = $user->fetch(PDO::FETCH_ASSOC);
-
-   return $user;
-}
+//function user() {
+//   global $dbh;
+//
+//   $sql = "SELECT * FROM users";
+//
+//   $user = $dbh->prepare($sql);
+//   $user->execute();
+//   $user = $user->fetch(PDO::FETCH_ASSOC);
+//
+//   return $user;
+//}
 
 // Boards
 
@@ -284,6 +284,7 @@ function infos() {
 
     extract($_POST);
 
+    $infos = infos();
     $validation = true;
     $erreur = [];
     $sql = "UPDATE users
@@ -305,12 +306,7 @@ function infos() {
          $erreur[] = "Ce pseudo est déjà pris";
      }
 
-     if (existe($email)) {
-         $validation = false;
-         $erreur[] = "Cet email est déjà pris";
-     }
-
-     if ($form["currentPass"] != $newPass) {
+     if (!password_verify($form["currentPass"], $infos["userPass"])) {
          $validation = false;
          $erreur[] = "Le mot de passe actuel est incorrecte";
      }
@@ -321,24 +317,16 @@ function infos() {
      }
 
 
-     $infos = user();
-
      if ($validation) {
          $user = $dbh->prepare($sql);
          $user->execute([
-             $newUsername = empty($form["username"]) ? htmlentities($infos("userNname")) : htmlentities($form["username"]),
-             $newPassword = empty($form["newPass"]) ? $infos("userPass") : password_hash($form["newPass"], PASSWORD_DEFAULT),
-             $newFname = empty($form["fName"]) ? htmlentities($infos("userFname")) : htmlentities($form["fName"]),
-             $newLname = empty($form["lName"]) ? htmlentities($infos("userLname")) : htmlentities($form["lName"]),
-             $newEmail = empty($form["email"]) ? htmlentities($infos("userEmail")) : htmlentities($form["email"]),
-             $newSign = empty($form["sign"]) ? htmlentities($infos("userSign")) : htmlentities($form["sign"]),
 
-//             $newUsername = htmlentities($form["username"]) || $infos("userNname"),
-//             $newPassword = password_hash($form["newPass"], PASSWORD_DEFAULT) || $infos("userPass"),
-//             $newFname = htmlentities($form["fName"]) || $infos("userFname"),
-//             $newLname = htmlentities($form["lName"]) || $infos("userLname"),
-//             $newEmail = htmlentities($form["email"]) || $infos("userEmail"),
-//             $newSign = htmlentities($form["sign"]) || $infos("userSign"),
+             $newUsername = empty($form["username"]) ? htmlentities($infos["userNname"]) : htmlentities($form["username"]),
+             $newPassword = empty($form["newPass"]) ? $infos["userPass"] : password_hash($form["newPass"], PASSWORD_DEFAULT),
+             $newFname = empty($form["fName"]) ? htmlentities($infos["userFname"]) : htmlentities($form["fName"]),
+             $newLname = empty($form["lName"]) ? htmlentities($infos["userLname"]) : htmlentities($form["lName"]),
+             $newEmail = empty($form["email"]) ? htmlentities($infos["userEmail"]) : htmlentities($form["email"]),
+             $newSign = empty($form["sign"]) ? htmlentities($infos["userSign"]) : htmlentities($form["sign"]),
 
 //             htmlentities($form["username"]),
 //             password_hash($form["newPass"], PASSWORD_DEFAULT),
