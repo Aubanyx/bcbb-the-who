@@ -141,7 +141,8 @@ include_once "../includes/header.php";
                                                     <div class="border rounded validate-input mt-2">
                                                         <input type="password"
                                                                class="input100 border-0 form-control-plaintext p-3"
-                                                               type="text" placeholder="******">
+                                                               type="text" placeholder="******" name="currentPass"
+                                                               value="<?php if (isset($_POST["currentPass"])) echo $_POST["currentPass"] ?>">
                                                         <span class="focus-input100"></span>
                                                     </div>
 
@@ -150,7 +151,8 @@ include_once "../includes/header.php";
                                                     <div class="border rounded validate-input mt-2">
                                                         <input type="password"
                                                                class="input100 border-0 form-control-plaintext p-3"
-                                                               placeholder="******" id="password1" name="up">
+                                                               placeholder="******" id="password1" name="newPass"
+                                                               value="<?php if (isset($_POST["newPass"])) echo $_POST["newPass"] ?>">
                                                         <span class="focus-input100"></span>
                                                     </div>
 
@@ -160,7 +162,8 @@ include_once "../includes/header.php";
                                                     <div class="border rounded validate-input mt-2">
                                                         <input type="password"
                                                                class="input100 border-0 form-control-plaintext p-3"
-                                                               placeholder="******" id="password2" name="up2">
+                                                               placeholder="******" id="password2" name="newPassConf"
+                                                               value="<?php if (isset($_POST["newPassConf"])) echo $_POST["newPassConf"] ?>">
                                                         <span class="focus-input100"></span>
                                                     </div>
                                                 </div>

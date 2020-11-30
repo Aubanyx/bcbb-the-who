@@ -22,7 +22,7 @@ function connect() {
 function user() {
    global $dbh;
 
-   $sql = "SELECT userId, userNname, userFname, userLname, userEmail FROM users";
+   $sql = "SELECT * FROM users";
 
    $user = $dbh->prepare($sql);
    $user->execute();
@@ -269,7 +269,7 @@ function deconnexion() {
 function infos() {
     global $dbh;
 
-    $sql = "SELECT userId, userNname, userFname, userLname, userEmail, userSign, userLevel FROM users WHERE userId = ?";
+    $sql = "SELECT userId, userNname, userPass, userFname, userLname, userEmail, userSign, userLevel FROM users WHERE userId = ?";
 
     $user = $dbh->prepare($sql);
     $user->execute([$_SESSION["user"]]);
@@ -288,13 +288,14 @@ function infos() {
     $erreur = [];
     $sql = "UPDATE users
             SET userNname = ?,
+                userPass  = ?,
                 userFname = ?,
                 userLname = ?,
                 userEmail = ?,
                 userSign  = ?
             WHERE userId = ?";
 
-     if (empty($fName) && empty($lName) && empty($username) && empty($email) && empty($sign)) {
+     if (empty($username) && empty($currentPass) && empty($newPass) && empty($newPassConf) && empty($fName) && empty($lName) &&  empty($email) && empty($sign)) {
          $validation = false;
          $erreur[] = "Veuillez modifier au moins un champ";
      }
@@ -304,20 +305,56 @@ function infos() {
          $erreur[] = "Ce pseudo est déjà pris";
      }
 
+     if (existe($email)) {
+         $validation = false;
+         $erreur[] = "Cet email est déjà pris";
+     }
+
+     if ($form["currentPass"] != $newPass) {
+         $validation = false;
+         $erreur[] = "Le mot de passe actuel est incorrecte";
+     }
+
+     if ($newPass != $newPassConf) {
+         $validation = false;
+         $erreur[] = "Le mot de passe de confirmation est incorrecte";
+     }
+
+
+     $infos = user();
+
      if ($validation) {
          $user = $dbh->prepare($sql);
          $user->execute([
-             htmlentities($form["username"]),
-             htmlentities($form["fName"]),
-             htmlentities($form["lName"]),
-             htmlentities($form["email"]),
-             htmlentities($form["sign"]),
+             $newUsername = empty($form["username"]) ? htmlentities($infos("userNname")) : htmlentities($form["username"]),
+             $newPassword = empty($form["newPass"]) ? $infos("userPass") : password_hash($form["newPass"], PASSWORD_DEFAULT),
+             $newFname = empty($form["fName"]) ? htmlentities($infos("userFname")) : htmlentities($form["fName"]),
+             $newLname = empty($form["lName"]) ? htmlentities($infos("userLname")) : htmlentities($form["lName"]),
+             $newEmail = empty($form["email"]) ? htmlentities($infos("userEmail")) : htmlentities($form["email"]),
+             $newSign = empty($form["sign"]) ? htmlentities($infos("userSign")) : htmlentities($form["sign"]),
+
+//             $newUsername = htmlentities($form["username"]) || $infos("userNname"),
+//             $newPassword = password_hash($form["newPass"], PASSWORD_DEFAULT) || $infos("userPass"),
+//             $newFname = htmlentities($form["fName"]) || $infos("userFname"),
+//             $newLname = htmlentities($form["lName"]) || $infos("userLname"),
+//             $newEmail = htmlentities($form["email"]) || $infos("userEmail"),
+//             $newSign = htmlentities($form["sign"]) || $infos("userSign"),
+
+//             htmlentities($form["username"]),
+//             password_hash($form["newPass"], PASSWORD_DEFAULT),
+//             htmlentities($form["fName"]),
+//             htmlentities($form["lName"]),
+//             htmlentities($form["email"]),
+//             htmlentities($form["sign"]),
              $_SESSION["user"]
          ]);
 //         $user = $user->fetch(PDO::FETCH_ASSOC);
      }
 
      unset($_POST["username"]);
+     unset($_POST["currentPass"]);
+     unset($_POST["newPass"]);
+     unset($_POST["newPassConf"]);
      unset($_POST["fName"]);
      unset($_POST["lName"]);
      unset($_POST["email"]);
