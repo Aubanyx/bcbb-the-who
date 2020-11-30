@@ -410,3 +410,88 @@ function countPostsOnTopic($id){
 
 //     return $test;
 // } 
+ 
+
+function getUserLevel($userLevel)
+{
+    if($userLevel == 2)
+        return "Administrator";
+
+    return "User";
+}
+
+
+function formatDate($input)
+{
+  if(is_null($input))
+    return "";
+
+  $date  = new DateTime($input);
+  return date_format($date,"D M j, Y, g:i a");
+}
+
+
+//get topic by id from database
+function getTopicById($topicId)
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM topics WHERE topicId = ?";
+    $topic = $dbh->prepare($sql);
+    $topic->execute([$topicId]);
+    $topic = $topic->fetchAll(PDO::FETCH_ASSOC);
+
+    return $topic;
+}
+
+//Get comments for a topic from database
+function getPostsByTopicId($topicId)
+{
+    global $dbh;
+    //userPostsCount is number of posts of user
+    $sql = "SELECT *,(select count(*) from posts where postBy = userId ) as userPostsCount FROM posts inner join users on postBy = userId WHERE postTopic = ?";
+    $resultsPosts= $dbh->prepare($sql);
+    $resultsPosts->execute([$topicId]);
+    $resultsPosts = $resultsPosts->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultsPosts;
+}
+
+function createPost() {
+    global $dbh;
+
+    extract($_POST);
+
+    if (!isset($_SESSION['user'])) {  //user is not authenticated, redirect to post page
+        header("location: ../pages/login.php");
+    } 
+     
+     if(!isset($topicId))
+        return "Topic id value is required";
+
+     $currentUserId = $_SESSION["user"];
+    
+     //Verify input
+     if (empty($postContent)) return "Post content is required";  
+     
+           
+    try 
+    {
+        $sql = "INSERT INTO posts (postContent,postDate,postDateUpdate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),now(),0, :postTopic, :postBy)";  
+
+        $postCreation = $dbh->prepare($sql);
+        $postCreation->execute([
+            "postContent" => htmlentities($postContent),
+            "postTopic" => $topicId,
+            "postBy" => $currentUserId
+           
+        ]);
+
+        
+    }
+    catch(Exception $exception)
+    {
+        return `An internal error occurs while post creation : {$exception->getMessage()}`;
+    }
+
+  }

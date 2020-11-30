@@ -116,7 +116,7 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 
      <div class="row no-gutters py-3 text-black-50 align-items-center">
       <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-      <div class="col"><a href="http://localhost/bcbb-the-who/pages/topicRead.php"> <?=$topic['topicSubject'];?></a>
+      <div class="col"><a href="http://localhost/bcbb-the-who/pages/topicRead.php?id=<?=$topic['topicId'];?>"> <?=$topic['topicSubject'];?></a>
 
      <p class="text-secondary small">by <a href="#"><?=$userName;?></a></p></div>
 

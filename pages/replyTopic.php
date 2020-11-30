@@ -1,8 +1,58 @@
 <?php
 session_start();
+if(!isset($_SESSION["user"])) { //if user is not connected, he cannot reply to a topic
+  header("Location: ../pages/login.php");
+}
+
 require_once "../library/functions.php";
 $dbh = connect();
+
+
+//Verify if we have a form POST, we post the reply
+if (!empty($_POST)) {
+  $erreur = createPost();
+
+  if (!$erreur) //There is no error while post creation, we get the post id to redirect to the topic page, otherwise, redirect to home page
+  {
+    if ($_POST["topicId"]) 
+    {
+      header("location: http://localhost/bcbb-the-who/pages/topicRead.php?id=" . $_POST["topicId"]);
+      exit();
+    }
+    else
+    {
+      //header("location: http://localhost/bcbb-the-who/");
+      //exit();
+    }
+  }
+}
+
+//If there is no post
+$redirect = false;
+if (!isset($_GET["id"])) //If no id is specified in url, we redirect to index page
+{
+    $redirect = true;
+}
+else
+{
+    $topicId = $_GET["id"];
+    $topic = getTopicById($topicId);
+   
+
+    if (count($topic) != 1) 
+      $redirect = true; //If array count is different from 1, the topic was not found in database
+    else
+      $topic = $topic[0]; //Retrieve first element from array and assign it in $topic
+}
+
+if ($redirect)
+{
+    header('location: http://localhost/bcbb-the-who/');
+    exit();
+}
+
 $lasttopics = displayLastT();
+$lastConnectedUsers = getLastConnectedUsers();
 $page = "Home";
 
 include_once "../includes/header.php";
@@ -19,59 +69,51 @@ include_once "../includes/header.php";
 </ol>
 </nav>
 
-
-
-
-
-
-
-
 <div class="container-lg">
 
 <div class="row">  
 
 <div class="col-xl-9 themed-grid-col">
-<h3>Topic Read (hot)</h3>
+<h3>Topic <?= $topic["topicSubject"] ?></h3>
 <div class="alert alert-danger" role="alert">
 Forum rules
 </div>
 
 
-<div class="board-util d-flex pt-3">
- <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">Post reply <i class="fas fa-reply"></i></button>
-<!-- searchbar -->
-<div class="dropdown">
-  <button class="btn bg-light rounded ml-3 rounded-pill border dropdown-toggle"
-          type="button" id="dropdownMenu1" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fas fa-wrench text-black-50"></i>
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <a class="dropdown-item" href="#!">Delete topic</a>
-    <a class="dropdown-item" href="#!">Lock topic</a>
-    <a class="dropdown-item" href="#!">Reply</a>
-  </div>
-</div>
-
-    <div class="bg-light rounded rounded-pill border w-25 ml-3">
-      <div class="input-group">
-        <input type="search" placeholder="Search this topic..." aria-describedby="button-addon1" class="form-control  bg-light rounded rounded-pill border-0">
-        <div class="input-group-append">          
-          <button id="button-addon1" type="submit" class="btn btn-link text-primary border-right"><i class="fa fa-search magnifying-glass"></i></button>
-          <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fas fa-cog cog"></i></button>
-
-        </div>
-      </div>
-    </div>  
- <p class="ml-auto font-weight-normal greytext pt-2"> 3 replies · Page <strong>1</strong> of <strong>1</strong></p>
-
-  <!-- /searchbar -->
-  </div> 
-
-
 <div class="themed-grid-col mt-4 p-3 rounded bg-light">
  
- ec ec ec !!!   
+<form method="post">
+<?php
+                        if (isset($erreur)) : //If there is an error while post creation, we display the error on the page
+                            if ($erreur) :
+                              
+                                    ?>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="alert alert-danger"><?= $erreur ?></div>
+                                        </div>
+                                    </div>
+                                <?php
+                   
+                            endif;
+                        endif;
+                        ?>
+                <div class="form-group">
+                  <textarea
+                    class="form-control form-control-rounded"
+                    id="message_text"
+                    rows="8"
+                    placeholder="Write your message here..."
+                    required=""
+                    name="postContent"
+                  ></textarea>
+                  <input name="topicId" type="hidden" value="<?= $topicId?>" /> 
+                </div>
+
+                <div class="text-right board-util d-flex pt-3">
+                <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">Post reply <i class="fas fa-reply"></i></button>
+                </div>
+              </form>
 
 </div>
 
