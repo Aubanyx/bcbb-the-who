@@ -6,10 +6,10 @@
     <title>bcbb - <?= $page ?></title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link href="/assets/fontawesome/css/all.css" rel="stylesheet">
-    <link href="/assets/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/markdown/dist/toastui-editor.css">
-    <link rel="stylesheet" href="/assets/markdown/dist/toastui-editor-viewer.css">
+    <link href="/bcbb-the-who/assets/fontawesome/css/all.css" rel="stylesheet">
+    <link href="/bcbb-the-who/assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/bcbb-the-who/assets/markdown/dist/toastui-editor.css">
+    <link rel="stylesheet" href="/bcbb-the-who/assets/markdown/dist/toastui-editor-viewer.css">
 </head>
 <body class="bg-light">
 <header class="header">
@@ -26,21 +26,21 @@
                     endif;
                 endif;
                 ?>
-                <a class="nav-item nav-link active text-light mx-3" href="https://bcbb-thewho.herokuapp.com/">
+                <a class="nav-item nav-link active text-light mx-3" href="http://localhost/bcbb-the-who/">
                     <i class="fas fa-home"></i> Home</a>
                 <?php
                 if (isset($_SESSION["user"])) :
                     ?>
-                    <a class="nav-item nav-link active text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/profile.php"><i
+                    <a class="nav-item nav-link active text-light mx-3" href="http://localhost/bcbb-the-who/pages/profile.php"><i
                                 class="far fa-id-card"></i> Profile</a>
-                    <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/logout.php"><i
+                    <a class="nav-item nav-link text-light mx-3" href="http://localhost/bcbb-the-who/pages/logout.php"><i
                                 class="fas fa-sign-out-alt"></i> Logout</a>
                 <?php
                 else :
                     ?>
-                    <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/register.php">
+                    <a class="nav-item nav-link text-light mx-3" href="hhttp://localhost/bcbb-the-who/pages/register.php">
                         <i class="far fa-arrow-alt-circle-right"></i> Register</a>
-                    <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/login.php">
+                    <a class="nav-item nav-link text-light mx-3" href="http://localhost/bcbb-the-who/pages/login.php">
                         <i class="far fa-clipboard"></i> Login</a>
                 <?php
                 endif;

@@ -4,6 +4,7 @@ require_once "./library/functions.php";
 $dbh = connect();
 $categories = displayCategories();
 $lasttopics = displayLastT();
+$lastConnectedUsers = getLastConnectedUsers();
 $page = "Home";
 
 include_once "./includes/header.php";
@@ -47,7 +48,7 @@ include_once "./includes/header.php";
 
                             <div class="card-body">
                                 <img src="assets/images/icons-coffee/<?= $board['boardImage']; ?>" class="float-left"/>
-                                <h4 class="card-title"><a href="https://bcbb-thewho.herokuapp.com/pages/topicIcon.php?id=<?= $board["boardId"]?>"><?= $board["boardName"]; ?></a></h4>
+                                <h4 class="card-title"><a href="http://localhost/forum/pages/topicIcon.php?id=<?= $board["boardId"]?>"><?= $board["boardName"]; ?></a></h4>
                                 <p class="card-text"><?= $board["boardDescription"]; ?>. </p>
                                 <hr class="mb-4">
                                 <!--Table-->

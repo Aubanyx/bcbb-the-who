@@ -14,7 +14,7 @@ include_once "../includes/header.php";
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">          
 <nav aria-label="breadcrumb">
 <ol class="breadcrumb bg-transparent pt-5">
-<li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></li>
+<li class="breadcrumb-item"><a href="http://localhost/bcbb-the-who/"><i class="fas fa-home"></i> Home</a></li>
 <li class="breadcrumb-item active" aria-current="page">Board Index</li>
 </ol>
 </nav>
@@ -148,7 +148,7 @@ Forum rules
 
 
   <div class="board-util d-flex pt-3">
- <a href="http://localhost:8888/">Return to Board Index</a>
+ <a href="http://localhost/bcbb-the-who/">Return to Board Index</a>
      
  <div class="dropdown ml-auto">
   <button class="btn bg-light rounded ml-3 rounded-pill border dropdown-toggle text-black-50"

@@ -18,7 +18,7 @@ include_once "../includes/header.php";
 <!-- forum body -->
 <!-- main container -->
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pt-5 pb-5">
-    <p class="pl-5 pb-3"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></p>
+    <p class="pl-5 pb-3"><a href="http://localhost/bcbb-the-who/"><i class="fas fa-home"></i> Home</a></p>
     <div class="container-lg">
         <h1 class="pl-5"><i class="far fa-arrow-alt-circle-right"></i> Profile</h1>
         <h2 class="pl-5 text-muted">Edit and personalize your profile </h2>
@@ -52,8 +52,8 @@ include_once "../includes/header.php";
                 <div class="card-body board-util">
                     <form class="p-5" action="" method="post">
                         <div class="d-flex bg-light rounded align-items-center justify-content-center py-3 profilesettings">
-                            <img src="https://www.flaticon.com/svg/static/icons/svg/3011/3011513.svg" class="img"
-                                 alt="">
+                        <img src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($infos['userEmail'])))."?"."&s=80";?>">
+                            
                             <div class="pl-sm-4 pl-2 img-fluid text-secondary"><p
                                         class="display-4 pb-2 text-dark"><?= $infos["userFname"] . " " . $infos["userLname"] ?></p>
                                 <p class="h4"><?= $infos["userNname"] ?><span class="badge badge-light">

@@ -116,6 +116,19 @@ function displayLastT() {
     return $resultsLastP;
 }
 
+//get 3 last connected users
+function getLastConnectedUsers(){  
+    global $dbh;
+
+    $sql = "SELECT * FROM users ORDER BY userLastConnectionDate DESC LIMIT 3";
+
+    $results = $dbh->query($sql); //execute query
+    $results = $results->fetchAll(PDO::FETCH_ASSOC); //lire toutes les lignes
+
+    return $results;
+
+}
+
 function getTimeAgo( $ptime )
 {
     $estimate_time = time() - $ptime;
@@ -251,6 +264,9 @@ function connexion() {
 
     if (password_verify($password, $connexion["userPass"])) {
         $_SESSION["user"] = $connexion["userId"];
+        $connexion=$dbh->prepare("UPDATE users SET userLastConnectionDate = now() WHERE userNname =:username");
+        $connexion->bindParam(":username",$username);
+        $connexion->execute();   
         header("Location: ../pages/profile.php");
     }
     else {
