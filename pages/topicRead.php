@@ -30,7 +30,6 @@ $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
 $posts = getPostsByTopicId($topicId);
 $boardName=boardName($_GET["id"]);
-$categoryName=categoryName($_GET["id"]);
 
 $page = "Home";
 $url = "http://localhost:8888/";
@@ -42,15 +41,14 @@ include_once "../includes/header.php";
 
     <!-- main container -->
     <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
-        <nav aria-label="breadcrumb bg-transparent">
-            <div class="text-secondary py-5 pl-3">
-                <?php
-                define('NOM_SITE', '<i class="fas fa-home"></i> Home', true);
-                get_breadcrumb(array('topicIcon.php' => $categoryName["categoryName"], 'topicRead.php' => $boardName["boardName"], 'final' => $topic["topicSubject"]));
-                ?>
-            </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent pt-5">
+                <li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></li>
+                <li class="breadcrumb-item"><a href="/">Board Index</a></li>
+                <li class="breadcrumb-item"><a href="/parent">Category One</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Forum One</li>
+            </ol>
         </nav>
-
 
 
         <div class="container-lg">
