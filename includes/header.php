@@ -32,16 +32,16 @@
                 <?php
                 if (isset($_SESSION["user"])) :
                     ?>
-                    <a class="nav-item nav-link active text-light mx-3" href="pages/profile.php"><i
+                    <a class="nav-item nav-link active text-light mx-3" href="/pages/profile.php"><i
                                 class="far fa-id-card"></i> Profile</a>
-                    <a class="nav-item nav-link text-light mx-3" href="pages/logout.php"><i
+                    <a class="nav-item nav-link text-light mx-3" href="/pages/logout.php"><i
                                 class="fas fa-sign-out-alt"></i> Logout</a>
                 <?php
                 else :
                     ?>
-                    <a class="nav-item nav-link text-light mx-3" href="pages/register.php">
+                    <a class="nav-item nav-link text-light mx-3" href="/pages/register.php">
                         <i class="far fa-arrow-alt-circle-right"></i> Register</a>
-                    <a class="nav-item nav-link text-light mx-3" href="pages/login.php">
+                    <a class="nav-item nav-link text-light mx-3" href="/pages/login.php">
                         <i class="far fa-clipboard"></i> Login</a>
                 <?php
                 endif;
