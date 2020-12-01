@@ -106,7 +106,7 @@ include_once "../includes/header.php";
                                     <span class="input-group-text bg-transparent border-0" id="inputGroup-sizing-sm">
                                         <i class="fas fa-at"></i></span>
                                     </div>
-                                    <input type="username" class="input100 border-0 form-control-plaintext p-3"
+                                    <input id="username" class="input100 border-0 form-control-plaintext p-3"
                                            type="text" name="username"
                                            placeholder="<?= $infos["userNname"] ?>"
                                            value="<?php if (isset($_POST["username"])) echo $_POST["username"] ?>">
@@ -174,11 +174,11 @@ include_once "../includes/header.php";
                                 <!-- / change password -->
                             </div>
                             <div class="contactinfos flex-fill p-5">
-                                <label class="w-100 mt-4 text-secondary" for="email"><h5>Date of Birth</h5></label>
+                                <label class="w-100 mt-4 text-secondary" for="birthday"><h5>Date of Birth</h5></label>
                                 <div class="border rounded validate-input input-with-post-icon datepicker">
                                     <input id="birthday" class="input100 border-0 form-control-plaintext p-3"
-                                           type="date"
-                                           placeholder="Select date">
+                                           type="date" name="birthday"
+                                           value="<?= $infos["userBirthday"]?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
@@ -191,7 +191,7 @@ include_once "../includes/header.php";
                                     <span class="focus-input100"></span>
                                 </div>
 
-                                <label class="w-100 mt-3 text-secondary" for="location"><h5>Mood</h5></label>
+                                <label class="w-100 mt-3 text-secondary" for="mood"><h5>Mood</h5></label>
 
                                 <div class="border rounded validate-input mt-2" data-validate="Type your location">
                                     <input class="input100 border-0 form-control-plaintext p-3" type="text"
@@ -200,7 +200,7 @@ include_once "../includes/header.php";
                                     <span class="focus-input100"></span>
                                 </div>
 
-                                <label class="w-100 mt-3 text-secondary" for="email"><h5>Signature</h5></label>
+                                <label class="w-100 mt-3 text-secondary" for="sign"><h5>Signature</h5></label>
                                 <div class="border rounded validate-input mt-2"
                                      data-validate="Valid email is required: ex@abc.xyz">
                                 <textarea class="input100 border-0 form-control-plaintext p-3" placeholder="<?= $infos["userSign"] ?>" name="sign"
