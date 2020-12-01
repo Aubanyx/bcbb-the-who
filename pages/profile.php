@@ -186,7 +186,8 @@ include_once "../includes/header.php";
 
                                 <div class="border rounded validate-input mt-2" data-validate="Type your location">
                                     <input class="input100 border-0 form-control-plaintext p-3" type="text"
-                                           placeholder="">
+                                           placeholder="<?= $infos["userLocation"] ?>" name="location"
+                                           value="<?php if (isset($_POST["location"])) echo $_POST["location"] ?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
@@ -194,14 +195,15 @@ include_once "../includes/header.php";
 
                                 <div class="border rounded validate-input mt-2" data-validate="Type your location">
                                     <input class="input100 border-0 form-control-plaintext p-3" type="text"
-                                           placeholder="">
+                                           placeholder="<?= $infos["userMood"] ?>" name="mood"
+                                           value="<?php if (isset($_POST["mood"])) echo $_POST["mood"] ?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
                                 <label class="w-100 mt-3 text-secondary" for="email"><h5>Signature</h5></label>
                                 <div class="border rounded validate-input mt-2"
                                      data-validate="Valid email is required: ex@abc.xyz">
-                                <textarea class="input100 border-0 form-control-plaintext p-3" name="sign"
+                                <textarea class="input100 border-0 form-control-plaintext p-3" placeholder="<?= $infos["userSign"] ?>" name="sign"
                                           id="exampleFormControlTextarea1"><?php if (isset($_POST["sign"])) echo $_POST["sign"] ?></textarea>
                                     <span class="focus-input100"></span>
                                 </div>

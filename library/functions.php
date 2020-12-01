@@ -285,7 +285,7 @@ function deconnexion() {
 function infos() {
     global $dbh;
 
-    $sql = "SELECT userId, userNname, userPass, userFname, userLname, userEmail, userSign, userLevel FROM users WHERE userId = ?";
+    $sql = "SELECT * FROM users WHERE userId = ?";
 
     $user = $dbh->prepare($sql);
     $user->execute([$_SESSION["user"]]);
@@ -309,10 +309,12 @@ function infos() {
                 userFname = ?,
                 userLname = ?,
                 userEmail = ?,
-                userSign  = ?
+                userSign  = ?,
+                userMood  = ?
+                userLocation  = ?
             WHERE userId = ?";
 
-     if (empty($username) && empty($currentPass) && empty($newPass) && empty($newPassConf) && empty($fName) && empty($lName) &&  empty($email) && empty($sign)) {
+     if (empty($username) && empty($currentPass) && empty($newPass) && empty($newPassConf) && empty($fName) && empty($lName) &&  empty($email) && empty($sign) && empty($mood) && empty($location)) {
          $validation = false;
          $erreur[] = "Veuillez modifier au moins un champ";
      }
@@ -345,6 +347,8 @@ function infos() {
              $newLname = empty($form["lName"]) ? htmlentities($infos["userLname"]) : htmlentities($form["lName"]),
              $newEmail = empty($form["email"]) ? htmlentities($infos["userEmail"]) : htmlentities($form["email"]),
              $newSign = empty($form["sign"]) ? htmlentities($infos["userSign"]) : htmlentities($form["sign"]),
+             $newMood = empty($form["mood"]) ? htmlentities($infos["userMood"]) : htmlentities($form["mood"]),
+             $newMood = empty($form["location"]) ? htmlentities($infos["userLocation"]) : htmlentities($form["location"]),
 
              $_SESSION["user"]
          ]);
@@ -358,6 +362,7 @@ function infos() {
      unset($_POST["lName"]);
      unset($_POST["email"]);
      unset($_POST["sign"]);
+     unset($_POST["mood"]);
 
      return $erreur;
 }
