@@ -128,7 +128,7 @@ $lasttopics = displayLastT();
                                 <div class="row no-gutters py-3 text-black-50 align-items-center">
                                     <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
                                     <div class="col"><a
-                                                href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php"> <?= $topic['topicSubject']; ?></a>
+                                                href="pages/topicRead.php"> <?= $topic['topicSubject']; ?></a>
 
                                         <p class="text-secondary small">by <a href="#"><?= $userName; ?></a></p></div>
 
