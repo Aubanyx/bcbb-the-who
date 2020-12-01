@@ -27,7 +27,7 @@
                     endif;
                 endif;
                 ?>
-                <a class="nav-item nav-link active text-light mx-3" href="/pages/index.php">
+                <a class="nav-item nav-link active text-light mx-3" href="/index.php">
                     <i class="fas fa-home"></i> Home</a>
                 <?php
                 if (isset($_SESSION["user"])) :
