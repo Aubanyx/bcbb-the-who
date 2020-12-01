@@ -278,7 +278,7 @@ function connexion() {
 function deconnexion() {
     unset($_SESSION["user"]);
     session_destroy();
-    header("Location: ../pages/login.php");
+    header("Location: ../index.php");
 }
 
 // informations
