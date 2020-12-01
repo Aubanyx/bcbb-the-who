@@ -5,6 +5,9 @@ $dbh = connect();
 $page = "topicIcon";
 include_once "../includes/header.php";
 $topics = topics();
+$boardName=boardName($_GET["id"]);
+$lasttopics = displayLastT();
+$lastConnectedUsers = getLastConnectedUsers();
 ?>
 
 <!-- forum body -->
@@ -26,7 +29,8 @@ $topics = topics();
 
 <div class="col-xl-9 themed-grid-col">
 
-<h4 class="font-weight-light text-black-50 pb-3">Forum One Topics</h4>
+  <h4 class="font-weight-light text-black-50 pb-3"> <?= $boardName["boardName"]; ?> </h4>
+
 <div class="alert alert-danger border-0 rounded" role="alert">
 Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before posting.
 </div>
@@ -57,13 +61,8 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
     endforeach;
   ?>
 
-
-
-
   <!-- /searchbar -->
   </div>
-
-
 
 <!-- topics -->
 
@@ -146,8 +145,19 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
     <a class="dropdown-item" href="#!">Author</a>
   </div>
 </div>
-  <p class="ml-auto font-weight-normal greytext pt-2"> 12 topics · Page <strong>1</strong> of <strong>1</strong></p>
- 
+
+<?php
+  $countTopics=countTopics($_GET["id"]);
+  foreach($countTopics as $count) :
+?>
+  <p class="ml-auto font-weight-normal greytext pt-2"> <?= $count["nbrOfTopics"]; ?> topics · Page <strong>1</strong> of <strong>1</strong></p>
+<?php
+  endforeach;
+?>
+
+
+
+
    <!-- /searchbar -->
    </div>
 

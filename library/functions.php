@@ -381,6 +381,7 @@ function topics() {
     return $topicsRequest;
 }
 
+// display the name of the creator of a topic in topicIcon
 function topicsName($id) {
     global $dbh;
 
@@ -393,6 +394,7 @@ function topicsName($id) {
     return $topicsNameRequest["userNname"];
 }
 
+// Display the name and de date of the last message on a topic in topicIcon
 function topicsLastMsg($id) {
     global $dbh;
 
@@ -411,6 +413,7 @@ function topicsLastMsg($id) {
     return [$topicsLastPostRequestName["userNname"], $topicsLastPostRequest["postDate"]];
 }
 
+// Display number of posts on a topic
 function countPostsOnTopic($id){
     global $dbh;
     $sql = "SELECT count(postId) AS countPosts FROM posts WHERE postTopic = ?";
@@ -518,6 +521,7 @@ function createPost() {
 
   }
 
+// Display 5 topics on "random" board
 function topicsRandom() {
     global $dbh;
 
@@ -530,3 +534,16 @@ function topicsRandom() {
 
     return $topicRand;
 }
+
+// Display the name of the board in topicIcon
+function boardName($id) {
+    global $dbh;
+   
+       $sql = "SELECT * FROM boards WHERE boardId = ?";
+   
+       $nameOfBoard = $dbh->prepare($sql);
+       $nameOfBoard->execute([$id]);
+       $nameOfBoard = $nameOfBoard->fetch(PDO::FETCH_ASSOC);
+   
+       return $nameOfBoard;
+   }
