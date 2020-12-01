@@ -13,7 +13,7 @@ $lastConnectedUsers = getLastConnectedUsers();
 <!-- forum body -->
 
 <!-- main container -->
-<div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">          
+<div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
 <nav aria-label="breadcrumb">
 <ol class="breadcrumb bg-transparent pt-5">
 <li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></li>
