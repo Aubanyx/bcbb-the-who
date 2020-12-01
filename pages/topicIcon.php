@@ -52,7 +52,6 @@ $lasttopics = displayLastT();
                     </div>
                     <p class="ml-auto font-weight-normal greytext pt-2"> 12 topics · Page <strong>1</strong> of <strong>1</strong>
                     </p>
-
                     <!-- /searchbar -->
                 </div>
 
@@ -84,14 +83,12 @@ $lasttopics = displayLastT();
                                         <div class="col-3">14</div>
                                         <div class="col-3">120</div>
                                         <div class="media col-6 align-items-center">
-                                            <p>by <a href="#"">Bastien</a> <a href="#"><i
-                                                            class="fas fa-external-link-alt"></i></a>
+                                            <p>by <a href="#"">Bastien</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
                                                 <span class="d-block">Sat Nov 20, 2020 7:00pm</span></p></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -113,13 +110,18 @@ $lasttopics = displayLastT();
                     <div class="card-body bg-light">
                         <div class="forumslist shadow-sm bg-white mt-1 p-3">
 
-
                             <!-- sujet -->
 
                             <?php
+                            if ($_GET['id'] == 8) {
+                                $topics = topicsRandom();
+                            } else {
+                                $topics = topics();
+                            }
                             foreach ($topics as $topic) :
                                 $userName = topicsName($topic['topicBy']);
                                 [$lastUserName, $lastDate] = topicsLastMsg($topic['topicId']);
+                                //$postTopic = countPosts($topic['postId']);
                                 $countPosts = countPostsOnTopic($topic['topicId']);
                                 ?>
 
@@ -141,19 +143,15 @@ $lasttopics = displayLastT();
                                         </div>
                                     </div>
                                 </div>
-
-
                             <?php
                             endforeach;
                             ?>
                             <!-- /sujet -->
-
                         </div>
                     </div>
                 </div>
 
                 <!-- /topics -->
-
 
                 <div class="board-util d-flex pt-3">
                     <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
@@ -197,17 +195,13 @@ $lasttopics = displayLastT();
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
             <!-- start of right side -->
             <?php include_once "../includes/sidebar.php" ?>
             <!-- end container-lg -->
         </div>
-        <!-- end main container -->
-
     </div>
-</div></div></div></div></div>
+</div></div></div></div>
 <?php include_once "../includes/footer.php" ?>
 

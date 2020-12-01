@@ -351,7 +351,8 @@ function infos() {
      return $erreur;
 }
 
-//}
+// TopicIcon
+
 function topics() {
     global $dbh;
 
@@ -419,3 +420,16 @@ function countPostsOnTopic($id){
 
 //     return $test;
 // } 
+
+function topicsRandom() {
+    global $dbh;
+
+    $sql = "SELECT * FROM topics WHERE topicBoard = 8 ORDER BY topicDate ASC LIMIT 5";
+
+    $topicRand = $dbh->prepare($sql);
+    $topicRand->execute();
+
+    $topicRand = $topicRand->fetchAll(PDO::FETCH_ASSOC);
+
+    return $topicRand;
+}
