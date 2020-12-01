@@ -311,10 +311,11 @@ function infos() {
                 userEmail = ?,
                 userSign  = ?,
                 userMood  = ?,
-                userLocation  = ?
+                userLocation  = ?,
+                userBirthday  = ?
             WHERE userId = ?";
 
-     if (empty($username) && empty($currentPass) && empty($newPass) && empty($newPassConf) && empty($fName) && empty($lName) &&  empty($email) && empty($sign) && empty($mood) && empty($location)) {
+     if (empty($username) && empty($currentPass) && empty($newPass) && empty($newPassConf) && empty($fName) && empty($lName) &&  empty($email) && empty($sign) && empty($mood) && empty($location) && empty($birthday)) {
          $validation = false;
          $erreur[] = "Veuillez modifier au moins un champ";
      }
@@ -349,6 +350,7 @@ function infos() {
              $newSign = empty($form["sign"]) ? htmlentities($infos["userSign"]) : htmlentities($form["sign"]),
              $newMood = empty($form["mood"]) ? htmlentities($infos["userMood"]) : htmlentities($form["mood"]),
              $newLocation = empty($form["location"]) ? htmlentities($infos["userLocation"]) : htmlentities($form["location"]),
+             $newBirthday = empty($form["birthday"]) ? htmlentities($infos["userBirthday"]) : htmlentities($form["birthday"]),
 
              $_SESSION["user"]
          ]);
@@ -364,6 +366,7 @@ function infos() {
      unset($_POST["sign"]);
      unset($_POST["mood"]);
      unset($_POST["location"]);
+     unset($_POST["birthday"]);
 
      return $erreur;
 }
