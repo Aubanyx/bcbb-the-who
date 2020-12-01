@@ -1,16 +1,13 @@
 
 <?php
 session_start();
-$page = $_SERVER['PHP_SELF'];
-if(isset($_SESSION["user"])) {
-    header('Location: '.$_SERVER['PHP_SELF']);
 
-
-}
-
+$page = "Home";
 if (!empty($_POST)) {
     $erreur = connexion();
 }
+
+
 ?>
 
 <div class="col-xl-3 themed-grid-col">
