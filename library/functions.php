@@ -306,9 +306,11 @@ function infos() {
          $erreur[] = "Ce pseudo est déjà pris";
      }
 
-     if (!password_verify($form["currentPass"], $infos["userPass"])) {
-         $validation = false;
-         $erreur[] = "Le mot de passe actuel est incorrecte";
+     if (!empty($form["currentPass"])) {
+         if (!password_verify($form["currentPass"], $infos["userPass"])) {
+             $validation = false;
+             $erreur[] = "Le mot de passe actuel est incorrecte";
+         }
      }
 
      if ($newPass != $newPassConf) {
@@ -328,15 +330,8 @@ function infos() {
              $newEmail = empty($form["email"]) ? htmlentities($infos["userEmail"]) : htmlentities($form["email"]),
              $newSign = empty($form["sign"]) ? htmlentities($infos["userSign"]) : htmlentities($form["sign"]),
 
-//             htmlentities($form["username"]),
-//             password_hash($form["newPass"], PASSWORD_DEFAULT),
-//             htmlentities($form["fName"]),
-//             htmlentities($form["lName"]),
-//             htmlentities($form["email"]),
-//             htmlentities($form["sign"]),
              $_SESSION["user"]
          ]);
-//         $user = $user->fetch(PDO::FETCH_ASSOC);
      }
 
      unset($_POST["username"]);
@@ -350,6 +345,34 @@ function infos() {
 
      return $erreur;
 }
+
+// Upload images profile
+//function upload() {
+//    global $dbh;
+//
+//    extract($_POST);
+//
+//    $validation = true;
+//    $erreurs = [];
+//
+//
+//    if (!isset($_FILES["file"]) OR $_FILES["file"]["error"] > 0) {
+//        $validation = false;
+//        $erreurs[] = "Il faut indiquer un fichier";
+//    }
+//
+//    if ($validation) {
+//        $image = basename($_FILES["file"]["name"]);
+//        $sql = "INSERT INTO users(userImage) VALUES(:image)";
+//
+//        move_uploaded_file($_FILES["file"]["tmp_name"], '../img/' . $image);
+//
+//        $poster = $dbh->prepare($sql);
+//        $poster->execute([
+//            "image" => htmlentities($image)
+//        ]);
+//
+//}
 
 // TopicIcon
 
