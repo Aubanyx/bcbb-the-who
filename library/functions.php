@@ -310,7 +310,7 @@ function infos() {
                 userLname = ?,
                 userEmail = ?,
                 userSign  = ?,
-                userMood  = ?
+                userMood  = ?,
                 userLocation  = ?
             WHERE userId = ?";
 
