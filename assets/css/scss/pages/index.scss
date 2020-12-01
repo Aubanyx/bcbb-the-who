@@ -162,8 +162,14 @@
 
    img {width:4.2rem;
    margin:auto;
-   padding:auto;}}
-
+   padding:auto;}
+  
+   .sidebarpic {filter: grayscale(60%);
+    transition: 0.2s;}
+    .sidebarpic:hover {filter: grayscale(0%);
+}
+  
+  }
 
 
    .img-overlay-wrap {
