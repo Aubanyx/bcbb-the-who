@@ -4,7 +4,7 @@
 // DB
 function connect() {
 
-    $dsn = 'mysql:dbname=tKrWsqaR52;host=remotemysql.com:3306;charset=utf8';
+    $dsn = 'mysql:dbname=tKrWsqaR52;host=remotemysql.com:3306;charset=utf8mb4';
     $user = 'tKrWsqaR52';
     $password = 'KEgiRtJGfk';
 
@@ -114,6 +114,19 @@ function displayLastT() {
     $resultsLastP = $resultsLastP->fetchAll(PDO::FETCH_ASSOC);
 
     return $resultsLastP;
+}
+
+//get 3 last connected users
+function getLastConnectedUsers(){  
+    global $dbh;
+
+    $sql = "SELECT * FROM users ORDER BY userLastConnectionDate DESC LIMIT 3";
+
+    $results = $dbh->query($sql); //execute query
+    $results = $results->fetchAll(PDO::FETCH_ASSOC); //lire toutes les lignes
+
+    return $results;
+
 }
 
 function getTimeAgo( $ptime )
@@ -251,6 +264,9 @@ function connexion() {
 
     if (password_verify($password, $connexion["userPass"])) {
         $_SESSION["user"] = $connexion["userId"];
+        $connexion=$dbh->prepare("UPDATE users SET userLastConnectionDate = now() WHERE userNname =:username");
+        $connexion->bindParam(":username",$username);
+        $connexion->execute();   
         header("Location: ../pages/profile.php");
     }
     else {
@@ -262,7 +278,7 @@ function connexion() {
 function deconnexion() {
     unset($_SESSION["user"]);
     session_destroy();
-    header("Location: ../pages/login.php");
+    header("Location: ../index.php");
 }
 
 // informations
@@ -365,17 +381,16 @@ function infos() {
 //        $image = basename($_FILES["file"]["name"]);
 //        $sql = "INSERT INTO users(userImage) VALUES(:image)";
 //
-//        move_uploaded_file($_FILES["file"]["tmp_name"], '../img/' . $image);
+//        move_uploaded_file($_FILES["file"]["tmp_name"], '../imgages/' . $image);
 //
-//        $poster = $dbh->prepare($sql);
-//        $poster->execute([
+//        $upload = $dbh->prepare($sql);
+//        $upload->execute([
 //            "image" => htmlentities($image)
 //        ]);
 //
 //}
 
 // TopicIcon
-
 function topics() {
     global $dbh;
 
@@ -394,6 +409,7 @@ function topics() {
     return $topicsRequest;
 }
 
+// display the name of the creator of a topic in topicIcon
 function topicsName($id) {
     global $dbh;
 
@@ -406,6 +422,7 @@ function topicsName($id) {
     return $topicsNameRequest["userNname"];
 }
 
+// Display the name and de date of the last message on a topic in topicIcon
 function topicsLastMsg($id) {
     global $dbh;
 
@@ -424,6 +441,7 @@ function topicsLastMsg($id) {
     return [$topicsLastPostRequestName["userNname"], $topicsLastPostRequest["postDate"]];
 }
 
+// Display number of posts on a topic
 function countPostsOnTopic($id){
     global $dbh;
     $sql = "SELECT count(postId) AS countPosts FROM posts WHERE postTopic = ?";
@@ -443,7 +461,95 @@ function countPostsOnTopic($id){
 
 //     return $test;
 // } 
+ 
 
+function getUserLevel($userLevel)
+{
+    if($userLevel == 2)
+        return "Administrator";
+
+    return "User";
+}
+
+
+function formatDate($input)
+{
+  if(is_null($input))
+    return "";
+
+  $date  = new DateTime($input);
+  return date_format($date,"D M j, Y, g:i a");
+}
+
+
+//get topic by id from database
+function getTopicById($topicId)
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM topics WHERE topicId = ?";
+    $topic = $dbh->prepare($sql);
+    $topic->execute([$topicId]);
+    $topic = $topic->fetchAll(PDO::FETCH_ASSOC);
+
+    return $topic;
+}
+
+// Get comments for a topic from database
+function getPostsByTopicId($topicId)
+{
+    global $dbh;
+    //userPostsCount is number of posts of user
+    $sql = "SELECT *,(select count(*) from posts where postBy = userId ) as userPostsCount FROM posts inner join users on postBy = userId WHERE postTopic = ?";
+    $resultsPosts= $dbh->prepare($sql);
+    $resultsPosts->execute([$topicId]);
+    $resultsPosts = $resultsPosts->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultsPosts;
+}
+
+// Répondre à un sujet
+
+function createPost() {
+    global $dbh;
+
+    extract($_POST);
+
+    if (!isset($_SESSION['user'])) {  //user is not authenticated, redirect to post page
+        header("location: ../pages/login.php");
+    } 
+     
+     if(!isset($topicId))
+        return "Topic id value is required";
+
+     $currentUserId = $_SESSION["user"];
+    
+     //Verify input
+     if (empty($postContent)) return "Post content is required";  
+     
+           
+    try 
+    {
+        $sql = "INSERT INTO posts (postContent,postDate,postDateUpdate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),now(),0, :postTopic, :postBy)";  
+
+        $postCreation = $dbh->prepare($sql);
+        $postCreation->execute([
+            "postContent" => $postContent,
+            "postTopic" => $topicId,
+            "postBy" => $currentUserId
+           
+        ]);
+
+        
+    }
+    catch(Exception $exception)
+    {
+        return `An internal error occurs while post creation : {$exception->getMessage()}`;
+    }
+
+  }
+
+// Display 5 topics on "random" board
 function topicsRandom() {
     global $dbh;
 
@@ -456,3 +562,16 @@ function topicsRandom() {
 
     return $topicRand;
 }
+
+// Display the name of the board in topicIcon
+function boardName($id) {
+    global $dbh;
+   
+       $sql = "SELECT * FROM boards WHERE boardId = ?";
+   
+       $nameOfBoard = $dbh->prepare($sql);
+       $nameOfBoard->execute([$id]);
+       $nameOfBoard = $nameOfBoard->fetch(PDO::FETCH_ASSOC);
+   
+       return $nameOfBoard;
+   }
