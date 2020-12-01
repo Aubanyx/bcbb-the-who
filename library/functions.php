@@ -4,7 +4,7 @@
 // DB
 function connect() {
 
-    $dsn = 'mysql:dbname=tKrWsqaR52;host=remotemysql.com:3306;charset=utf8';
+    $dsn = 'mysql:dbname=tKrWsqaR52;host=remotemysql.com:3306;charset=utf8mb4';
     $user = 'tKrWsqaR52';
     $password = 'KEgiRtJGfk';
 
@@ -506,7 +506,7 @@ function createPost() {
 
         $postCreation = $dbh->prepare($sql);
         $postCreation->execute([
-            "postContent" => htmlentities($postContent),
+            "postContent" => $postContent,
             "postTopic" => $topicId,
             "postBy" => $currentUserId
            
