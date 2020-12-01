@@ -324,6 +324,7 @@ function changeInfosProfile($form)
 
     $infos = infos();
     $validation = true;
+    $validationFile = true;
     $erreur = [];
     $sql = "UPDATE users
             SET userNname = ?,
@@ -337,7 +338,7 @@ function changeInfosProfile($form)
                 userBirthday  = ?
             WHERE userId = ?";
 
-    if (empty($username) && empty($currentPass) && empty($newPass) && empty($newPassConf) && empty($fName) && empty($lName) && empty($email) && empty($sign) && empty($mood) && empty($location) && ($form["birthday"] == $infos["userBirthday"])) {
+    if (empty($username) && empty($currentPass) && empty($newPass) && empty($newPassConf) && empty($fName) && empty($lName) && empty($email) && empty($sign) && empty($mood) && empty($location) && ($form["birthday"] == $infos["userBirthday"]) && ($_FILES["file"]["error"] > 0)) {
         $validation = false;
         $erreur[] = "Veuillez modifier au moins un champ";
     }
@@ -364,7 +365,12 @@ function changeInfosProfile($form)
         $erreur[] = "Le mot de passe de confirmation est incorrecte";
     }
 
+    if (!isset($_FILES["file"]) or $_FILES["file"]["error"] > 0) {
+        $validationFile = false;
+        $erreur[] = "Il faut indiquer un fichier à uploader";
+    }
 
+    // Changements profile
     if ($validation) {
         $user = $dbh->prepare($sql);
         $user->execute([
@@ -379,6 +385,22 @@ function changeInfosProfile($form)
             $newLocation = empty($form["location"]) ? htmlentities($infos["userLocation"]) : htmlentities($form["location"]),
             $newBirthday = empty($form["birthday"]) ? htmlentities($infos["userBirthday"]) : htmlentities($form["birthday"]),
 
+            $_SESSION["user"]
+        ]);
+    }
+
+    // Upload et changement d'avatar
+    if ($validationFile) {
+        $image = basename($_FILES["file"]["name"]);
+        $sql = "UPDATE users
+            SET userImage = ?
+            WHERE userId = ?";
+
+        move_uploaded_file($_FILES["file"]["tmp_name"], "../assets/images/avatar/" . $image);
+
+        $upload = $dbh->prepare($sql);
+        $upload->execute([
+            htmlentities($image),
             $_SESSION["user"]
         ]);
     }
@@ -399,37 +421,37 @@ function changeInfosProfile($form)
 }
 
 // Upload images profile
-function upload()
-{
-    global $dbh;
-
-    extract($_POST);
-
-    $validation = true;
-    $erreurs = [];
-
-
-    if (!isset($_FILES["file"]) or $_FILES["file"]["error"] > 0) {
-        $validation = false;
-        $erreurs[] = "Il faut indiquer un fichier";
-    }
-
-    if ($validation) {
-        $image = basename($_FILES["file"]["name"]);
-        $sql = "UPDATE users
-            SET userImage = ?
-            WHERE userId = ?";
-
-        move_uploaded_file($_FILES["file"]["tmp_name"], "../assets/images/" . $image);
-
-        $upload = $dbh->prepare($sql);
-        $upload->execute([
-            htmlentities($image),
-            $_SESSION["user"]
-        ]);
-    }
-    return $erreurs;
-}
+//function upload()
+//{
+//    global $dbh;
+//
+//    extract($_POST);
+//
+//    $validation = true;
+//    $erreurs = [];
+//
+//
+//    if (!isset($_FILES["file"]) or $_FILES["file"]["error"] > 0) {
+//        $validation = false;
+//        $erreurs[] = "Il faut indiquer un fichier à uploader";
+//    }
+//
+//    if ($validation) {
+//        $image = basename($_FILES["file"]["name"]);
+//        $sql = "UPDATE users
+//            SET userImage = ?
+//            WHERE userId = ?";
+//
+//        move_uploaded_file($_FILES["file"]["tmp_name"], "../assets/images/avatar/" . $image);
+//
+//        $upload = $dbh->prepare($sql);
+//        $upload->execute([
+//            htmlentities($image),
+//            $_SESSION["user"]
+//        ]);
+//    }
+//    return $erreurs;
+//}
 
 // TopicIcon
 function topics()

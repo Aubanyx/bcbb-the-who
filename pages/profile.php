@@ -8,9 +8,9 @@ $dbh = connect();
 if (!empty($_POST)) {
     $erreurs = changeInfosProfile($_POST);
 }
-if (!empty($_POST)) {
-    $upload = upload();
-}
+//if (!empty($_POST)) {
+//    $upload = upload();
+//}
 $infos = infos();
 $page = "Profile";
 include_once "../includes/header.php";
@@ -23,6 +23,7 @@ include_once "../includes/header.php";
         <h1 class="pl-5"><i class="far fa-arrow-alt-circle-right"></i> Profile</h1>
         <h2 class="pl-5 text-muted">Edit and personalize your profile </h2>
         <?php
+        var_dump($_FILES["file"]);
         if (isset($erreurs)) :
             if ($erreurs) :
                 foreach($erreurs as $erreur) :
@@ -53,7 +54,7 @@ include_once "../includes/header.php";
                     <form class="p-5" action="" method="post" enctype="multipart/form-data">
                         <div class="d-flex bg-light rounded align-items-center justify-content-center py-3 profilesettings">
                         <img src="
-                        <?php echo "../assets/images/" . $infos["userImage"];
+                        <?php echo "../assets/images/avatar/" . $infos["userImage"];
 //                        if (!empty($infos["userImage"])) {
 //                            echo $infos["userImage"];
 //                        }
