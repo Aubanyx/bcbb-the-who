@@ -107,6 +107,8 @@ include_once "../includes/header.php";
                                     <p class="h5 pt-3 text-danger"><?= $post["userNname"]?>  <span class="h6 d-block text-secondary mb-3"><?= getUserLevel($post["userLevel"]) ?></span></p>
 
                                     <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary"> <?= $post["userPostsCount"] ?></span></p>
+                                    <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary"> <?= $post["userLocation"] ?></span></p>
+
                                 </div>
 
 
