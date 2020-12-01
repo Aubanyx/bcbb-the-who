@@ -32,12 +32,11 @@
                 <?php
                 if (isset($_SESSION["user"])) :
                     ?>
-
-                    <a class="nav-item nav-link active text-light mx-3" href="#"><i
-                                class="far fa-id-card"></i>Welcome <?php $infos = infos();
-                        echo $infos["userNname"];?></a> 
                     <a class="nav-item nav-link active text-light mx-3" href="/pages/profile.php"><i
                                 class="far fa-id-card"></i> Profile</a>
+                    <p class="nav-item nav-link active text-light mx-3" href="#"><i
+                            class="fas fa-user"></i> Welcome <?php $infos = infos();
+                    echo $infos["userNname"];?></p>
                     <a class="nav-item nav-link text-light mx-3" href="/pages/logout.php"><i
                                 class="fas fa-sign-out-alt"></i> Logout</a>
                 <?php
