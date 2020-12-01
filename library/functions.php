@@ -344,15 +344,9 @@ function infos() {
              $newEmail = empty($form["email"]) ? htmlentities($infos["userEmail"]) : htmlentities($form["email"]),
              $newSign = empty($form["sign"]) ? htmlentities($infos["userSign"]) : htmlentities($form["sign"]),
 
-//             htmlentities($form["username"]),
-//             password_hash($form["newPass"], PASSWORD_DEFAULT),
-//             htmlentities($form["fName"]),
-//             htmlentities($form["lName"]),
-//             htmlentities($form["email"]),
-//             htmlentities($form["sign"]),
              $_SESSION["user"]
          ]);
-//         $user = $user->fetch(PDO::FETCH_ASSOC);
+
      }
 
      unset($_POST["username"]);
@@ -470,7 +464,7 @@ function getTopicById($topicId)
     return $topic;
 }
 
-//Get comments for a topic from database
+// Get comments for a topic from database
 function getPostsByTopicId($topicId)
 {
     global $dbh;
@@ -482,6 +476,8 @@ function getPostsByTopicId($topicId)
 
     return $resultsPosts;
 }
+
+// Répondre à un sujet
 
 function createPost() {
     global $dbh;
