@@ -348,7 +348,7 @@ function infos() {
              $newEmail = empty($form["email"]) ? htmlentities($infos["userEmail"]) : htmlentities($form["email"]),
              $newSign = empty($form["sign"]) ? htmlentities($infos["userSign"]) : htmlentities($form["sign"]),
              $newMood = empty($form["mood"]) ? htmlentities($infos["userMood"]) : htmlentities($form["mood"]),
-             $newMood = empty($form["location"]) ? htmlentities($infos["userLocation"]) : htmlentities($form["location"]),
+             $newLocation = empty($form["location"]) ? htmlentities($infos["userLocation"]) : htmlentities($form["location"]),
 
              $_SESSION["user"]
          ]);
