@@ -53,9 +53,9 @@ include_once "../includes/header.php";
             <div class="row">
 
                 <div class="col-xl-9 themed-grid-col">
-                    <h3>Topic : <strong><?= $topic["topicSubject"] ?></h3></strong>
+                    <h3>Topic <?= $topic["topicSubject"] ?></h3>
                     <div class="alert alert-danger" role="alert">
-                        Forum rules
+                        Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before posting.
                     </div>
 
 
@@ -102,22 +102,34 @@ include_once "../includes/header.php";
                             <!-- post-reply -->
                             <div class="row rounded bg-white p-4 m-0 mb-3">
 
-                                <div class="col-2 flex-column d-flex text-center pt-5">
+                                <div class="col-2 flex-column d-flex text-center pt-5 pb-4">
                                     <img src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($post['userEmail'])))."?"."&s=80";?>" alt="profile-image" class="mx-auto rounded-circle w-75 border">
                                     <p class="h5 pt-3 text-danger"><?= $post["userNname"]?>  <span class="h6 d-block text-secondary mb-3"><?= getUserLevel($post["userLevel"]) ?></span></p>
 
                                     <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary"> <?= $post["userPostsCount"] ?></span></p>
+                                    <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary"> <?= $post["userLocation"] ?></span></p>
+
                                 </div>
 
 
                                 <div class="col-10 flex-column">
                                     <div class="time-quote">
                                         <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> <?= formatDate($post["postDate"]) ?>
-                                            <button type="button" class="btn bg-light rounded ml-3 rounded-pill border float-right" id="quote"><i class="fas fa-quote-left text-secondary"></i></button>
+                                            <?php
+                                            if (isset($_SESSION["user"])) :
+                                            ?>
+                                            <button type="button" class="btn bg-light rounded ml-3 rounded-pill border float-right" id="quote"><i class="far fa-trash-alt text-secondary"></i> Delete</button>
+                                            <button type="button" class="btn bg-light rounded ml-3 rounded-pill border float-right" id="quote"><i class="far fa-edit text-secondary"></i> Edit</button>
+                                        <?php
+                                        else :
+                                            ?><p></p>
+                                        <?php
+                                        endif;
+                                        ?>
                                         </p>
                                     </div>
-                                    <p class="py-3 h6"><?= $post["postContent"] ?></p>
-                                    <p class="border-top py-3"><?= $post["userSign"] ?></p>
+                                    <p class="py-3 h6 font-weight-lighter"><?= $post["postContent"] ?></p>
+                                    <p class="border-top py-3 mt-5"><?= $post["userSign"] ?></p>
                                 </div>
 
                             </div>
