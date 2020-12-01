@@ -5,7 +5,6 @@ $dbh = connect();
 $page = "topicIcon";
 include_once "../includes/header.php";
 $topics = topics();
-$lasttopics = displayLastT();
 ?>
 
 <!-- forum body -->
@@ -44,49 +43,27 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 
         </div>
       </div>
-    </div>  
- <p class="ml-auto font-weight-normal greytext pt-2"> 12 topics · Page <strong>1</strong> of <strong>1</strong></p>
+    </div> 
+
+
+  <?php
+    $countTopics=countTopics($_GET["id"]);
+    foreach($countTopics as $count) :
+  ?>
+
+      <p class="ml-auto font-weight-normal greytext pt-2"> <?= $count["nbrOfTopics"]; ?> topics · Page <strong>1</strong> of <strong>1</strong></p>
+  
+  <?php
+    endforeach;
+  ?>
+
+
+
 
   <!-- /searchbar -->
   </div>
 
-  <!-- announcements -->
-  
-  <div class="card mt-5 border-0">
-      <div class="grad text-white row no-gutters align-items-center w-100">
-        <div class="col"><h4 class="font-weight-light">Announcements</h4></div> 
-        <div class="d-none d-md-block col-6 text-muted">
-                             <div class="row no-gutters align-items-center text-white">
-                                 <div class="col-3"><i class="fas fa-comments"></i></div>
-                                 <div class="col-3"><i class="fas fa-eye"></i></div>
-                                 <div class="col-6"><i class="fas fa-clock"></i></div>
-                             </div>
-                         </div>
-      </div>
-      <div class="card-body bg-light">
-        <div class="forumslist shadow-sm bg-white mt-1 p-3">
-        <div class="row no-gutters text-black-50 align-items-center">
-                         <div class="col-1 text-center"><i class="fas fa-bullhorn forumslist__grey"></i></div>
-                         <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php">This is an announcement!</a>
-                        <p class="text-secondary small">by <a href="#">Bastien</a> » in <a href="#">Unread Forum</a></p></div>
-                         <p class="ml-auto greytext pr-4"><i class="fas fa-bullhorn cog"></i></p>
 
-                         <div class="d-none d-md-block col-6">
-                             <div class="row no-gutters pl-2 align-items-center">
-                                 <div class="col-3">14</div>
-                                 <div class="col-3">120</div>
-                                 <div class="media col-6 align-items-center"> 
-                                   <p>by <a href="#"">Bastien</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
-                                   <span class="d-block">Sat Nov 20, 2020 7:00pm</span></p></div>
-                              </div>
-                          </div>
-                         </div>
-        </div>
-       
-</div>
-</div>
-
-<!-- /announcements -->
 
 <!-- topics -->
 
