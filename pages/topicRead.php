@@ -53,7 +53,7 @@ include_once "../includes/header.php";
             <div class="row">
 
                 <div class="col-xl-9 themed-grid-col">
-                    <h3>Topic <?= $topic["topicSubject"] ?></h3>
+                    <h3>Topic : <strong><?= $topic["topicSubject"] ?></h3></strong>
                     <div class="alert alert-danger" role="alert">
                         Forum rules
                     </div>
