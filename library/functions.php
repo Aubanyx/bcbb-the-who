@@ -363,6 +363,7 @@ function infos() {
      unset($_POST["email"]);
      unset($_POST["sign"]);
      unset($_POST["mood"]);
+     unset($_POST["location"]);
 
      return $erreur;
 }
