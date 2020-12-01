@@ -16,7 +16,7 @@ if (!empty($_POST)) {
   {
     if ($_POST["topicId"]) 
     {
-      header("location: http://localhost/bcbb-the-who/pages/topicRead.php?id=" . $_POST["topicId"]);
+      header("location: https://bcbb-thewho/pages/topicRead.php?id=" . $_POST["topicId"]);
       exit();
     }
     else
@@ -47,7 +47,7 @@ else
 
 if ($redirect)
 {
-    header('location: http://localhost/bcbb-the-who/');
+    header('location: https://bcbb-thewho.herokuapp.com/');
     exit();
 }
 

@@ -14,17 +14,10 @@ include_once "../includes/header.php";
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">          
 <nav aria-label="breadcrumb">
 <ol class="breadcrumb bg-transparent pt-5">
-<li class="breadcrumb-item"><a href="http://localhost/bcbb-the-who/index.php#"><i class="fas fa-home"></i> Home</a></li>
+<li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/index.php#"><i class="fas fa-home"></i> Home</a></li>
 <li class="breadcrumb-item active" aria-current="page">Board Index</li>
 </ol>
 </nav>
-
-
-
-
-
-
-
 
 <div class="container-lg">
 
