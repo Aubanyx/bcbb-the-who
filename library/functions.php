@@ -196,7 +196,7 @@ function inscription() {
         $erreur[] = "Le champ Last Name n'est pas valide";
     }
 
-    if (existe($username)) {
+    if (existeUsername($username)) {
         $validation = false;
         $erreur[] = "Ce pseudo est déjà pris";
     }
@@ -233,13 +233,26 @@ function inscription() {
 }
 
 // userName existe
-function existe($username) {
+function existeUsername($username) {
     global $dbh;
 
     $sql = "SELECT COUNT(*) FROM users WHERE userNname = ?";
 
     $resultat = $dbh->prepare($sql);
     $resultat->execute([$username]);
+    $resultat = $resultat->fetch()[0];
+
+    return $resultat;
+}
+
+// email existe
+function existeEmail($email) {
+    global $dbh;
+
+    $sql = "SELECT COUNT(*) FROM users WHERE userEmail = ?";
+
+    $resultat = $dbh->prepare($sql);
+    $resultat->execute([$email]);
     $resultat = $resultat->fetch()[0];
 
     return $resultat;
@@ -310,18 +323,24 @@ function infos() {
                 userLname = ?,
                 userEmail = ?,
                 userSign  = ?,
-                userMood  = ?
-                userLocation  = ?
+                userMood  = ?,
+                userLocation  = ?,
+                userBirthday  = ?
             WHERE userId = ?";
 
-     if (empty($username) && empty($currentPass) && empty($newPass) && empty($newPassConf) && empty($fName) && empty($lName) &&  empty($email) && empty($sign) && empty($mood) && empty($location)) {
+     if (empty($username) && empty($currentPass) && empty($newPass) && empty($newPassConf) && empty($fName) && empty($lName) &&  empty($email) && empty($sign) && empty($mood) && empty($location) && ($form["birthday"] == $infos["userBirthday"])) {
          $validation = false;
          $erreur[] = "Veuillez modifier au moins un champ";
      }
 
-     if (existe($username)) {
+     if (existeUsername($username)) {
          $validation = false;
          $erreur[] = "Ce pseudo est déjà pris";
+     }
+
+     if (existeEmail($email)) {
+         $validation = false;
+         $erreur[] = "Cet email est déjà pris";
      }
 
      if (!empty($form["currentPass"])) {
@@ -349,6 +368,7 @@ function infos() {
              $newSign = empty($form["sign"]) ? htmlentities($infos["userSign"]) : htmlentities($form["sign"]),
              $newMood = empty($form["mood"]) ? htmlentities($infos["userMood"]) : htmlentities($form["mood"]),
              $newLocation = empty($form["location"]) ? htmlentities($infos["userLocation"]) : htmlentities($form["location"]),
+             $newBirthday = empty($form["birthday"]) ? htmlentities($infos["userBirthday"]) : htmlentities($form["birthday"]),
 
              $_SESSION["user"]
          ]);
@@ -364,6 +384,7 @@ function infos() {
      unset($_POST["sign"]);
      unset($_POST["mood"]);
      unset($_POST["location"]);
+     unset($_POST["birthday"]);
 
      return $erreur;
 }
