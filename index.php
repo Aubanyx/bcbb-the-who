@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+}
 require_once "./library/functions.php";
 $dbh = connect();
 $categories = displayCategories();
@@ -48,7 +51,7 @@ include_once "./includes/header.php";
 
                             <div class="card-body">
                                 <img src="assets/images/icons-coffee/<?= $board['boardImage']; ?>" class="float-left"/>
-                                <h4 class="card-title"><a href="http://localhost/bcbb-the-who/pages/topicIcon.php?id=<?= $board["boardId"]?>"><?= $board["boardName"]; ?></a></h4>
+                                <h4 class="card-title"><a href="pages/topicIcon.php?id=<?= $board["boardId"]?>"><?= $board["boardName"]; ?></a></h4>
                                 <p class="card-text"><?= $board["boardDescription"]; ?>. </p>
                                 <hr class="mb-4">
                                 <!--Table-->

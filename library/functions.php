@@ -19,17 +19,17 @@ function connect() {
 }
 
 // users
-function user() {
-   global $dbh;
-
-   $sql = "SELECT userId, userNname, userFname, userLname, userEmail FROM users";
-
-   $user = $dbh->prepare($sql);
-   $user->execute();
-   $user = $user->fetch(PDO::FETCH_ASSOC);
-
-   return $user;
-}
+//function user() {
+//   global $dbh;
+//
+//   $sql = "SELECT * FROM users";
+//
+//   $user = $dbh->prepare($sql);
+//   $user->execute();
+//   $user = $user->fetch(PDO::FETCH_ASSOC);
+//
+//   return $user;
+//}
 
 // Boards
 
@@ -285,7 +285,7 @@ function deconnexion() {
 function infos() {
     global $dbh;
 
-    $sql = "SELECT userId, userNname, userFname, userLname, userEmail, userSign, userLevel FROM users WHERE userId = ?";
+    $sql = "SELECT userId, userNname, userPass, userFname, userLname, userEmail, userSign, userLevel FROM users WHERE userId = ?";
 
     $user = $dbh->prepare($sql);
     $user->execute([$_SESSION["user"]]);
@@ -300,17 +300,19 @@ function infos() {
 
     extract($_POST);
 
+    $infos = infos();
     $validation = true;
     $erreur = [];
     $sql = "UPDATE users
             SET userNname = ?,
+                userPass  = ?,
                 userFname = ?,
                 userLname = ?,
                 userEmail = ?,
                 userSign  = ?
             WHERE userId = ?";
 
-     if (empty($fName) && empty($lName) && empty($username) && empty($email) && empty($sign)) {
+     if (empty($username) && empty($currentPass) && empty($newPass) && empty($newPassConf) && empty($fName) && empty($lName) &&  empty($email) && empty($sign)) {
          $validation = false;
          $erreur[] = "Veuillez modifier au moins un champ";
      }
@@ -320,20 +322,43 @@ function infos() {
          $erreur[] = "Ce pseudo est déjà pris";
      }
 
+     if (!password_verify($form["currentPass"], $infos["userPass"])) {
+         $validation = false;
+         $erreur[] = "Le mot de passe actuel est incorrecte";
+     }
+
+     if ($newPass != $newPassConf) {
+         $validation = false;
+         $erreur[] = "Le mot de passe de confirmation est incorrecte";
+     }
+
+
      if ($validation) {
          $user = $dbh->prepare($sql);
          $user->execute([
-             htmlentities($form["username"]),
-             htmlentities($form["fName"]),
-             htmlentities($form["lName"]),
-             htmlentities($form["email"]),
-             htmlentities($form["sign"]),
+
+             $newUsername = empty($form["username"]) ? htmlentities($infos["userNname"]) : htmlentities($form["username"]),
+             $newPassword = empty($form["newPass"]) ? $infos["userPass"] : password_hash($form["newPass"], PASSWORD_DEFAULT),
+             $newFname = empty($form["fName"]) ? htmlentities($infos["userFname"]) : htmlentities($form["fName"]),
+             $newLname = empty($form["lName"]) ? htmlentities($infos["userLname"]) : htmlentities($form["lName"]),
+             $newEmail = empty($form["email"]) ? htmlentities($infos["userEmail"]) : htmlentities($form["email"]),
+             $newSign = empty($form["sign"]) ? htmlentities($infos["userSign"]) : htmlentities($form["sign"]),
+
+//             htmlentities($form["username"]),
+//             password_hash($form["newPass"], PASSWORD_DEFAULT),
+//             htmlentities($form["fName"]),
+//             htmlentities($form["lName"]),
+//             htmlentities($form["email"]),
+//             htmlentities($form["sign"]),
              $_SESSION["user"]
          ]);
 //         $user = $user->fetch(PDO::FETCH_ASSOC);
      }
 
      unset($_POST["username"]);
+     unset($_POST["currentPass"]);
+     unset($_POST["newPass"]);
+     unset($_POST["newPassConf"]);
      unset($_POST["fName"]);
      unset($_POST["lName"]);
      unset($_POST["email"]);
@@ -342,7 +367,8 @@ function infos() {
      return $erreur;
 }
 
-//}
+// TopicIcon
+
 function topics() {
     global $dbh;
 
@@ -495,3 +521,16 @@ function createPost() {
     }
 
   }
+
+function topicsRandom() {
+    global $dbh;
+
+    $sql = "SELECT * FROM topics WHERE topicBoard = 8 ORDER BY topicDate ASC LIMIT 5";
+
+    $topicRand = $dbh->prepare($sql);
+    $topicRand->execute();
+
+    $topicRand = $topicRand->fetchAll(PDO::FETCH_ASSOC);
+
+    return $topicRand;
+}
