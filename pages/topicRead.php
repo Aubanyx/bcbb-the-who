@@ -133,7 +133,7 @@ Forum rules
 
 
 <div class="board-util d-flex pt-3">
-<a href="https://bcbb-thewho/pages/replyTopic.php?id=<?= $topicId ?>">
+    <a href="/pages/replyTopic.php?id=<?= $topicId ?>">
  <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button">Post reply <i class="fas fa-reply"></i></button>
 </a>
 <!-- searchbar -->
