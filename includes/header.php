@@ -32,6 +32,10 @@
                 <?php
                 if (isset($_SESSION["user"])) :
                     ?>
+
+                    <a class="nav-item nav-link active text-light mx-3" href="#"><i
+                                class="far fa-id-card"></i>Welcome <?php $infos = infos();
+                        echo $infos["userNname"];?></a> 
                     <a class="nav-item nav-link active text-light mx-3" href="/pages/profile.php"><i
                                 class="far fa-id-card"></i> Profile</a>
                     <a class="nav-item nav-link text-light mx-3" href="/pages/logout.php"><i
