@@ -23,7 +23,6 @@ include_once "../includes/header.php";
         <h1 class="pl-5"><i class="far fa-arrow-alt-circle-right"></i> Profile</h1>
         <h2 class="pl-5 text-muted">Edit and personalize your profile </h2>
         <?php
-        var_dump($_FILES["file"]);
         if (isset($erreurs)) :
             if ($erreurs) :
                 foreach($erreurs as $erreur) :
@@ -54,13 +53,13 @@ include_once "../includes/header.php";
                     <form class="p-5" action="" method="post" enctype="multipart/form-data">
                         <div class="d-flex bg-light rounded align-items-center justify-content-center py-3 profilesettings">
                         <img src="
-                        <?php echo "../assets/images/avatar/" . $infos["userImage"];
-//                        if (!empty($infos["userImage"])) {
-//                            echo $infos["userImage"];
-//                        }
-//                        else {
-//                            echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($infos['userEmail'])))."?"."&s=80";
-//                        }
+                        <?php
+                        if (!empty($infos["userImage"])) {
+                            echo "../assets/images/avatar/" . $infos["userImage"];
+                        }
+                        else {
+                            echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($infos['userEmail'])))."?"."&s=80";
+                        }
                         ?>">
                             
                             <div class="pl-sm-4 pl-2 img-fluid text-secondary"><p

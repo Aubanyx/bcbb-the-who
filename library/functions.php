@@ -365,7 +365,7 @@ function changeInfosProfile($form)
         $erreur[] = "Le mot de passe de confirmation est incorrecte";
     }
 
-    if (!isset($_FILES["file"]) or $_FILES["file"]["error"] > 0) {
+    if ($_FILES["file"]["error"] != 0 && $_FILES["file"]["error"] != 4) {
         $validationFile = false;
         $erreur[] = "Il faut indiquer un fichier à uploader";
     }
@@ -419,39 +419,6 @@ function changeInfosProfile($form)
 
     return $erreur;
 }
-
-// Upload images profile
-//function upload()
-//{
-//    global $dbh;
-//
-//    extract($_POST);
-//
-//    $validation = true;
-//    $erreurs = [];
-//
-//
-//    if (!isset($_FILES["file"]) or $_FILES["file"]["error"] > 0) {
-//        $validation = false;
-//        $erreurs[] = "Il faut indiquer un fichier à uploader";
-//    }
-//
-//    if ($validation) {
-//        $image = basename($_FILES["file"]["name"]);
-//        $sql = "UPDATE users
-//            SET userImage = ?
-//            WHERE userId = ?";
-//
-//        move_uploaded_file($_FILES["file"]["tmp_name"], "../assets/images/avatar/" . $image);
-//
-//        $upload = $dbh->prepare($sql);
-//        $upload->execute([
-//            htmlentities($image),
-//            $_SESSION["user"]
-//        ]);
-//    }
-//    return $erreurs;
-//}
 
 // TopicIcon
 function topics()
