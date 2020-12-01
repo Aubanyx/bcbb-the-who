@@ -52,8 +52,6 @@
 <!-- Footer -->
 <!-- <script src="/bcbb-the-who/assets/bootstrap/jquery.js"></script> -->
 <!-- <script src="/bcbb-the-who/assets/bootstrap/bootstrap.bundle.min.js"></script> -->
-<script src="/assets/markdown/dist/toastui-editor.js"></script>
-<script src="/assets/markdown/dist/toastui-editor-viewer.js"></script>
 <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
 <script src="/assets/js/script.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

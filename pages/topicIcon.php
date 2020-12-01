@@ -178,9 +178,6 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
     <?php include_once "../includes/sidebar.php" ?>
         <!-- end container-lg -->
     </div>
-    <!-- end main container -->
-
-</div>
-</div></div></div></div></div>
+</div></div></div></div>
 <?php include_once "../includes/footer.php" ?>
 

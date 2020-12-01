@@ -1,9 +1,13 @@
 <?php
 session_start();
+//if (!isset($_SESSION["user"])) {
+//    header("Location: login.php");
+//}
 require_once "./library/functions.php";
 $dbh = connect();
 $categories = displayCategories();
 $lasttopics = displayLastT();
+$lastConnectedUsers = getLastConnectedUsers();
 $page = "Home";
 
 include_once "./includes/header.php";

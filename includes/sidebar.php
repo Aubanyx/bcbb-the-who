@@ -54,7 +54,7 @@
 
             ?>
             <div class="last-posts__desc">
-                <div class="card-text rounded bg-white mt-3 p-3""><h5><?= $lasttopic["topicSubject"]; ?>
+                <div class="card-text rounded bg-white mt-3 p-3"><h5><?= $lasttopic["topicSubject"]; ?>
                     <span class="float-right font-weight-normal pt-1"><?= $timeago=getTimeAgo(strtotime($lasttopic['topicDateUpdate']));
 
                         $lasttopic["topicDateUpdate"]; ?></span></h5>
@@ -66,7 +66,7 @@
                 <p class="desc"><?= $lastpost["postContent"]; ?>
                 <?php
 
-        endforeach;
+                endforeach;
                 ?>
 
             </div>
@@ -91,19 +91,29 @@
     <div class="card-body bg-light last-users">
 
         <div class="d-flex flex-row">
+
+        <?php
+
+foreach($lastConnectedUsers as $lastConnectedUser) : //boucle element & l'element 
+
+?>
+
             <div class="card rounded border-0 w-100 m-1 pd-1">
                 <div class="card-body text-center">
 
-                    <img src="./assets/images/icons-users/svg/079-man.svg">
+                    <img src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($lastConnectedUser['userEmail'])))."?"."&s=80";?>">
 
-                    <p class="pt-2"><span>#Ben198</span>
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    <p class="pt-2"><span> <?= $lastConnectedUser["userNname"]; ?></span>
+                    </br>
+                    <?= $lastConnectedUser["userSign"]; ?>
                     </p>
+                  
                 </div>
             </div>
-
-            <div class="card rounded border-0 w-100 m-1 pd-1">
+            <?php
+                endforeach;
+                ?>
+            <!-- <div class="card rounded border-0 w-100 m-1 pd-1">
                 <div class="card-body text-center">
                     <img src="./assets/images/icons-users/svg/072-woman.svg" alt="profile-image">
                     <p class="pt-2"><span>#Lora298</span>
@@ -121,7 +131,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     </p>
                 </div>
-            </div>
+            </div> -->
 
         </div>
 
