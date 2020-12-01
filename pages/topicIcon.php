@@ -100,7 +100,7 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 
      <div class="row no-gutters py-3 text-black-50 align-items-center">
       <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-      <div class="col"><a href="https://bcbb-thewho.herokuapp.com/pages/topicRead.php"> <?=$topic['topicSubject'];?></a>
+      <div class="col"><a href="/pages/topicRead.php?id=<?=$topic['topicId'];?>"> <?=$topic['topicSubject'];?></a>
 
      <p class="text-secondary small">by <a href="#"><?=$userName;?></a></p></div>
 
@@ -145,24 +145,21 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
     <a class="dropdown-item" href="#!">Author</a>
   </div>
 </div>
+    <?php
+    $countTopics=countTopics($_GET["id"]);
+    foreach($countTopics as $count) :
+        ?>
 
-<?php
-  $countTopics=countTopics($_GET["id"]);
-  foreach($countTopics as $count) :
-?>
-  <p class="ml-auto font-weight-normal greytext pt-2"> <?= $count["nbrOfTopics"]; ?> topics · Page <strong>1</strong> of <strong>1</strong></p>
-<?php
-  endforeach;
-?>
+        <p class="ml-auto font-weight-normal greytext pt-2"> <?= $count["nbrOfTopics"]; ?> topics · Page <strong>1</strong> of <strong>1</strong></p>
 
-
-
-
+    <?php
+    endforeach;
+    ?>
    <!-- /searchbar -->
    </div>
 
    <div class="board-util d-flex pt-3">
- <a href="http://localhost:8888/">Return to Board Index</a>
+ <a href="/index.php">Return to Board Index</a>
      
  <div class="dropdown ml-auto">
   <button class="btn bg-light rounded ml-3 rounded-pill border dropdown-toggle text-black-50"
@@ -172,7 +169,8 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
     <a class="dropdown-item" href="#!">Anne</a>
-    <a class="dropdown-item" href="#!">Bastien</a>
+      <a class="dropdown-item" href="#!">Caroline</a>
+      <a class="dropdown-item" href="#!">Bastien</a>
     <a class="dropdown-item" href="#!">Auban</a>
     <a class="dropdown-item" href="#!">Sandrine</a>
     <a class="dropdown-item" href="#!">Forum</a>
