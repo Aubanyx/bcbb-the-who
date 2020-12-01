@@ -21,7 +21,8 @@
                     $infos = infos();
                     if ($infos["userLevel"] == "2") :
                         ?>
-                        <a class="nav-item nav-link text-light mx-3" href="#"><i class="fas fa-user-shield"></i> Admin </a>
+                        <a class="nav-item nav-link text-light mx-3" href="#"><i class="fas fa-user-shield"></i> Admin
+                        </a>
                     <?php
                     endif;
                 endif;
@@ -31,21 +32,24 @@
                 <?php
                 if (isset($_SESSION["user"])) :
                     ?>
-                    <a class="nav-item nav-link active text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/profile.php"><i
+                    <a class="nav-item nav-link active text-light mx-3"
+                       href="https://bcbb-thewho.herokuapp.com/pages/profile.php"><i
                                 class="far fa-id-card"></i> Profile</a>
-                    <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/logout.php"><i
+                    <a class="nav-item nav-link text-light mx-3"
+                       href="https://bcbb-thewho.herokuapp.com/pages/logout.php"><i
                                 class="fas fa-sign-out-alt"></i> Logout</a>
                 <?php
                 else :
                     ?>
-                    <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/register.php">
+                    <a class="nav-item nav-link text-light mx-3"
+                       href="https://bcbb-thewho.herokuapp.com/pages/register.php">
                         <i class="far fa-arrow-alt-circle-right"></i> Register</a>
-                    <a class="nav-item nav-link text-light mx-3" href="https://bcbb-thewho.herokuapp.com/pages/login.php">
+                    <a class="nav-item nav-link text-light mx-3"
+                       href="https://bcbb-thewho.herokuapp.com/pages/login.php">
                         <i class="far fa-clipboard"></i> Login</a>
                 <?php
                 endif;
                 ?>
-
             </div>
         </div>
     </nav>
