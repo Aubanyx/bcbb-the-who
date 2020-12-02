@@ -16,7 +16,7 @@ if (!empty($_POST)) {
   {
     if ($_POST["topicId"]) 
     {
-      header("location: https://bcbb-thewho/pages/topicRead.php?id=" . $_POST["topicId"]);
+      header("location: https://bcbb-thewho.herokuapp.com//pages/topicRead.php?id=" . $_POST["topicId"]);
       exit();
     }
     else
@@ -65,7 +65,7 @@ require_once '../assets/Michelf/Markdown.inc.php';
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">          
 <nav aria-label="breadcrumb">
 <ol class="breadcrumb bg-transparent pt-5">
-<li class="breadcrumb-item"><a href="http://localhost/bcbb-the-who/index.php#"><i class="fas fa-home"></i> Home</a></li>
+<li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></li>
 <li class="breadcrumb-item active" aria-current="page">Board Index</li>
 </ol>
 </nav>
@@ -108,7 +108,7 @@ Forum rules
                     required=""
                     name="postContent"
                   ></textarea>
-                  <input name="topicId" type="hidden" value="<?= $topicId?>" /> 
+                  <input name="topicId" type="hidden" value="<?= $topicId ?>" />
                 </div>
 
                 <div class="text-right board-util d-flex pt-3">

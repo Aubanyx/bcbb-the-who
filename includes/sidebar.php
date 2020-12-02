@@ -1,3 +1,15 @@
+
+<?php
+session_start();
+
+$page = "Home";
+if (!empty($_POST)) {
+    $erreur = connexion();
+}
+
+
+?>
+
 <div class="col-xl-3 themed-grid-col">
     <!-- searchbar -->
     <div class="bg-light rounded rounded-pill border mt-5">
@@ -11,18 +23,45 @@
     <!-- /searchbar -->
     <hr class="mb-4">
     <!-- login - register card -->
+    <?php
+    if (isset($_SESSION["user"])) :
+        ?>
+
+        <div id="accordionGroup">
+            <button type="button" class="btn bg-transparent font-weight-bold text-black-50 btn-block mb-2 text-left accordion-btn" data-toggle="collapse" data-target="#demo">  Welcome <?php $infos = infos();
+                echo $infos["userNname"];?> </button>
+            <div id="demo" class="collapse show" data-parent="#accordionGroup">
+                <div class="card-body">
+
+                    <a class="nav-item nav-link active mx-3" href="/pages/profile.php"><i
+                                class="far fa-id-card"></i> Change your profile</a>
+
+                    <a class="nav-item nav-link mx-3" href="/pages/logout.php"><i
+                                class="fas fa-sign-out-alt"></i> Logout</a>
+
+                </div>
+            </div>
+        </div>
+
+
+    <?php
+    else :
+        ?>
     <div id="accordionGroup">
         <button type="button" class="btn bg-transparent font-weight-bold text-black-50 btn-block mb-2 text-left accordion-btn" data-toggle="collapse" data-target="#demo">Login · Register </button>
         <div id="demo" class="collapse show" data-parent="#accordionGroup">
             <div class="card-body">
-                <form>
+
+                <form method="post" action="">
                     <div class="form-group">
                         <label class="greytext">Username</label>
-                        <input name="" class="form-control bg-light rounded rounded-pill" type="username">
+                        <input type="username"  class="form-control bg-light rounded rounded-pill" placeholder="Username" name="username"
+                               value="<?php if (isset($_POST["username"])) echo $_POST["username"] ?>">
                     </div> <!-- form-group// -->
                     <div class="form-group">
                         <label class="greytext">Password</label>
-                        <input class="form-control bg-light rounded rounded-pill" type="password">
+                        <input type="password" class="form-control bg-light rounded rounded-pill" placeholder="******" name="password"
+                               value="<?php if (isset($_POST["password"])) echo $_POST["password"] ?>">
                     </div> <!-- form-group// -->
                     <div class="form-group">
                         <div class="checkbox">
@@ -39,7 +78,9 @@
         </div>
     </div>
     <p class="p-1"><a href="#">I forgot my password</a></p>
-
+    <?php
+    endif;
+    ?>
     <!-- /login - register card -->
 
     <!-- last posts -->
@@ -99,13 +140,13 @@ foreach($lastConnectedUsers as $lastConnectedUser) : //boucle element & l'elemen
 ?>
 
             <div class="card rounded border-0 w-100 m-1 pd-1">
-                <div class="card-body text-center">
+                <div class="card-body text-center sidebarpic">
 
-                    <img src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($lastConnectedUser['userEmail'])))."?"."&s=80";?>">
+                    <img class="rounded-circle" src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($lastConnectedUser['userEmail'])))."?"."&s=80";?>">
 
-                    <p class="pt-2"><span> <?= $lastConnectedUser["userNname"]; ?></span>
-                    </br>
-                    <?= $lastConnectedUser["userSign"]; ?>
+                    <p class="pt-2 pb-2"><span> <?= $lastConnectedUser["userNname"]; ?></span>   </p>
+
+                    <p class="small"><?= $lastConnectedUser["userSign"]; ?>
                     </p>
                   
                 </div>
