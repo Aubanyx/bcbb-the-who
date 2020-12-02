@@ -34,6 +34,7 @@ $posts = getPostsByTopicId($topicId);
 $page = "Home";
 
 include_once "../includes/header.php";
+require_once '../assets/Michelf/Markdown.inc.php';
 ?>
 
     <!-- forum body -->
@@ -116,7 +117,12 @@ Forum rules
           <button type="button" class="btn bg-light rounded ml-3 rounded-pill border float-right" id="quote"><i class="fas fa-quote-left text-secondary"></i></button>
           </p>
         </div>
-        <p class="py-3 h6"><?= $post["postContent"] ?></p>
+        <p class="py-3 h6"> <?php 
+                                $comment = $post["postContent"];
+                                $markdowned_comment = Michelf\Markdown::defaultTransform($comment);
+                                echo $markdowned_comment;
+                                
+                              ?>  </p>
         <p class="border-top py-3"><?= $post["userSign"] ?></p>
       </div>
 

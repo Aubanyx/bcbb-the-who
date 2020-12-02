@@ -6,6 +6,7 @@ $page = "topicIcon";
 include_once "../includes/header.php";
 $topics = topics();
 $lasttopics = displayLastT();
+$lastConnectedUsers = getLastConnectedUsers();
 ?>
 
 <!-- forum body -->
@@ -83,7 +84,7 @@ $lasttopics = displayLastT();
                                         <div class="col-3">14</div>
                                         <div class="col-3">120</div>
                                         <div class="media col-6 align-items-center">
-                                            <p>by <a href="#"">Bastien</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
+                                            <p>by <a href="#">Bastien</a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
                                                 <span class="d-block">Sat Nov 20, 2020 7:00pm</span></p></div>
                                     </div>
                                 </div>

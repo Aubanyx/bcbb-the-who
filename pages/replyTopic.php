@@ -56,6 +56,7 @@ $lastConnectedUsers = getLastConnectedUsers();
 $page = "Home";
 
 include_once "../includes/header.php";
+require_once '../assets/Michelf/Markdown.inc.php';
 ?>
    
    <!-- forum body -->
