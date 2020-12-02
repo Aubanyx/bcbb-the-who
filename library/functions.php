@@ -609,3 +609,16 @@ function boardName($id)
 
     return $nameOfBoard;
 }
+
+function categoryName($id)
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM categories WHERE categoryId = ?";
+
+    $nameOfCat = $dbh->prepare($sql);
+    $nameOfCat->execute([$id]);
+    $nameOfCat = $nameOfCat->fetch(PDO::FETCH_ASSOC);
+
+    return $nameOfCat;
+}
