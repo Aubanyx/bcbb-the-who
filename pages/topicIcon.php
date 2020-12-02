@@ -20,7 +20,7 @@ $cats=categoryName($_GET["id"]);
         <ol class="breadcrumb bg-transparent pt-5">
             <li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></li>
             <li class="breadcrumb-item"><a href="/"><?= $cats["categoryName"]; ?></a></li>
-            <li class="breadcrumb-item"><a href="/"><?= $boardName["boardName"]; ?></a></li>
+            <li class="breadcrumb-item"  aria-current="page"><a href="/"><?= $boardName["boardName"]; ?></a></li>
         </ol>
     </nav>
 
