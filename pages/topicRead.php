@@ -134,7 +134,12 @@ require_once '../assets/Michelf/Markdown.inc.php';
                                         ?>
                                         </p>
                                     </div>
-                                    <p class="py-3 h6 font-weight-lighter"><?= $post["postContent"] ?></p>
+                                    <?php
+                                    $comment = $post["postContent"];
+                                    $markdowned_comment = Michelf\Markdown::defaultTransform($comment);
+                                    echo $markdowned_comment;
+
+                                    ?>  </p>
                                     <p class="border-top py-3 mt-5 h6 text-secondary"><?= $post["userSign"] ?></p>
                                 </div>
 
@@ -204,22 +209,7 @@ require_once '../assets/Michelf/Markdown.inc.php';
             </div>
             <!-- end container-lg -->
         </div>
-
-
-      <div class="col-10 flex-column">
-        <div class="time-quote">
-          <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> <?= formatDate($post["postDate"]) ?>
-          <button type="button" class="btn bg-light rounded ml-3 rounded-pill border float-right" id="quote"><i class="fas fa-quote-left text-secondary"></i></button>
-          </p>
-        </div>
-        <p class="py-3 h6"> <?php 
-                                $comment = $post["postContent"];
-                                $markdowned_comment = Michelf\Markdown::defaultTransform($comment);
-                                echo $markdowned_comment;
-                                
-                              ?>  </p>
-        <p class="border-top py-3"><?= $post["userSign"] ?></p>
-      </div>
+        
 
     </div>
 
