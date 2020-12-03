@@ -85,7 +85,7 @@ if (!empty($_POST)) {
     <!-- last posts -->
     <div class="card border-0 mt-5">
         <div class="grad mw-100">
-            <h4 class="text-white font-weight-normal">Last posts</h4>
+            <h4 class="text-white font-weight-normal">Last topics</h4>
         </div>
         <div class="bg-light p-3 last-posts">
             <?php
@@ -145,7 +145,7 @@ foreach($lastConnectedUsers as $lastConnectedUser) : //boucle element & l'elemen
 
                     <p class="pt-2 pb-2"><span> <?= $lastConnectedUser["userNname"]; ?></span>   </p>
 
-                    <p class="small"><?= $lastConnectedUser["userSign"]; ?>
+                    <p class="small"><?= $lastConnectedUser["userMood"]; ?>
                     </p>
                   
                 </div>

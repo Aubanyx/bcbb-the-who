@@ -32,20 +32,22 @@ include_once "../includes/header.php";
 $topics = topics();
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
+$cats=categoryName($_GET["id"]);
+
 ?>
 
 <!-- forum body -->
 
 <!-- main container -->
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
-<nav aria-label="breadcrumb">
-<ol class="breadcrumb bg-transparent pt-5">
-<li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
-<li class="breadcrumb-item"><a href="/">Board Index</a></li>
-<li class="breadcrumb-item"><a href="/parent">Category One</a></li>
-<li class="breadcrumb-item active" aria-current="page">Forum One</li>
-</ol>
-</nav>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent pt-5">
+            <li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="/"><?= $cats["categoryName"]; ?></a></li>
+            <li class="breadcrumb-item"  aria-current="page"><a href="/"><?= $boardName["boardName"]; ?></a></li>
+        </ol>
+    </nav>
+
 
 <div class="container-lg">
 

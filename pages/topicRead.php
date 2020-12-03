@@ -31,6 +31,8 @@ $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
 $posts = getPostsByTopicId($topicId);
 $boardName=boardName($_GET["id"]);
+$cats=categoryName($_GET["id"]);
+
 
 $page = "Home";
 $url = "http://localhost:8888/";
@@ -44,10 +46,10 @@ include_once "../includes/header.php";
     <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent pt-5">
-                <li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
-                <li class="breadcrumb-item"><a href="/">Board Index</a></li>
-                <li class="breadcrumb-item"><a href="/parent">Category One</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Forum One</li>
+                <li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></li>
+                <li class="breadcrumb-item"><a href="/"><?= $cats["categoryName"]; ?></a></li>
+                <li class="breadcrumb-item"><a href="/"><?= $boardName["boardName"]; ?></a></li>
+                <li class="breadcrumb-item active" aria-current="page"><?= $topic["topicSubject"] ?></li>
             </ol>
         </nav>
 
