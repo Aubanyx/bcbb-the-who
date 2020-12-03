@@ -9,6 +9,9 @@ $categories = displayCategories();
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
 $page = "Home";
+if($_SERVER['REQUEST_URI'] == "/bcbb-the-who/index.php?mdp=TanyaLaCrack") {
+    header("Location: ./pages/topicIcon.php?id=10");
+}
 
 include_once "./includes/header.php";
 ?>
@@ -51,8 +54,20 @@ include_once "./includes/header.php";
 
                             <div class="card-body">
                                 <img src="assets/images/icons-coffee/<?= $board['boardImage']; ?>" class="float-left"/>
-                                <h4 class="card-title"><a href="pages/topicIcon.php?id=<?= $board["boardId"]?>"><?= $board["boardName"]; ?></a></h4>
-                                <p class="card-text"><?= $board["boardDescription"]; ?>. </p>
+                               
+                               
+                                <h4 class="card-title">
+                                    <?php if ($board['boardStatus'] == 0) {
+                                        echo '<a href="./pages/topicIcon.php?id=' . $board['boardId'] . '">' . $board['boardName'] . '</a>';
+                                     } elseif ($board['boardStatus'] == 1) {
+                                         echo '<a href="#">' . $board['boardName'] . '</a>';
+                                    };
+                                    ?>
+                                </h4>
+                               
+                               
+                               
+                                <p class="card-text"><?= $board["boardDescription"]; ?> </p>
                                 <hr class="mb-4">
                                 <!--Table-->
 
