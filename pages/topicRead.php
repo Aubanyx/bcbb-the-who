@@ -41,6 +41,9 @@ require_once '../assets/Michelf/Markdown.inc.php';
 ?>
 
     <!-- forum body -->
+<!-- pagination -->
+
+<!-- /pagination -->
 
     <!-- main container -->
     <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
@@ -93,6 +96,7 @@ require_once '../assets/Michelf/Markdown.inc.php';
                         <p class="ml-auto font-weight-normal greytext pt-2"> <?= count($posts) ?> replies · Page <strong>1</strong> of <strong>1</strong></p>
 
                         <!-- /searchbar -->
+
                     </div>
 
 
