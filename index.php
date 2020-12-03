@@ -10,7 +10,7 @@ $categories = displayCategories();
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
 $page = "Home";
-if($_SERVER['REQUEST_URI'] == "/index.php?mdp=TanyaLaCrack") {
+if($_SERVER['REQUEST_URI'] == "/index.php?mdp=Crack") {
     header("Location: ./pages/topicIcon.php?id=10");
 }
 
