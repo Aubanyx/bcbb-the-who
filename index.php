@@ -4,6 +4,7 @@ session_start();
 //    header("Location: login.php");
 //}
 require_once "./library/functions.php";
+require_once './assets/Michelf/Markdown.inc.php';
 $dbh = connect();
 $categories = displayCategories();
 $lasttopics = displayLastT();

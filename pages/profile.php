@@ -5,12 +5,12 @@ if (!isset($_SESSION["user"])) {
 }
 require_once "../library/functions.php";
 $dbh = connect();
-//if (isset($_POST["submitProfile"])) {
-//    changeInfosProfile($_POST);
-//}
 if (!empty($_POST)) {
     $erreurs = changeInfosProfile($_POST);
 }
+//if (!empty($_POST)) {
+//    $upload = upload();
+//}
 $infos = infos();
 $page = "Profile";
 include_once "../includes/header.php";
@@ -18,7 +18,7 @@ include_once "../includes/header.php";
 <!-- forum body -->
 <!-- main container -->
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pt-5 pb-5">
-    <p class="pl-5 pb-3"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></p>
+    <p class="pl-5 pb-3"><a href="/index.php"><i class="fas fa-home"></i> Home</a></p>
     <div class="container-lg">
         <h1 class="pl-5"><i class="far fa-arrow-alt-circle-right"></i> Profile</h1>
         <h2 class="pl-5 text-muted">Edit and personalize your profile </h2>
@@ -50,9 +50,17 @@ include_once "../includes/header.php";
         <div class="container d-flex justify-content-center">
             <div class="card border-0 w-100">
                 <div class="card-body board-util">
-                    <form class="p-5" action="" method="post">
+                    <form class="p-5" action="" method="post" enctype="multipart/form-data">
                         <div class="d-flex bg-light rounded align-items-center justify-content-center py-3 profilesettings">
-                        <img src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($infos['userEmail'])))."?"."&s=80";?>">
+                        <img src="
+                        <?php
+                        if (!empty($infos["userImage"])) {
+                            echo "../assets/images/avatar/" . $infos["userImage"];
+                        }
+                        else {
+                            echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($infos['userEmail'])))."?"."&s=80";
+                        }
+                        ?>">
                             
                             <div class="pl-sm-4 pl-2 img-fluid text-secondary"><p
                                         class="display-4 pb-2 text-dark"><?= $infos["userFname"] . " " . $infos["userLname"] ?></p>
@@ -74,10 +82,10 @@ include_once "../includes/header.php";
                             <div class="w-25">
                                 <h5>Profile picture</h5>
                                 <p class="text-secondary small">Accepted file type .png. Less than 1MB</p>
-                                <input type="file" class="form-control-file pt-2 w-50" id="exampleFormControlFile1">
+                                <input type="file" class="form-control-file pt-2 w-50" id="exampleFormControlFile1" name="file">
                             </div>
                             <button class="btn text-white font-weight-bold my-4 border-0 rounded rounded-pill board-util__btn"
-                                    type="submit">Upload
+                                    type="submit" name="upload">Upload
                             </button>
                         </div>
 
@@ -106,7 +114,7 @@ include_once "../includes/header.php";
                                     <span class="input-group-text bg-transparent border-0" id="inputGroup-sizing-sm">
                                         <i class="fas fa-at"></i></span>
                                     </div>
-                                    <input type="username" class="input100 border-0 form-control-plaintext p-3"
+                                    <input id="username" class="input100 border-0 form-control-plaintext p-3"
                                            type="text" name="username"
                                            placeholder="<?= $infos["userNname"] ?>"
                                            value="<?php if (isset($_POST["username"])) echo $_POST["username"] ?>">
@@ -174,11 +182,11 @@ include_once "../includes/header.php";
                                 <!-- / change password -->
                             </div>
                             <div class="contactinfos flex-fill p-5">
-                                <label class="w-100 mt-4 text-secondary" for="email"><h5>Date of Birth</h5></label>
+                                <label class="w-100 mt-4 text-secondary" for="birthday"><h5>Date of Birth</h5></label>
                                 <div class="border rounded validate-input input-with-post-icon datepicker">
                                     <input id="birthday" class="input100 border-0 form-control-plaintext p-3"
-                                           type="date"
-                                           placeholder="Select date">
+                                           type="date" name="birthday"
+                                           value="<?= $infos["userBirthday"]?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
@@ -186,22 +194,24 @@ include_once "../includes/header.php";
 
                                 <div class="border rounded validate-input mt-2" data-validate="Type your location">
                                     <input class="input100 border-0 form-control-plaintext p-3" type="text"
-                                           placeholder="">
+                                           placeholder="<?= $infos["userLocation"] ?>" name="location"
+                                           value="<?php if (isset($_POST["location"])) echo $_POST["location"] ?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
-                                <label class="w-100 mt-3 text-secondary" for="location"><h5>Mood</h5></label>
+                                <label class="w-100 mt-3 text-secondary" for="mood"><h5>Mood</h5></label>
 
                                 <div class="border rounded validate-input mt-2" data-validate="Type your location">
                                     <input class="input100 border-0 form-control-plaintext p-3" type="text"
-                                           placeholder="">
+                                           placeholder="<?= $infos["userMood"] ?>" name="mood"
+                                           value="<?php if (isset($_POST["mood"])) echo $_POST["mood"] ?>">
                                     <span class="focus-input100"></span>
                                 </div>
 
-                                <label class="w-100 mt-3 text-secondary" for="email"><h5>Signature</h5></label>
+                                <label class="w-100 mt-3 text-secondary" for="sign"><h5>Signature</h5></label>
                                 <div class="border rounded validate-input mt-2"
                                      data-validate="Valid email is required: ex@abc.xyz">
-                                <textarea class="input100 border-0 form-control-plaintext p-3" name="sign"
+                                <textarea class="input100 border-0 form-control-plaintext p-3" placeholder="<?= $infos["userSign"] ?>" name="sign"
                                           id="exampleFormControlTextarea1"><?php if (isset($_POST["sign"])) echo $_POST["sign"] ?></textarea>
                                     <span class="focus-input100"></span>
                                 </div>
