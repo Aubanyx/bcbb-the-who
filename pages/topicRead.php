@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "../library/functions.php";
+require_once '../assets/Michelf/Markdown.inc.php';
 $dbh = connect();
 
 $redirect = false;
@@ -23,7 +24,7 @@ else
 
 if ($redirect)
 {
-    header('location: https://bcbb-thewho.herokuapp.com/');
+    header('location: ./');
     exit();
 }
 $lasttopics = displayLastT();
@@ -37,7 +38,6 @@ $page = "Home";
 $url = "http://localhost:8888/";
 
 include_once "../includes/header.php";
-require_once '../assets/Michelf/Markdown.inc.php';
 ?>
 
     <!-- forum body -->
@@ -62,7 +62,7 @@ require_once '../assets/Michelf/Markdown.inc.php';
             <div class="row">
 
                 <div class="col-xl-9 themed-grid-col">
-                    <h3>Topic : <strong><?= $topic["topicSubject"] ?></strong></h3>
+                    <h3><strong><?= getMarkdown("Topic : " . $topic["topicSubject"]); ?> </strong></h3>
 
 
                     <div class="board-util d-flex pt-3">
@@ -140,12 +140,7 @@ require_once '../assets/Michelf/Markdown.inc.php';
                                         ?>
                                         </p>
                                     </div>
-                                    <?php
-                                    $comment = $post["postContent"];
-                                    $markdowned_comment = Michelf\Markdown::defaultTransform($comment);
-                                    echo $markdowned_comment;
-
-                                    ?>  </p>
+                                    <?= getMarkdown($post["postContent"]); ?>  </p>
                                     <p class="border-top py-3 mt-5 h6 text-secondary"><?= $post["userSign"] ?></p>
                                 </div>
 
@@ -186,7 +181,7 @@ require_once '../assets/Michelf/Markdown.inc.php';
 
 
                     <div class="board-util d-flex pt-3">
-                        <a href="https://bcbb-thewho/bcbb-the-who/">Return to Board Index</a>
+                        <a href="/index.php">Return to Board Index</a>
 
                         <div class="dropdown ml-auto">
                             <button class="btn bg-light rounded ml-3 rounded-pill border dropdown-toggle text-black-50"

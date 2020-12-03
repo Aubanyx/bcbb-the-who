@@ -1,11 +1,35 @@
 <?php
 session_start();
 require_once "../library/functions.php";
+require_once '../assets/Michelf/Markdown.inc.php';
 $dbh = connect();
+
+$redirect = false;
+if (!isset($_GET["id"])) //If no id is specified in url, we redirect to index page
+{
+    $redirect = true;
+}
+else
+{
+    $boardId = $_GET["id"];
+    $board = getBoardById($boardId);
+
+
+    if (count($board) != 1)
+        $redirect = true; //If array count is different from 1, the board was not found in database
+    else
+        $board = $board[0]; //Retrieve first element from array and assign it in $topic
+}
+
+if ($redirect)
+{
+    header('location: /index.php');
+    exit();
+}
+
 $page = "topicIcon";
 include_once "../includes/header.php";
 $topics = topics();
-$boardName=boardName($_GET["id"]);
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
 $cats=categoryName($_GET["id"]);
@@ -31,15 +55,17 @@ $cats=categoryName($_GET["id"]);
 
 <div class="col-xl-9 themed-grid-col">
 
-  <h4 class="font-weight-light text-black-50 pb-3"> <?= $boardName["boardName"]; ?> </h4>
+  <h4 class="font-weight-light text-black-50 pb-3"> <?= $board["boardName"]; ?> </h4>
 
 <div class="alert alert-danger border-0 rounded" role="alert">
 Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before posting.
 </div>
 
 <div class="board-util d-flex pt-3">
+<a href="/pages/newTopic.php?id=<?= $boardId ?>">
  <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">New topic <i class="fas fa-pencil-alt"></i></button>
-<!-- searchbar -->
+</a>
+ <!-- searchbar -->
     <div class="bg-light rounded rounded-pill border w-25 ml-3">
       <div class="input-group">
         <input type="search" placeholder="Search this forum..." aria-describedby="button-addon1" class="form-control  bg-light rounded rounded-pill border-0">
@@ -102,7 +128,7 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 
      <div class="row no-gutters py-3 text-black-50 align-items-center">
       <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-      <div class="col"><a href="/pages/topicRead.php?id=<?=$topic['topicId'];?>"> <?=$topic['topicSubject'];?></a>
+      <div class="col"><a href="/pages/topicRead.php?id=<?=$topic['topicId'];?>"> <?= getMarkdown($topic['topicSubject']);?></a>
 
      <p class="text-secondary small">by <a href="#"><?=$userName;?></a></p></div>
 
@@ -131,8 +157,10 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 
 
 <div class="board-util d-flex pt-3">
+<a href="/pages/newTopic.php?id=<?= $boardId ?>">
   <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">New topic <i class="fas fa-pencil-alt"></i></button>
- <!-- searchbar -->
+</a>
+  <!-- searchbar -->
  <div class="dropdown">
   <button class="btn bg-light rounded ml-3 rounded-pill border dropdown-toggle"
           type="button" id="dropdownMenu1" data-toggle="dropdown"

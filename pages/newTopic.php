@@ -1,11 +1,64 @@
 <?php
 session_start();
+if(!isset($_SESSION["user"])) { //if user is not connected, he cannot create topic
+    header("Location: /pages/login.php");
+}
+
 require_once "../library/functions.php";
 $dbh = connect();
+
+//Verify if we have a form POST, we create the topic
+if (!empty($_POST)) {
+    $erreur = createTopic();
+  
+    if (!$erreur) //There is no error while topic creation, we get the board id to redirect to the board page, otherwise, redirect to home page
+    {
+      if ($_POST["boardId"]) 
+      {
+        header("location: /pages/topicIcon.php?id=" . $_POST["boardId"]);
+        exit();
+      }
+      else
+      {
+        header("location: /index.php");
+        exit();
+      }
+    }
+    else
+    {
+      unset($_POST);
+    }    
+  }
+  
+  //If there is no post
+  $redirect = false;
+  if (!isset($_GET["id"])) //If no id is specified in url, we redirect to index page
+  {
+      $redirect = true;
+  }
+  else
+  {
+      $boardId = $_GET["id"];
+      $board = getBoardById($boardId);
+     
+  
+      if (count($board) != 1) 
+        $redirect = true; //If array count is different from 1, the topboardic was not found in database
+      else
+        $board = $board[0]; //Retrieve first element from array and assign it in $topic
+  }
+  
+  if ($redirect)
+  {
+      header('location: /index.php' );
+      exit();
+  }
+
 $lasttopics = displayLastT();
 $page = "Home";
 
 include_once "../includes/header.php";
+
 ?>
 
     <!-- forum body -->
@@ -14,7 +67,7 @@ include_once "../includes/header.php";
     <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent pt-5">
-                <li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/"><i
+                <li class="breadcrumb-item"><a href="/index.php"><i
                                 class="fas fa-home"></i> Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Board Index</li>
             </ol>
@@ -26,73 +79,52 @@ include_once "../includes/header.php";
             <div class="row">
 
                 <div class="col-xl-9 themed-grid-col">
-                    <h3>Topic Read (hot)</h3>
+                <h3>Board <?= $board["boardName"]?> </h3>
                     <div class="alert alert-danger" role="alert">
                         Forum rules
                     </div>
 
-
-                    <div class="board-util d-flex pt-3">
-                        <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
-                                type="submit">Post reply <i class="fas fa-reply"></i></button>
-                        <!-- searchbar -->
-                        <div class="dropdown">
-                            <button class="btn bg-light rounded ml-3 rounded-pill border dropdown-toggle"
-                                    type="button" id="dropdownMenu1" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fas fa-wrench text-black-50"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <a class="dropdown-item" href="#!">Delete topic</a>
-                                <a class="dropdown-item" href="#!">Lock topic</a>
-                                <a class="dropdown-item" href="#!">Reply</a>
-                            </div>
-                        </div>
-
-                        <div class="bg-light rounded rounded-pill border w-25 ml-3">
-                            <div class="input-group">
-                                <input type="search" placeholder="Search this topic..." aria-describedby="button-addon1"
-                                       class="form-control  bg-light rounded rounded-pill border-0">
-                                <div class="input-group-append">
-                                    <button id="button-addon1" type="submit"
-                                            class="btn btn-link text-primary border-right"><i
-                                                class="fa fa-search magnifying-glass"></i></button>
-                                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
-                                                class="fas fa-cog cog"></i></button>
-
-                                </div>
-                            </div>
-                        </div>
-                        <p class="ml-auto font-weight-normal greytext pt-2"> 3 replies · Page <strong>1</strong> of
-                            <strong>1</strong></p>
-
-                        <!-- /searchbar -->
-                    </div>
-
-
                     <div class="themed-grid-col mt-4 p-3 rounded bg-light">
                         <!-- start form !-->
-                        <form>
+                        <form method="post">
+                            
+
                             <div class="form-group">
-                                <label for="text">Topic title</label>
+                                <label for="text">Topic subject</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i class="fa fa-comment"></i>
                                         </div>
                                     </div>
-                                    <input id="text" name="text" type="text" required="required" class="form-control">
+                                    <input id="text" name="topicSubject" type="text" required="required" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="textarea1">Content</label>
-                                <textarea id="my-text-area" name="textarea1" cols="40" rows="5" required="required"
+                                <textarea id="my-text-area" name="topicContent" cols="40" rows="5" required="required"
                                           class="form-control"></textarea>
 
                             </div>
-                            <div class="form-group">
-                                <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                            <input name="boardId" type="hidden" value="<?= $boardId ?>" />
+                            <div class="text-right board-util d-flex pt-3">
+                            <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">Create topic <i class="fas fa-reply"></i></button>
                             </div>
+                            <?php
+                            if (isset($erreur)) : //If there is an error while topic creation, we display the error on the page
+                                if ($erreur) :
+                                
+                                        ?>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="alert alert-danger"><?= $erreur ?></div>
+                                            </div>
+                                        </div>
+                                    <?php
+                    
+                                endif;
+                            endif;
+                            ?>
                         </form>
 
                         <!-- end form ! -->
