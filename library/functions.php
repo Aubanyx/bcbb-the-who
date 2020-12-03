@@ -396,7 +396,7 @@ function changeInfosProfile($form)
             SET userImage = ?
             WHERE userId = ?";
 
-        move_uploaded_file($_FILES["file"]["tmp_name"], "../assets/images/avatar/" . $image);
+        move_uploaded_file($_FILES["file"]["tmp_name"], "/assets/images/avatar/" . $image);
 
         $upload = $dbh->prepare($sql);
         $upload->execute([
