@@ -271,7 +271,7 @@ function connexion()
 
     $username = "";
     $password = "";
-
+    echo $_POST;
     extract($_POST);
 
     $sql = "SELECT userId, userNname, userPass FROM users WHERE userNname = ?";
@@ -529,6 +529,19 @@ function getTopicById($topicId)
     return $topic;
 }
 
+//get board by id from database
+function getBoardById($boardId)
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM boards WHERE boardId = ?";
+    $board = $dbh->prepare($sql);
+    $board->execute([$boardId]);
+    $board = $board->fetchAll(PDO::FETCH_ASSOC);
+
+    return $board;
+}
+
 // Get comments for a topic from database
 function getPostsByTopicId($topicId)
 {
@@ -571,15 +584,66 @@ function createPost()
             "postContent" => $postContent,
             "postTopic" => $topicId,
             "postBy" => $currentUserId
-
         ]);
 
 
     } catch (Exception $exception) {
-        return `An internal error occurs while post creation : {$exception->getMessage()}`;
+        return "An internal error occurs while post creation : " . $exception->getMessage();
     }
 
 }
+
+//Create a topic
+
+function createTopic()
+{
+    global $dbh;
+
+    extract($_POST);
+
+    if (!isset($_SESSION['user'])) {  //user is not authenticated, redirect to post page
+        header("location: ../pages/login.php");
+    }
+
+    if (!isset($boardId))
+       return "Board id value is required";
+
+    $currentUserId = $_SESSION["user"];
+
+    //Verify input
+    if (empty($topicSubject)) return "Topic subject is required";
+    if (empty($topicContent)) return "Topic content is required";
+
+    //TODO Create a transaction
+    try {
+
+        $sql = "INSERT INTO topics (topicSubject,topicDate,topicDateUpdate,topicImage,topicBoard,topicBy) VALUES(:topicSubject, now(),now(),'', :topicBoard, :topicBy)";
+       
+        $topicCreation = $dbh->prepare($sql);
+   
+        $topicCreation->execute([
+            "topicSubject" => $topicSubject,
+            "topicBoard" => $boardId,
+            "topicBy" => $currentUserId
+        ]);
+
+        $topicId = $dbh->lastInsertId();
+        $sql = "INSERT INTO posts (postContent,postDate,postDateUpdate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),now(),0, :postTopic, :postBy)";
+
+        $postCreation = $dbh->prepare($sql);
+        $postCreation->execute([
+            "postContent" => $topicContent,
+            "postTopic" => $topicId,
+            "postBy" => $currentUserId
+        ]);
+          
+
+    } catch (Exception $exception) {
+        return "An internal error occurs while topic creation : " . $exception->getMessage();
+    }
+
+}
+
 
 // Display 5 topics on "random" board
 function topicsRandom()
@@ -609,3 +673,11 @@ function boardName($id)
 
     return $nameOfBoard;
 }
+
+function getMarkdown($text)
+{
+    $markdowned_text = Michelf\Markdown::defaultTransform($text);
+    echo $markdowned_text;
+}
+
+?> 

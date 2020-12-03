@@ -1,6 +1,5 @@
 
 <?php
-session_start();
 
 $page = "Home";
 if (!empty($_POST)) {
@@ -154,26 +153,7 @@ foreach($lastConnectedUsers as $lastConnectedUser) : //boucle element & l'elemen
             <?php
                 endforeach;
                 ?>
-            <!-- <div class="card rounded border-0 w-100 m-1 pd-1">
-                <div class="card-body text-center">
-                    <img src="./assets/images/icons-users/svg/072-woman.svg" alt="profile-image">
-                    <p class="pt-2"><span>#Lora298</span>
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
-                </div>
-            </div>
-
-            <div class="card rounded border-0 w-100 m-1 pd-1">
-                <div class="card-body text-center">
-                    <img src="./assets/images/icons-users/svg/026-woman.svg" alt="profile-image">
-                    <p class="pt-2"><span>#Mary933</span>
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
-                </div>
-            </div> -->
-
+          
         </div>
 
 
