@@ -521,7 +521,7 @@ function getTopicById($topicId)
 {
     global $dbh;
 
-    $sql = "SELECT * FROM topics WHERE topicId = ?";
+    $sql = "SELECT * FROM topics INNER JOIN boards ON topics.topicBoard = boards.boardId WHERE topicId = ?";
     $topic = $dbh->prepare($sql);
     $topic->execute([$topicId]);
     $topic = $topic->fetchAll(PDO::FETCH_ASSOC);

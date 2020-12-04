@@ -27,6 +27,7 @@ if ($redirect)
     header('location: ./');
     exit();
 }
+
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
 $posts = getPostsByTopicId($topicId);
@@ -49,10 +50,9 @@ include_once "../includes/header.php";
     <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent pt-5">
-                <li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></li>
-                <li class="breadcrumb-item"><a href="/"><?= $cats["categoryName"]; ?></a></li>
-                <li class="breadcrumb-item"><a href="/"><?= $boardName["boardName"]; ?></a></li>
-                <li class="breadcrumb-item active" aria-current="page"><?= $topic["topicSubject"] ?></li>
+                <li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
+                <li class="breadcrumb-item"><a href="/pages/topicIcon.php?id=<?= $topic['topicBoard'] ?>"></i> Board : <?= $topic['boardName'] ?></a></li> 
+                <li class="breadcrumb-item active" aria-current="page">Topic : <?= $topic['topicSubject'] ?></li>     
             </ol>
         </nav>
 
@@ -62,7 +62,7 @@ include_once "../includes/header.php";
             <div class="row">
 
                 <div class="col-xl-9 themed-grid-col">
-                    <h3><strong><?= getMarkdown("Topic : " . $topic["topicSubject"]); ?> </strong></h3>
+                    <h3><?= getMarkdown($topic["topicSubject"]); ?></h3>
 
 
                     <div class="board-util d-flex pt-3">
