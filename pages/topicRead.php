@@ -34,14 +34,19 @@ $boardName=boardName($_GET["id"]);
 $cats=categoryName($_GET["id"]);
 
 
+
+
+
+
 $page = "Home";
 $url = "http://localhost:8888/";
 
 include_once "../includes/header.php";
+
 ?>
 
     <!-- forum body -->
-<!-- pagination -->
+<!-- pagination-->
 
 <!-- /pagination -->
 
@@ -93,32 +98,68 @@ include_once "../includes/header.php";
                                 </div>
                             </div>
                         </div>
-                        <p class="ml-auto font-weight-normal greytext pt-2"> <?= count($posts) ?> replies · Page <strong>1</strong> of <strong>1</strong></p>
+                        <p class="ml-auto font-weight-normal greytext pt-2"> <?= count($posts) ?> replies · <?php
+                            $postsParPage = 10;
+                            $getPId = $_GET["id"];
+                            $postsTotalReq = $dbh->query("SELECT postDate FROM posts WHERE postTopic = '$getPId'");
+                            $postsTotal = $postsTotalReq->rowCount();
+                            $pagesTotal = ceil($postsTotal/$postsParPage);
+
+                            if(isset($_GET['page']) && !empty($_GET['page'])){
+                                $pageCourante = (int) strip_tags($_GET['page']);
+                            }else{
+                                $pageCourante = 1;
+                            }
+                            $depart = ($pageCourante-1)*$postsParPage;
+
+                            for($i=1;$i<=$pagesTotal;$i++) {
+                                if($i == $pageCourante) {
+                                    echo $i.' ';
+                                } else {
+                                    echo '<a href="/bcbb-the-who/pages/topicRead.php?id='.$topic['topicId'].'&page='.$i.'">'.$i.'</a> ';
+                                }
+                            }
+                            ?></p>
 
                         <!-- /searchbar -->
+                        <!-- pagination-->
+
+                        <?php
+
+                        $getId = $_GET['id'];
+                        $sql = "select * from (SELECT (@row_number:=@row_number + 1) AS num, p.*  FROM posts as p, (SELECT @row_number:=0) AS t  WHERE postTopic = '$getId') As T1 WHERE num >= '$depart' AND postId order by postDate LIMIT 10";
+                        $topicReads = $dbh->prepare($sql);
+                        $topicReads->execute();
+                        ?>
+
+
 
                     </div>
 
 
                     <div class="themed-grid-col mt-4 p-3 rounded bg-light">
-
-
                         <?php
-                        foreach($posts as $post) :
+                        $postReadUsers =  getPostsByTopicId($topicId);
+                        while($topicRead = $topicReads->fetch()) {
                             ?>
+
                             <!-- post-reply -->
                             <div class="row rounded bg-white p-4 m-0 mb-3">
 
                                 <div class="col-2 flex-column d-flex pt-5 pb-4">
                                     <div class=" text-center">
-                                        <img src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($post['userEmail'])))."?"."&s=80";?>" alt="profile-image" class="mx-auto rounded-circle w-75 border">
 
-                                        <p class="h5 pt-3 text-danger"><?= $post["userNname"]?>
-                                            <span class="h6 d-block text-secondary mb-4"><?= getUserLevel($post["userLevel"]) ?></span></p>
+                                        <img src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($topicRead['userEmail'])))."?"."&s=80";?>" alt="profile-image" class="mx-auto rounded-circle w-75 border">
+
+                                        <p class="h5 pt-3 text-danger">
+
+                                               <?= $postReadUsers["userId"]; ?>
+
+                                            <span class="h6 d-block text-secondary mb-4"><?= getUserLevel($topicRead["userLevel"]) ?></span></p>
                                     </div>
-                                    <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary font-weight-lighter"> <?= $post["userPostsCount"] ?></span></p>
-                                    <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary font-weight-lighter"> <?= $post["userLocation"] ?></span></p>
-                                    <p class="h6"><span class="font-weight-bold">Mood :</span><span class="text-secondary font-weight-lighter"> <?= $post["userMood"] ?></span></p>
+                                    <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary font-weight-lighter"> <?= $topicRead["userPostsCount"] ?></span></p>
+                                    <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary font-weight-lighter"> <?= $topicRead["userLocation"] ?></span></p>
+                                    <p class="h6"><span class="font-weight-bold">Mood :</span><span class="text-secondary font-weight-lighter"> <?= $topicRead["userMood"] ?></span></p>
 
 
                                 </div>
@@ -126,7 +167,7 @@ include_once "../includes/header.php";
 
                                 <div class="col-10 flex-column">
                                     <div class="time-quote">
-                                        <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> <?= formatDate($post["postDate"]) ?>
+                                        <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> <?= formatDate($topicRead["postDate"]) ?>
                                             <?php
                                             if (isset($_SESSION["user"])) :
                                             ?>
@@ -140,7 +181,7 @@ include_once "../includes/header.php";
                                         ?>
                                         </p>
                                     </div>
-                                    <?= getMarkdown($post["postContent"]); ?>  </p>
+                                    <?= getMarkdown($topicRead["postContent"]); ?>  </p>
                                     <p class="border-top py-3 mt-5 h6 text-secondary"><?= $post["userSign"] ?></p>
                                 </div>
 
@@ -148,9 +189,8 @@ include_once "../includes/header.php";
 
 
                         <?php
-                        endforeach;
+                        }
                         ?>
-
 
 
                     </div>
@@ -174,7 +214,15 @@ include_once "../includes/header.php";
                             </div>
                         </div>
 
-                        <p class="ml-auto font-weight-normal greytext pt-2"> <?= count($posts) ?> replies · Page <strong>1</strong> of <strong>1</strong></p>
+                        <p class="ml-auto font-weight-normal greytext pt-2"> <?= count($posts) ?> replies · Page <?php
+                            for($i=1;$i<=$pagesTotal;$i++) {
+                                if($i == $pageCourante) {
+                                    echo $i.' ';
+                                } else {
+                                    echo '<a href="/bcbb-the-who/pages/topicRead.php?id='.$topic['topicId'].'&page='.$i.'">'.$i.'</a> ';
+                                }
+                            }
+                            ?></p>
 
                         <!-- /searchbar -->
                     </div>

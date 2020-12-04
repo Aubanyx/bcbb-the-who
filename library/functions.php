@@ -693,4 +693,21 @@ function categoryName($id)
 
     return $nameOfCat;
 }
+
+// Post read Users
+
+function postReadUsers()
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM posts JOIN users ON postBy = userId";
+
+    $postReadUsers = $dbh->prepare($sql);
+    $postReadUsers->execute();
+    $postReadUsers = $postReadUsers->fetchAll(PDO::FETCH_ASSOC);
+
+    return $postReadUsers;
+}
+
+
 ?>
