@@ -16,9 +16,12 @@ include_once "../includes/header.php";
 <!-- forum body -->
 <!-- main container -->
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pt-5 pb-5">
-    <p class="pl-5 pb-3"><a href="/index.php"><i class="fas fa-home"></i> Home</a></p>
-    <div class="container-lg board-util">
-        <h1 class="pl-5"><i class="far fa-arrow-alt-circle-right"></i> Log in</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent pt-1 pb-5">
+            <li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Login</li>
+        </ol>
+    </nav>
         <div class="container d-flex justify-content-center">
             <div class="card board-util border-0">
                 <div class="card-body">

@@ -21,11 +21,11 @@ else
         $board = $board[0]; //Retrieve first element from array and assign it in $topic
 }
 
-if ($redirect)
-{
-    header('location: /index.php');
-    exit();
-}
+// if ($redirect)
+// {
+//     header('location: /index.php');
+//     exit();
+// }
 
 $page = "topicIcon";
 include_once "../includes/header.php";
@@ -42,9 +42,8 @@ $cats=categoryName($_GET["id"]);
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent pt-5">
-            <li class="breadcrumb-item"><a href="https://bcbb-thewho.herokuapp.com/"><i class="fas fa-home"></i> Home</a></li>
-            <li class="breadcrumb-item"><a href="/"><?= $cats["categoryName"]; ?></a></li>
-            <li class="breadcrumb-item"  aria-current="page"><a href="/"><?= $boardName["boardName"]; ?></a></li>
+            <li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Board : <?= $board["boardName"]; ?></li>
         </ol>
     </nav>
 

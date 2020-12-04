@@ -99,7 +99,7 @@ function BoardLastPost($id)
 {
     global $dbh;
 
-    $sql = "SELECT postDate FROM posts JOIN topics ON postTopic = topicId WHERE topicBoard = ? LIMIT 1";
+    $sql = "SELECT postDate FROM posts  JOIN topics ON postTopic = topicId WHERE topicBoard = ? ORDER BY postDate DESC LIMIT 1";
 
     $resultsBLP = $dbh->prepare($sql);
     $resultsBLP->execute([$id]);
@@ -521,7 +521,7 @@ function getTopicById($topicId)
 {
     global $dbh;
 
-    $sql = "SELECT * FROM topics WHERE topicId = ?";
+    $sql = "SELECT * FROM topics INNER JOIN boards ON topics.topicBoard = boards.boardId WHERE topicId = ?";
     $topic = $dbh->prepare($sql);
     $topic->execute([$topicId]);
     $topic = $topic->fetchAll(PDO::FETCH_ASSOC);
