@@ -521,7 +521,7 @@ function getTopicById($topicId)
 {
     global $dbh;
 
-    $sql = "SELECT * FROM topics INNER JOIN boards ON topics.topicBoard = boards.boardId WHERE topicId = ?";
+    $sql = "SELECT *,(select postId from posts where postTopic = topicId order by postDate desc limit 1) as lastPostId FROM topics INNER JOIN boards ON topics.topicBoard = boards.boardId WHERE topicId = ?";
     $topic = $dbh->prepare($sql);
     $topic->execute([$topicId]);
     $topic = $topic->fetchAll(PDO::FETCH_ASSOC);
@@ -547,7 +547,7 @@ function getPostsByTopicId($topicId)
 {
     global $dbh;
     //userPostsCount is number of posts of user
-    $sql = "SELECT *,(select count(*) from posts where postBy = userId ) as userPostsCount FROM posts inner join users on postBy = userId WHERE postTopic = ?";
+    $sql = "SELECT *,(select count(*) from posts where postBy = userId ) as userPostsCount FROM posts inner join users on postBy = userId WHERE postTopic = ? order by postDate";
     $resultsPosts = $dbh->prepare($sql);
     $resultsPosts->execute([$topicId]);
     $resultsPosts = $resultsPosts->fetchAll(PDO::FETCH_ASSOC);

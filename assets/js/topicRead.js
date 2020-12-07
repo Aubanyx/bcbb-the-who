@@ -16,6 +16,9 @@
     for(let i = 0; i < cancelUpdateButtons.length; i++) { 
         cancelUpdateButtons[i].addEventListener("click", cancelUpdateupdatePost) ;
     } 
+    // $(".demo").faceMocion();
+ 
+
 }  )();
 
 
