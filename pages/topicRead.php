@@ -33,7 +33,7 @@ $lastConnectedUsers = getLastConnectedUsers();
 $posts = getPostsByTopicId($topicId);
 $boardName=boardName($_GET["id"]);
 $cats=categoryName($_GET["id"]);
-
+countViews($_GET["id"]);
 
 $page = "Home";
 $url = "http://localhost:8888/";

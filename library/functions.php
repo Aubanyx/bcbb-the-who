@@ -693,4 +693,38 @@ function categoryName($id)
 
     return $nameOfCat;
 }
+
+
+function countViews($id) 
+{
+    global $dbh;
+
+    $sql = "UPDATE topics SET topicCountViews = topicCountViews+1 WHERE topicId = ?";
+    
+    $countViews = $dbh->prepare($sql);
+    $countViews->execute([$id]);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
