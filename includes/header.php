@@ -11,6 +11,8 @@
 
     <link href="/assets/fontawesome/css/all.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/faceMocion.css" rel="stylesheet">
+   
 </head>
 <body class="bg-light">
 <header class="header">

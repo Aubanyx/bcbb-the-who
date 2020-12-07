@@ -49,7 +49,7 @@ include_once "../includes/header.php";
     <!-- main container -->
     <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-transparent pt-5">
+        <ol class="breadcrumb bg-transparent pt-5">
                 <li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
                 <li class="breadcrumb-item"><a href="/pages/topicIcon.php?id=<?= $topic['topicBoard'] ?>"></i> Board : <?= $topic['boardName'] ?></a></li> 
                 <li class="breadcrumb-item active" aria-current="page">Topic : <?= $topic['topicSubject'] ?></li>     
@@ -64,7 +64,8 @@ include_once "../includes/header.php";
                 <div class="col-xl-9 themed-grid-col">
                     <h3><?= getMarkdown($topic["topicSubject"]); ?></h3>
 
-
+            
+                 
                     <div class="board-util d-flex pt-3">
                         <a href="/pages/replyTopic.php?id=<?= $topicId ?>">
                             <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button">Post reply <i class="fas fa-reply"></i></button>
@@ -128,21 +129,68 @@ include_once "../includes/header.php";
                                     <div class="time-quote">
                                         <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> <?= formatDate($post["postDate"]) ?>
                                             <?php
-                                            if (isset($_SESSION["user"])) :
-                                            ?>
-                                            <button type="button" class="btn bg-light rounded ml-3 rounded-pill border float-right" id="quote"><i class="far fa-trash-alt text-secondary"></i> Delete</button>
-                                            <button type="button" class="btn bg-light rounded ml-3 rounded-pill border float-right" id="quote"><i class="far fa-edit text-secondary"></i> Edit</button>
-                                        <?php
-                                        else :
-                                            ?><p></p>
-                                        <?php
-                                        endif;
+                                            if(!is_null($post{"postDateUpdate"})) 
+                                            {
+                                                ?>  </br>Modified at <i class="far fa-clock"></i> <?= formatDate($post["postDateUpdate"])  ?>
+                                                <?php
+                                            }
+                                         
+                                            if (isset($_SESSION["user"]) && $_SESSION["user"] == $post{"postBy"} && $post{"postDeleted"} == 0) 
+                                            {
+                                                
+                                                ?>
+                                                <button type="button" class="btn btn_delete_post bg-light rounded ml-3 rounded-pill border float-right" data-topicId="<?= $post["postTopic"] ?>" data-postId="<?= $post["postId"] ?>"><i class="far fa-trash-alt text-secondary"></i> Delete</button>
+                                                <?php 
+                                                if ( $topic{"lastPostId"}  == $post{"postId"}) 
+                                                {
+                                                ?>
+                                                    <button type="button" class="btn btn_update_post bg-light rounded ml-3 rounded-pill border float-right" data-topicId="<?= $post["postTopic"] ?>" data-postId="<?= $post["postId"] ?>"><i class="far fa-edit text-secondary"></i> Edit</button>
+                                                <?php
+                                                }
+                                            }
+                                          
+                                            else 
+                                            {
+
+                                                ?><p></p><?php
+                                            }
+                                           
                                         ?>
+                                       
                                         </p>
                                     </div>
-                                    <?= getMarkdown($post["postContent"]); ?>  </p>
-                                    <p class="border-top py-3 mt-5 h6 text-secondary"><?= $post["userSign"] ?></p>
+                                    <div id="postContent_<?= $post["postId"] ?>"><?php
+                                    if($post{"postDeleted"} == 1)
+                                    {
+                                        echo "<i>DELETED</i>";
+                                    }
+                                    else
+                                    {
+                                        getMarkdown($post["postContent"]); 
+                                    }
+                                    ?> </div >
+                            <form method="post" id="form_editPost_<?= $post["postId"] ?>" action="/pages/updatePost.php" hidden>
+                            
+                                <!--Edit-->
+                                <div class="form-group">
+                                    <textarea id="my-text-area" name="postContent" cols="40" rows="5" required="required"
+                                            class="form-control" ><?= $post["postContent"]?></textarea>
+
                                 </div>
+                                <input name="postId" type="hidden" value="<?= $post["postId"] ?>" />
+                                <input name="topicId" type="hidden" value="<?= $post["postTopic"] ?>" />
+                                <div class="text-right board-util d-flex pt-3">
+                                <button class="btn btn_cancel_update_post text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button" data-postId="<?= $post["postId"] ?>">Cancel edition <i class="fas fa-window-close"></i></button>
+                                <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">Update post <i class="fas fa-reply"></i></button>
+                                </div>
+                            </form>
+
+                
+                                    <p class="border-top py-3 mt-5 h6 text-secondary"><?= $post["userSign"] ?></p>
+                                    <!-- <input type="hidden" value="amo" class="demo"> -->
+                                </div>
+                               
+
 
                             </div>
 
@@ -214,5 +262,12 @@ include_once "../includes/header.php";
 
     </div>
 
-    <script src="./assets/js/script.js"></script>
+
+
 <?php include_once "../includes/footer.php" ?>
+<!-- <script src="./assets/js/script.js"></script> -->
+    <script src="../assets/js/faceMocion.js"></script>
+    <script src="../assets/js/topicRead.js"></script>
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
