@@ -69,8 +69,51 @@ include_once "../includes/header.php";
                 <div class="col-xl-9 themed-grid-col">
                     <h3><strong><?= getMarkdown("Topic : " . $topic["topicSubject"]); ?> </strong></h3>
 
-
                     <div class="board-util d-flex pt-3">
+
+
+                        <!-- LOCK TOPIC BUTTON -->
+                        <?php
+                        $getId = $_GET['id'];
+                        $query = "SELECT topicSubject, topicBy, topicLock FROM topics WHERE topicId = 6";
+                        $topicLock = $dbh->prepare($query);
+                        $topicLock->execute();
+                        $topicLocked = $topicLock->fetch(PDO::FETCH_ASSOC);
+
+                        /*BUTTON SCRIPT*/
+                        if(isset($_POST["topicLock"])){
+                            $lockQuery = "UPDATE topics SET topicLock = ? WHERE topicId = 6";
+                            $lockResult = $dbh->prepare($lockQuery);
+                            if($topicLocked["topicLock"]){
+                                $topicLock->execute([0,$getId]);
+                            }else{
+                                $topicLock->execute([1,$getId]);
+                            }
+                            header("Location: topicRead.php?id=$getId");
+                        }
+
+                        if(isset($_SESSION["user"])
+                            AND $topicLocked["topicBy"]==$_SESSION["user"]
+                            AND !$topicLocked["topicLock"]){
+                            ?>
+                                <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button" name="lockTopic">
+                                    Lock Topic
+                                </button>
+
+                            <?php
+                        } elseif(isset($_SESSION["user"])
+                            AND $topicLocked["topicBy"]==$_SESSION["user"]
+                            AND $topicLocked["topicLock"]){
+                            ?>
+                                <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button" name="lockTopic">
+                                    Unlock Topic
+                                </button>
+
+                            <?php
+                        }
+                        ?>
+                        <!-- / LOCK TOPIC BUTTON -->
+
                         <a href="/pages/replyTopic.php?id=<?= $topicId ?>">
                             <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button">Post reply <i class="fas fa-reply"></i></button>
                         </a>
@@ -82,9 +125,9 @@ include_once "../includes/header.php";
                                 <i class="fas fas fa-wrench text-black-50"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <a class="dropdown-item" href="#!">Delete topic</a>
+
                                 <a class="dropdown-item" href="#!">Lock topic</a>
-                                <a class="dropdown-item" href="#!">Reply</a>
+
                             </div>
                         </div>
 
@@ -125,6 +168,7 @@ include_once "../includes/header.php";
                         <!-- pagination-->
 
                         <?php
+                        $topicReadUsers =  getPostsByTopicId($getId);
 
                         $getId = $_GET['id'];
                         $sql = "select * from (SELECT (@row_number:=@row_number + 1) AS num, p.*  FROM posts as p, (SELECT @row_number:=0) AS t  WHERE postTopic = '$getId') As T1 WHERE num >= '$depart' AND postId order by postDate LIMIT 10";
@@ -139,7 +183,6 @@ include_once "../includes/header.php";
 
                     <div class="themed-grid-col mt-4 p-3 rounded bg-light">
                         <?php
-                        $postReadUsers =  getPostsByTopicId($topicId);
                         while($topicRead = $topicReads->fetch()) {
                             ?>
 
@@ -153,7 +196,7 @@ include_once "../includes/header.php";
 
                                         <p class="h5 pt-3 text-danger">
 
-                                               <?= $postReadUsers["userId"]; ?>
+                                               <?php echo $topicReadUsers["userId"]; ?>
 
                                             <span class="h6 d-block text-secondary mb-4"><?= getUserLevel($topicRead["userLevel"]) ?></span></p>
                                     </div>
