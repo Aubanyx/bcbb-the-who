@@ -159,7 +159,7 @@ include_once "../includes/header.php";
                                 if($i == $pageCourante) {
                                     echo $i.' ';
                                 } else {
-                                    echo '<a href="/bcbb-the-who/pages/topicRead.php?id='.$topic['topicId'].'&page='.$i.'">'.$i.'</a> ';
+                                    echo '<a href="/pages/topicRead.php?id='.$topic['topicId'].'&page='.$i.'">'.$i.'</a> ';
                                 }
                             }
                             ?></p>
