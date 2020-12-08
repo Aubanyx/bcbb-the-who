@@ -209,19 +209,19 @@ include_once "../includes/header.php";
                                     <div class="time-quote">
                                         <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> <?= formatDate($topicRead["postDate"]) ?>
                                             <?php
-                                            if(!is_null($post{"postDateUpdate"})) 
+                                            if(!is_null($topicRead{"postDateUpdate"}))
                                             {
-                                                ?>  </br>Modified at <i class="far fa-clock"></i> <?= formatDate($post["postDateUpdate"])  ?>
+                                                ?>  </br>Modified at <i class="far fa-clock"></i> <?= formatDate($topicRead["postDateUpdate"])  ?>
                                                 <?php
                                             }
                                          
-                                            if (isset($_SESSION["user"]) && $_SESSION["user"] == $post{"postBy"} && $post{"postDeleted"} == 0) 
+                                            if (isset($_SESSION["user"]) && $_SESSION["user"] == $topicRead{"postBy"} && $topicRead{"postDeleted"} == 0)
                                             {
                                                 
                                                 ?>
                                                 <button type="button" class="btn btn_delete_post bg-light rounded ml-3 rounded-pill border float-right" data-topicId="<?= $post["postTopic"] ?>" data-postId="<?= $post["postId"] ?>"><i class="far fa-trash-alt text-secondary"></i> Delete</button>
                                                 <?php 
-                                                if ( $topic{"lastPostId"}  == $post{"postId"}) 
+                                                if ( $topic{"lastPostId"}  == $topicRead{"postId"})
                                                 {
                                                 ?>
                                                     <button type="button" class="btn btn_update_post bg-light rounded ml-3 rounded-pill border float-right" data-topicId="<?= $post["postTopic"] ?>" data-postId="<?= $post["postId"] ?>"><i class="far fa-edit text-secondary"></i> Edit</button>
