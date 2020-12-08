@@ -575,6 +575,13 @@ footer {
   margin: auto;
   padding: auto;
 }
+.last-users .sidebarpic {
+  filter: grayscale(60%);
+  transition: 0.2s;
+}
+.last-users .sidebarpic:hover {
+  filter: grayscale(0%);
+}
 
 .img-overlay-wrap {
   position: relative;

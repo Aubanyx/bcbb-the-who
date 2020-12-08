@@ -18,8 +18,12 @@ include_once "../includes/header.php";
 <!-- forum body -->
 <!-- main container -->
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pt-5 pb-5">
-    <p class="pl-5 pb-3"><a href="/index.php"><i class="fas fa-home"></i> Home</a></p>
-    <div class="container-lg">
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent pt-1 pb-5">
+            <li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        </ol>
+    </nav>
         <h1 class="pl-5"><i class="far fa-arrow-alt-circle-right"></i> Profile</h1>
         <h2 class="pl-5 text-muted">Edit and personalize your profile </h2>
         <?php

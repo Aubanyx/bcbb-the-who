@@ -521,7 +521,7 @@ function getTopicById($topicId)
 {
     global $dbh;
 
-    $sql = "SELECT * FROM topics WHERE topicId = ?";
+    $sql = "SELECT *,(select postId from posts where postTopic = topicId order by postDate desc limit 1) as lastPostId FROM topics INNER JOIN boards ON topics.topicBoard = boards.boardId WHERE topicId = ?";
     $topic = $dbh->prepare($sql);
     $topic->execute([$topicId]);
     $topic = $topic->fetchAll(PDO::FETCH_ASSOC);
@@ -547,7 +547,7 @@ function getPostsByTopicId($topicId)
 {
     global $dbh;
     //userPostsCount is number of posts of user
-    $sql = "SELECT *,(select count(*) from posts where postBy = userId ) as userPostsCount FROM posts inner join users on postBy = userId WHERE postTopic = ?";
+    $sql = "SELECT *,(select count(*) from posts where postBy = userId ) as userPostsCount FROM posts inner join users on postBy = userId WHERE postTopic = ? order by postDate";
     $resultsPosts = $dbh->prepare($sql);
     $resultsPosts->execute([$topicId]);
     $resultsPosts = $resultsPosts->fetchAll(PDO::FETCH_ASSOC);
@@ -581,8 +581,7 @@ function createPost()
         $countPosts = $dbh->prepare($sql);
         $countPosts->execute([$_SESSION["user"]]);
 
-
-        $sql = "INSERT INTO posts (postContent,postDate,postDateUpdate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),now(),0, :postTopic, :postBy)";
+        $sql = "INSERT INTO posts (postContent,postDate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),0, :postTopic, :postBy)";
 
         $postCreation = $dbh->prepare($sql);
         $postCreation->execute([
@@ -636,7 +635,7 @@ function createTopic()
         ]);
 
         $topicId = $dbh->lastInsertId();
-        $sql = "INSERT INTO posts (postContent,postDate,postDateUpdate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),now(),0, :postTopic, :postBy)";
+        $sql = "INSERT INTO posts (postContent,postDate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),0, :postTopic, :postBy)";
 
         $postCreation = $dbh->prepare($sql);
         $postCreation->execute([
@@ -692,13 +691,10 @@ function getMarkdown($text)
 function categoryName($id)
 {
     global $dbh;
-
     $sql = "SELECT * FROM categories WHERE categoryId = ?";
-
     $nameOfCat = $dbh->prepare($sql);
     $nameOfCat->execute([$id]);
     $nameOfCat = $nameOfCat->fetch(PDO::FETCH_ASSOC);
-
     return $nameOfCat;
 }
 
@@ -718,4 +714,63 @@ function postReadUsers()
 }
 
 
+
+function countViews($id) 
+{
+    global $dbh;
+
+    $sql = "UPDATE topics SET topicCountViews = topicCountViews+1 WHERE topicId = ?";
+    
+    $countViews = $dbh->prepare($sql);
+    $countViews->execute([$id]);
+}
+
+function updatePostContent ($postId, $postContent){
+    global $dbh;
+
+    if (!isset($_SESSION['user'])) {  //user is not authenticated, redirect to post page
+        header("location: ../pages/login.php");
+    }
+    $sql = 'UPDATE posts SET postContent = ?,postDateUpdate = now() WHERE postId = ?';
+    try{
+    $update = $dbh->prepare($sql);
+    $update->execute([$postContent,$postId]); 
+    } catch ( Exception $e ) {
+    return " Erreur ! " . $e->getMessage ();
+  }	
+}		
+
+
+function deletePost ($postId){
+    global $dbh;
+
+    if (!isset($_SESSION['user'])) {  //user is not authenticated, redirect to post page
+        header("location: ../pages/login.php");
+    }
+
+
+    try{
+
+        $sql = "SELECT * FROM posts WHERE postId = ?";
+
+        $post = $dbh->prepare($sql);
+        $post->execute([$postId]);
+        $post = $post->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($post) != 1)
+            return "Post not found";
+        $post = $post[0];
+        if($post["postBy"] != $_SESSION['user'])
+            return "Cannot delete a post that you are not author";
+
+        $sql = 'update posts set postDeleted = 1 WHERE postId = ?';
+
+      $delete = $dbh->prepare($sql);
+      $delete->execute([$postId]);  
+
+    } catch ( Exception $e ) {
+        return " Erreur ! " . $e->getMessage ();
+      
+    }		
+} 
 ?>

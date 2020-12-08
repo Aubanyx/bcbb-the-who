@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="/assets/markdown/dist/toastui-editor.css">
     <link rel="stylesheet" href="/assets/markdown/dist/toastui-editor-viewer.css">
 
-    <link href="/bcbb-the-who/assets/fontawesome/css/all.css" rel="stylesheet">
-    <link href="/bcbb-the-who/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/fontawesome/css/all.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/faceMocion.css" rel="stylesheet">
+   
 </head>
 <body class="bg-light">
 <header class="header">

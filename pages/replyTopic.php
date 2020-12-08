@@ -63,12 +63,14 @@ include_once "../includes/header.php";
 
 <!-- main container -->
 <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">          
-<nav aria-label="breadcrumb">
-<ol class="breadcrumb bg-transparent pt-5">
-<li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
-<li class="breadcrumb-item active" aria-current="page">Board Index</li>
-</ol>
-</nav>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-transparent pt-5">
+      <li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
+      <li class="breadcrumb-item"><a href="/pages/topicIcon.php?id=<?= $topic['topicBoard'] ?>"></i> Board : <?= $topic['boardName'] ?></a></li> 
+      <li class="breadcrumb-item"><a href="/pages/topicRead.php?id=<?= $topic['topicId'] ?>"></i> Topic : <?= $topic['topicSubject'] ?></a></li>
+      <li class="breadcrumb-item active" aria-current="page">New post</li>     
+    </ol>
+  </nav>
 
 <div class="container-lg">
 
