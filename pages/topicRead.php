@@ -27,12 +27,13 @@ if ($redirect)
     header('location: ./');
     exit();
 }
+
+$getId = $_GET['id'];
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
-$posts = getPostsByTopicId($topicId);
 $boardName=boardName($_GET["id"]);
 $cats=categoryName($_GET["id"]);
-
+$posts = getPostsByTopicId($getId);
 
 
 
@@ -168,10 +169,8 @@ include_once "../includes/header.php";
                         <!-- pagination-->
 
                         <?php
-                        $topicReadUsers =  getPostsByTopicId($getId);
-
                         $getId = $_GET['id'];
-                        $sql = "select * from (SELECT (@row_number:=@row_number + 1) AS num, p.*  FROM posts as p, (SELECT @row_number:=0) AS t  WHERE postTopic = '$getId') As T1 WHERE num >= '$depart' AND postId order by postDate LIMIT 10";
+                        $sql = "select * from (SELECT (@row_number:=@row_number + 1) AS num, p.*  FROM posts as p, (SELECT @row_number:=0) AS t WHERE postTopic = '$getId') As T1 JOIN users on postBy = userId WHERE num >= '$depart' AND postId order by postDate LIMIT 10";
                         $topicReads = $dbh->prepare($sql);
                         $topicReads->execute();
                         ?>
@@ -183,29 +182,28 @@ include_once "../includes/header.php";
 
                     <div class="themed-grid-col mt-4 p-3 rounded bg-light">
                         <?php
+
                         while($topicRead = $topicReads->fetch()) {
+
                             ?>
 
-                            <!-- post-reply -->
-                            <div class="row rounded bg-white p-4 m-0 mb-3">
+                                <!-- post-reply -->
+                                <div class="row rounded bg-white p-4 m-0 mb-3">
 
-                                <div class="col-2 flex-column d-flex pt-5 pb-4">
-                                    <div class=" text-center">
+                                    <div class="col-2 flex-column d-flex pt-5 pb-4">
+                                        <div class=" text-center">
+                                            <img src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($topicRead['userEmail'])))."?"."&s=80";?>" alt="profile-image" class="mx-auto rounded-circle w-75 border">
 
-                                        <img src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($topicRead['userEmail'])))."?"."&s=80";?>" alt="profile-image" class="mx-auto rounded-circle w-75 border">
+                                            <p class="h5 pt-3 text-danger"><?= $topicRead["userNname"]?>
+                                                <span class="h6 d-block text-secondary mb-4"><?= getUserLevel($topicRead["userLevel"]) ?></span></p>
+                                        </div>
+                                        <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary font-weight-lighter"> <?= $topicRead["userTotalPosts"] ?></span></p>
+                                        <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary font-weight-lighter"> <?= $topicRead["userLocation"] ?></span></p>
+                                        <p class="h6"><span class="font-weight-bold">Mood :</span><span class="text-secondary font-weight-lighter"> <?= $topicRead["userMood"] ?></span></p>
 
-                                        <p class="h5 pt-3 text-danger">
 
-                                               <?php echo $topicReadUsers["userId"]; ?>
 
-                                            <span class="h6 d-block text-secondary mb-4"><?= getUserLevel($topicRead["userLevel"]) ?></span></p>
                                     </div>
-                                    <p class="h6"><span class="font-weight-bold">Posts :</span><span class="text-secondary font-weight-lighter"> <?= $topicRead["userPostsCount"] ?></span></p>
-                                    <p class="h6"><span class="font-weight-bold">Location :</span><span class="text-secondary font-weight-lighter"> <?= $topicRead["userLocation"] ?></span></p>
-                                    <p class="h6"><span class="font-weight-bold">Mood :</span><span class="text-secondary font-weight-lighter"> <?= $topicRead["userMood"] ?></span></p>
-
-
-                                </div>
 
 
                                 <div class="col-10 flex-column">
@@ -225,11 +223,10 @@ include_once "../includes/header.php";
                                         </p>
                                     </div>
                                     <?= getMarkdown($topicRead["postContent"]); ?>  </p>
-                                    <p class="border-top py-3 mt-5 h6 text-secondary"><?= $post["userSign"] ?></p>
+                                    <p class="border-top py-3 mt-5 h6 text-secondary"><?= $topicRead["userSign"] ?></p>
                                 </div>
 
                             </div>
-
 
                         <?php
                         }
