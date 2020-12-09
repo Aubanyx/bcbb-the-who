@@ -19,22 +19,6 @@ function connect()
     return $dbh;
 }
 
-// users
-//function user() {
-//   global $dbh;
-//
-//   $sql = "SELECT * FROM users";
-//
-//   $user = $dbh->prepare($sql);
-//   $user->execute();
-//   $user = $user->fetch(PDO::FETCH_ASSOC);
-//
-//   return $user;
-//}
-
-// Boards
-
-
 function displayCategories()
 {
     global $dbh;
@@ -67,6 +51,7 @@ function countTopics($id)
     $totalCountTopics = $dbh->prepare($sql);
     $totalCountTopics->execute([$id]);
     $totalCountTopics = $totalCountTopics->fetchAll(PDO::FETCH_ASSOC);
+
     return $totalCountTopics;
 }
 
@@ -693,4 +678,37 @@ function categoryName($id)
 
     return $nameOfCat;
 }
+
+function search() {
+    global $dbh;
+
+    extract($_POST);
+
+    $sql = "
+            SELECT DISTINCT t.topicId, t.topicSubject, t.topicDate, t.topicDateUpdate, t.topicImage, t.topicCountViews, t.topicLock, t.topicBoard, t.topicBy,
+                (
+                SELECT DISTINCT COUNT(DISTINCT t.topicId)
+                FROM topics t
+                    LEFT JOIN posts p
+                        ON t.topicId = p.postTopic
+                WHERE t.topicSubject LIKE :query
+                    OR p.postContent LIKE :query
+                )  AS `countSearch`
+            FROM topics t
+                LEFT JOIN posts p
+                    ON t.topicId = p.postTopic
+            WHERE t.topicSubject LIKE :query
+                OR p.postContent LIKE :query
+            ORDER BY t.topicDate DESC
+            ";
+
+    $search = $dbh->prepare($sql);
+    $search->execute([
+        "query" => '%' . $query . '%'
+    ]);
+    $search = $search->fetchAll(PDO::FETCH_ASSOC);
+
+    return $search;
+}
+
 ?>
