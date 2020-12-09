@@ -30,10 +30,6 @@ $getId = $_GET['id'];
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
 
-//$posts = getPostsByTopicId($topicId);
-//$boardName = boardName($_GET["id"]);
-//$cats = categoryName($_GET["id"]);
-
 $boardName=boardName($_GET["id"]);
 $cats=categoryName($_GET["id"]);
 $posts = getPostsByTopicId($getId);
@@ -260,12 +256,12 @@ include_once "../includes/header.php";
                                             {
                                                 
                                                 ?>
-                                                <button type="button" class="btn btn_delete_post bg-light rounded ml-3 rounded-pill border float-right" data-topicId="<?= $posts[0]["postTopic"] ?>" data-postId="<?= $posts[0]["postId"] ?>"><i class="far fa-trash-alt text-secondary"></i> Delete</button>
+                                                <button type="button" class="btn btn_delete_post bg-light rounded ml-3 rounded-pill border float-right" data-topicId="<?= $topicRead["postTopic"] ?>" data-postId="<?= $topicRead["postId"] ?>"><i class="far fa-trash-alt text-secondary"></i> Delete</button>
                                                 <?php 
                                                 if ( $topic{"lastPostId"}  == $topicRead{"postId"})
                                                 {
                                                 ?>
-                                                    <button type="button" class="btn btn_update_post bg-light rounded ml-3 rounded-pill border float-right" data-topicId="<?= $posts[0]["postTopic"] ?>" data-postId="<?= $posts[0]["postId"] ?>"><i class="far fa-edit text-secondary"></i> Edit</button>
+                                                    <button type="button" class="btn btn_update_post bg-light rounded ml-3 rounded-pill border float-right" data-topicId="<?= $topicRead["postTopic"] ?>" data-postId="<?= $topicRead["postId"] ?>"><i class="far fa-edit text-secondary"></i> Edit</button>
                                         </p>
                                     <?php
                                                 }
@@ -279,15 +275,11 @@ include_once "../includes/header.php";
                                                 <?php
                                             }
                                            
-//>>>>>>> development
                                         ?>
                                        
 
                                     </div>
-<!--<<<<<<< HEAD-->
-<!--                                    --><?//= getMarkdown($post["postContent"]); ?><!-- </p>-->
-<!--                                    <p class="border-top py-3 mt-5 h6 text-secondary">--><?//= $post["userSign"] ?><!--</p>-->
-<!--=======-->
+
                                     <div id="postContent_<?= $topicRead["postId"] ?>"><?php
                                     if($topicRead{"postDeleted"} == 1)
                                     {
@@ -311,7 +303,6 @@ include_once "../includes/header.php";
                                 <div class="text-right board-util d-flex pt-3">
                                 <button class="btn btn_cancel_update_post text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button" data-postId="<?= $topicRead["postId"] ?>">Cancel edition <i class="fas fa-window-close"></i></button>
                                 <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">Update post <i class="fas fa-reply"></i></button>
->>>>>>>development
                                 </div>
                             </form>
 
@@ -356,7 +347,7 @@ include_once "../includes/header.php";
                                 if($i == $pageCourante) {
                                     echo $i.' ';
                                 } else {
-                                    echo '<a href="/bcbb-the-who/pages/topicRead.php?id='.$topic['topicId'].'&page='.$i.'">'.$i.'</a> ';
+                                    echo '<a href="/pages/topicRead.php?id='.$topic['topicId'].'&page='.$i.'">'.$i.'</a> ';
                                 }
                             }
                             ?></p>

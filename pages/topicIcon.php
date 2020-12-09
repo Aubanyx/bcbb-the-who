@@ -62,7 +62,7 @@ $cats = categoryName($_GET["id"]);
                         <div class="input-group">
 
                             <form method="post" action="">
-                                <input type="text" placeholder="Search this forum..." name="query"
+                                <input type="search" placeholder="Search this forum..." name="query"
                                        aria-describedby="button-addon1"
                                        class="form-control  bg-light rounded rounded-pill border-0">
 
