@@ -842,12 +842,7 @@ function deletePost($postId)
 
     }
 }
-
-    } catch ( Exception $e ) {
-        return " Erreur ! " . $e->getMessage ();
-      
-    }		
-} 
+	
 
 function topicBreadcrumb($id)
 {
