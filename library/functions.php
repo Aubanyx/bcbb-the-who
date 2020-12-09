@@ -613,6 +613,10 @@ function createPost()
         return "Duplicated message";
 
     try {
+        $sql ="UPDATE users SET userTotalPosts = userTotalPosts+1 WHERE userId = ?";
+        $countPosts = $dbh->prepare($sql);
+        $countPosts->execute([$_SESSION["user"]]);
+
         $sql = "INSERT INTO posts (postContent,postDate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),0, :postTopic, :postBy)";
 
         $postCreation = $dbh->prepare($sql);
@@ -652,6 +656,9 @@ function createTopic()
 
     //TODO Create a transaction
     try {
+        $sql ="UPDATE users SET userTotalPosts = userTotalPosts+1 WHERE userId = ?";
+        $countPosts = $dbh->prepare($sql);
+        $countPosts->execute([$_SESSION["user"]]);
 
         $sql = "INSERT INTO topics (topicSubject,topicDate,topicDateUpdate,topicImage,topicBoard,topicBy) VALUES(:topicSubject, now(),now(),'', :topicBoard, :topicBy)";
        
@@ -727,6 +734,33 @@ function categoryName($id)
     return $nameOfCat;
 }
 
+// Post read Users
+
+function postReadUsers()
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM posts JOIN users ON postBy = userId";
+
+    $postReadUsers = $dbh->prepare($sql);
+    $postReadUsers->execute();
+    $postReadUsers = $postReadUsers->fetchAll(PDO::FETCH_ASSOC);
+
+    return $postReadUsers;
+}
+
+
+
+function countViews($id) 
+{
+    global $dbh;
+
+    $sql = "UPDATE topics SET topicCountViews = topicCountViews+1 WHERE topicId = ?";
+    
+    $countViews = $dbh->prepare($sql);
+    $countViews->execute([$id]);
+}
+
 function updatePostContent ($postId, $postContent){
     global $dbh;
 
@@ -795,5 +829,4 @@ function deletePost ($postId){
       
     }		
 } 
-
-
+?>

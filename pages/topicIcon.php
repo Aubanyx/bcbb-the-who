@@ -102,7 +102,7 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
                              <div class="col-3"><i class="fas fa-eye"></i></div>
                              <div class="col-6"><i class="fas fa-clock"></i></div>
                          </div>
-                     </div>
+    </div>
   </div>
   <div class="card-body bg-light">
     <div class="forumslist shadow-sm bg-white mt-1 p-3">
@@ -128,14 +128,14 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 
      <div class="row no-gutters py-3 text-black-50 align-items-center">
       <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i></div>
-      <div class="col"><a href="/pages/topicRead.php?id=<?=$topic['topicId'];?>"> <?= getMarkdown($topic['topicSubject']);?></a>
+      <div class="col"><a href="/pages/topicRead.php?id=<?php echo $topic['topicId']; ?>"> <?= getMarkdown($topic['topicSubject']);?></a>
 
      <p class="text-secondary small">by <a href="#"><?=$userName;?></a></p></div>
 
       <div class="d-none d-md-block col-6">
           <div class="row no-gutters pl-2 align-items-center">
               <div class="col-3"><?=$countPosts['countPosts']; //var_dump($countPosts); ?> </div>
-              <div class="col-3">327</div>
+              <div id="countVisitor" class="col-3"><?=$topic['topicCountViews'];?></div>
               <div class="media col-6 align-items-center"> 
                 <p>by <a href="#"><?=$lastUserName;?></a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
                 <span class="d-block"><?=$lastDate;?></span></p></div>
