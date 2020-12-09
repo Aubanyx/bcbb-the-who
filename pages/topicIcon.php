@@ -23,11 +23,6 @@ if (!isset($_GET["id"])) //If no id is specified in url, we redirect to index pa
 $page = "topicIcon";
 include_once "../includes/header.php";
 
-if (!empty($_POST)) {
-    $search = search();
-}
-
-//$topics = topics();
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
 $cats = categoryName($_GET["id"]);
@@ -118,59 +113,34 @@ $cats = categoryName($_GET["id"]);
 
 
                             <!-- sujet -->
-                            <?php
-                            if (isset($_POST['query'])) :
-                                ?>
-
-                                <h4><?= $search[0]['countSearch'] ?> résultats trouvés pour la recherche
-                                    "<?= $_POST['query'] ?>" :</h4>
-
-                                <?php
-                                foreach ($search as $result) :
-                                    $userName = topicsName($result['topicBy']);
-                                    [$lastUserName, $lastDate] = topicsLastMsg($result['topicId']);
-                                    $countPosts = countPostsOnTopic($result['topicId']);
-                                    ?>
-                                    <div class="row no-gutters py-3 text-black-50 align-items-center">
-                                        <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i>
-                                        </div>
-                                        <div class="col"><a
-                                                    href="/pages/topicRead.php?id=<?= $result['topicId']; ?>"> <?= getMarkdown($result['topicSubject']); ?></a>
-
-                                            <p class="text-secondary small">by <a href="#"><?= $userName; ?></a></p>
-                                        </div>
-
-                                        <div class="d-none d-md-block col-6">
-                                            <div class="row no-gutters pl-2 align-items-center">
-                                                <div class="col-3"><?= $countPosts['countPosts']; ?> </div>
-                                                <div class="col-3">327</div>
-                                                <div class="media col-6 align-items-center">
-                                                    <p>by <a href="#"><?= $lastUserName; ?></a> <a href="#"><i
-                                                                    class="fas fa-external-link-alt"></i></a>
-                                                        <span class="d-block"><?= $lastDate; ?></span></p></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php
-                                endforeach;
-                                ?>
-
-                            <?php
-                            else :
-                                ?>
 
                                 <?php
                                 if ($_GET['id'] == 8) {
                                     $topics = topicsRandom();
-                                } else {
+                                }
+                                else if (isset($_POST['query'])) {
+                                    $topics = search();
+
+                                }
+                                else {
                                     $topics = topics();
                                 }
+
+                                    if (isset($_POST['query'])) :
+                                    ?>
+
+                                    <h4><?= $topics[0]['countSearch'] ?> résultats trouvés pour la recherche"<?= $_POST['query'] ?>" :</h4>
+
+                                    <?php
+                                    endif;
+
                                 foreach ($topics as $topic) :
                                     $userName = topicsName($topic['topicBy']);
                                     [$lastUserName, $lastDate] = topicsLastMsg($topic['topicId']);
                                     //$postTopic = countPosts($topic['postId']);
                                     $countPosts = countPostsOnTopic($topic['topicId']);
                                     ?>
+
                                     <div class="row no-gutters py-3 text-black-50 align-items-center">
                                         <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i>
                                         </div>
@@ -183,10 +153,8 @@ $cats = categoryName($_GET["id"]);
                                         <div class="d-none d-md-block col-6">
                                             <div class="row no-gutters pl-2 align-items-center">
                                                 <div class="col-3"><?= $countPosts['countPosts']; ?> </div>
-                                                <div class="col-3">327</div>
-                                                <div class="media col-6 align-items-center">
-                                                    <p>by <a href="#"><?= $lastUserName; ?></a> <a href="#"><i
-                                                                    class="fas fa-external-link-alt"></i></a>
+                                                <div id="countVisitor" class="col-3"><?=$topic['topicCountViews'];?></div>                                                <div class="media col-6 align-items-center">
+                                                    <p>by <a href="#"><?= $lastUserName; ?></a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
                                                         <span class="d-block"><?= $lastDate; ?></span></p></div>
                                             </div>
                                         </div>
@@ -196,7 +164,7 @@ $cats = categoryName($_GET["id"]);
                                 ?>
 
                             <?php
-                            endif;
+//                            endif;
                             ?>
 
                             <!-- /sujet -->
