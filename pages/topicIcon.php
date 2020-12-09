@@ -59,9 +59,10 @@ $cats = categoryName($_GET["id"]);
                     </a>
                     <!-- searchbar -->
                     <div class="bg-light rounded rounded-pill border w-25 ml-3">
-                        <div class="input-group">
+
 
                             <form method="post" action="">
+                                <div class="input-group">
                                 <input type="search" placeholder="Search this forum..." name="query"
                                        aria-describedby="button-addon1"
                                        class="form-control  bg-light rounded rounded-pill border-0">
@@ -74,11 +75,11 @@ $cats = categoryName($_GET["id"]);
                                     <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
                                                 class="fas fa-cog cog"></i></button>
                                 </div>
+                                </div>
                             </form>
 
-                        </div>
-                    </div>
 
+                    </div>
 
                     <?php
                     $countTopics = countTopics($_GET["id"]);
