@@ -10,9 +10,7 @@ $redirect = false;
 if (!isset($_GET["id"])) //If no id is specified in url, we redirect to index page
 {
     $redirect = true;
-}
-else
-{
+} else {
     $topicId = $_GET["id"];
     $topic = getTopicById($topicId);
 
@@ -23,8 +21,7 @@ else
         $topic = $topic[0]; //Retrieve first element from array and assign it in $topic
 }
 
-if ($redirect)
-{
+if ($redirect) {
     header('location: ./');
     exit();
 }
@@ -32,6 +29,7 @@ if ($redirect)
 $getId = $_GET['id'];
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
+
 $boardName=boardName($_GET["id"]);
 $cats=categoryName($_GET["id"]);
 $posts = getPostsByTopicId($getId);
@@ -46,13 +44,15 @@ include_once "../includes/header.php";
 ?>
 
     <!-- forum body -->
+
 <!-- pagination-->
 
-<!-- /pagination -->
+    <!-- /pagination -->
 
     <!-- main container -->
     <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
         <nav aria-label="breadcrumb">
+
         <ol class="breadcrumb bg-transparent pt-5">
                 <li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
                 <li class="breadcrumb-item"><a href="/pages/topicIcon.php?id=<?= $topic['topicBoard'] ?>"></i> Board : <?= $topic['boardName'] ?></a></li> 
@@ -116,7 +116,8 @@ include_once "../includes/header.php";
                         <!-- / LOCK TOPIC BUTTON -->
 
                         <a href="/pages/replyTopic.php?id=<?= $topicId ?>">
-                            <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button">Post reply <i class="fas fa-reply"></i></button>
+                            <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
+                                    type="button">Post reply <i class="fas fa-reply"></i></button>
                         </a>
                         <!-- searchbar -->
                         <div class="dropdown">
@@ -134,11 +135,14 @@ include_once "../includes/header.php";
 
                         <div class="bg-light rounded rounded-pill border w-25 ml-3">
                             <div class="input-group">
-                                <input type="search" placeholder="Search this topic..." aria-describedby="button-addon1" class="form-control  bg-light rounded rounded-pill border-0">
+                                <input type="search" placeholder="Search this topic..." aria-describedby="button-addon1"
+                                       class="form-control  bg-light rounded rounded-pill border-0">
                                 <div class="input-group-append">
-                                    <button id="button-addon1" type="submit" class="btn btn-link text-primary border-right"><i class="fa fa-search magnifying-glass"></i></button>
-                                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fas fa-cog cog"></i></button>
-
+                                    <button id="button-addon1" type="submit"
+                                            class="btn btn-link text-primary border-right"><i
+                                                class="fa fa-search magnifying-glass"></i></button>
+                                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
+                                                class="fas fa-cog cog"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -174,19 +178,31 @@ include_once "../includes/header.php";
                         $topicReads = $dbh->prepare($sql);
                         $topicReads->execute();
                         ?>
-
-
-
                     </div>
-
 
                     <div class="themed-grid-col mt-4 p-3 rounded bg-light">
                         <?php
-
                         while($topicRead = $topicReads->fetch()) {
-
                             ?>
 
+<!--                                <div class="col-2 flex-column d-flex pt-5 pb-4">-->
+<!--                                    <div class=" text-center">-->
+<!--                                        <img src="--><?php //echo "https://www.gravatar.com/avatar/" . md5(strtolower(trim($post['userEmail']))) . "?" . "&s=80"; ?><!--"-->
+<!--                                             alt="profile-image" class="mx-auto rounded-circle w-75 border">-->
+<!---->
+<!--                                        <p class="h5 pt-3 text-danger">--><?//= $post["userNname"] ?>
+<!--                                            <span class="h6 d-block text-secondary mb-4">--><?//= getUserLevel($post["userLevel"]) ?><!--</span>-->
+<!--                                        </p>-->
+<!--                                    </div>-->
+<!--                                    <p class="h6"><span class="font-weight-bold">Posts :</span><span-->
+<!--                                                class="text-secondary font-weight-lighter"> --><?//= $post["userPostsCount"] ?><!--</span>-->
+<!--                                    </p>-->
+<!--                                    <p class="h6"><span class="font-weight-bold">Location :</span><span-->
+<!--                                                class="text-secondary font-weight-lighter"> --><?//= $post["userLocation"] ?><!--</span>-->
+<!--                                    </p>-->
+<!--                                    <p class="h6"><span class="font-weight-bold">Mood :</span><span-->
+<!--                                                class="text-secondary font-weight-lighter"> --><?//= $post["userMood"] ?><!--</span>-->
+<!--                                    </p>-->
                                 <!-- post-reply -->
                                 <div class="row rounded bg-white p-4 m-0 mb-3">
 
@@ -208,6 +224,26 @@ include_once "../includes/header.php";
 
                                 <div class="col-10 flex-column">
                                     <div class="time-quote">
+<!--<<<<<<< HEAD-->
+<!--                                        <p class="my-4 h6 text-secondary"><i-->
+<!--                                                    class="far fa-clock"></i> --><?//= formatDate($post["postDate"]) ?>
+<!--                                            --><?php
+//                                            if (isset($_SESSION["user"])) :
+//                                            ?>
+<!--                                            <button type="button"-->
+<!--                                                    class="btn bg-light rounded ml-3 rounded-pill border float-right"-->
+<!--                                                    id="quote"><i class="far fa-trash-alt text-secondary"></i> Delete-->
+<!--                                            </button>-->
+<!--                                            <button type="button"-->
+<!--                                                    class="btn bg-light rounded ml-3 rounded-pill border float-right"-->
+<!--                                                    id="quote"><i class="far fa-edit text-secondary"></i> Edit-->
+<!--                                            </button>-->
+<!--                                        --><?php
+//                                        else :
+//                                            ?><!--<p></p>-->
+<!--                                        --><?php
+//                                        endif;
+//=======?>
                                         <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> <?= formatDate($topicRead["postDate"]) ?>
                                             <?php
                                             if(!is_null($topicRead{"postDateUpdate"}))
@@ -226,20 +262,24 @@ include_once "../includes/header.php";
                                                 {
                                                 ?>
                                                     <button type="button" class="btn btn_update_post bg-light rounded ml-3 rounded-pill border float-right" data-topicId="<?= $topicRead["postTopic"] ?>" data-postId="<?= $topicRead["postId"] ?>"><i class="far fa-edit text-secondary"></i> Edit</button>
-                                                <?php
+                                        </p>
+                                    <?php
                                                 }
                                             }
                                           
                                             else 
                                             {
 
-                                                ?><p></p><?php
+                                                ?>
+                                        <p></p>
+                                                <?php
                                             }
                                            
                                         ?>
                                        
-                                        </p>
+
                                     </div>
+
                                     <div id="postContent_<?= $topicRead["postId"] ?>"><?php
                                     if($topicRead{"postDeleted"} == 1)
                                     {
@@ -285,7 +325,8 @@ include_once "../includes/header.php";
 
                     <div class="board-util d-flex pt-3">
                         <a href="/pages/replyTopic.php?id=<?= $topicId ?>">
-                            <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button">Post reply <i class="fas fa-reply"></i></button>
+                            <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
+                                    type="button">Post reply <i class="fas fa-reply"></i></button>
                         </a>
                         <!-- searchbar -->
                         <div class="dropdown">
@@ -345,7 +386,7 @@ include_once "../includes/header.php";
             </div>
             <!-- end container-lg -->
         </div>
-        
+
 
     </div>
 

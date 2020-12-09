@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 if(!isset($_SESSION["user"])) { //if user is not connected, he cannot update a post
     header("Location: /pages/login.php");
 }
