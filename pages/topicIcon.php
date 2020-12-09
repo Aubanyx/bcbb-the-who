@@ -78,7 +78,7 @@ $cats = categoryName($_GET["id"]);
 
                             </div>
                         </div>
-
+                    </div>
 
                         <?php
                         $countTopics = countTopics($_GET["id"]);

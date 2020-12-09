@@ -842,5 +842,20 @@ function deletePost($postId)
 
     }
 }
+	
+
+function topicBreadcrumb($id)
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM topics WHERE topicId = ?";
+    $topicBreadCrumb = $dbh->prepare($sql);
+    $topicBreadCrumb->execute([$id]);
+    $topicBreadCrumb = $topicBreadCrumb->fetchAll(PDO::FETCH_ASSOC);
+
+    return $topicBreadCrumb;
+}
+
+
 
 ?>
