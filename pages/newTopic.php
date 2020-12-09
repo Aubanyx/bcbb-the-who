@@ -59,8 +59,9 @@ $page = "New Topic";
 
 $topicId = $_GET["id"];
 $topic = getTopicById($topicId);
-
+$toptop = topicBreadcrumb($topicId);
 include_once "../includes/header.php";
+
 
 ?>
 
@@ -71,7 +72,7 @@ include_once "../includes/header.php";
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent pt-5">
                 <li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
-                <li class="breadcrumb-item"><a href="/pages/topicIcon.php?id=<?= $topic['topicBoard'] ?>"></i> Board : <?= $board["boardName"]?></a></li> 
+                <li class="breadcrumb-item"><a href="/pages/topicIcon.php?id=<?= $toptop[0]['topicId'] ?>"></i> Board : <?= $board['boardName'] ?></a></li> 
                 <li class="breadcrumb-item active" aria-current="page">New Topic</li>     
             </ol>
         </nav>

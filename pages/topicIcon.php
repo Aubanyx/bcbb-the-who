@@ -133,7 +133,7 @@ Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before
 
       <div class="d-none d-md-block col-6">
           <div class="row no-gutters pl-2 align-items-center">
-              <div class="col-3"><?=$countPosts['countPosts']; //var_dump($countPosts); ?> </div>
+              <div class="col-3"><?=$countPosts['countPosts'];?> </div>
               <div id="countVisitor" class="col-3"><?=$topic['topicCountViews'];?></div>
               <div class="media col-6 align-items-center"> 
                 <p>by <a href="#"><?=$lastUserName;?></a> <a href="#"><i class="fas fa-external-link-alt"></i></a>
