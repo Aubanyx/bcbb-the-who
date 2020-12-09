@@ -2,7 +2,7 @@
 <?php
 
 $page = "Home";
-if (!empty($_POST)) {
+if (!empty($_POST) && isset($_POST['username'])) {
     $erreur = connexion();
 }
 

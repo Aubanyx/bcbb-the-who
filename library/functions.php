@@ -271,7 +271,7 @@ function connexion()
 
     $username = "";
     $password = "";
-    echo $_POST;
+    
     extract($_POST);
 
     $sql = "SELECT userId, userNname, userPass FROM users WHERE userNname = ?";
@@ -555,6 +555,38 @@ function getPostsByTopicId($topicId)
     return $resultsPosts;
 }
 
+function getPostById($postId)
+{
+    global $dbh;
+    
+    $sql = "SELECT * FROM posts WHERE postId = ?";
+    $post = $dbh->prepare($sql);
+    $post->execute([$postId]);
+    $post = $post->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($post) == 1)
+        return $post[0];
+
+    return null;
+}
+
+function getLastPostOfTopic($topicId)
+{
+    global $dbh;
+
+    $sql = "select * from posts where postTopic = ? order by postDate desc limit 1";
+
+    $post = $dbh->prepare($sql);
+    $post->execute([$topicId]);
+    $post = $post->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($post) == 1)
+        return $post[0];
+
+    return null;
+    
+}
+
 // Répondre à un sujet
 
 function createPost()
@@ -575,6 +607,10 @@ function createPost()
     //Verify input
     if (empty($postContent)) return "Post content is required";
 
+    //Verify that is not a duplicated post
+    $lastPostTopic = getLastPostOfTopic($topicId);
+    if(!is_null($lastPostTopic) && $lastPostTopic['postBy'] == $currentUserId && $lastPostTopic['postContent'] == $postContent)
+        return "Duplicated message";
 
     try {
         $sql = "INSERT INTO posts (postContent,postDate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),0, :postTopic, :postBy)";
@@ -697,14 +733,34 @@ function updatePostContent ($postId, $postContent){
     if (!isset($_SESSION['user'])) {  //user is not authenticated, redirect to post page
         header("location: ../pages/login.php");
     }
+
+    $post = getPostById($postId);
+    if(is_null($post)) 
+        return "Post not found with id " . $postId;
+    
+    //Verify that we are the author of the post
+    if($post['postBy'] != $_SESSION['user']) 
+        return "Cannot modify a post whose you re not the author";
+
+    //get last post of the topic and verify that it's the post that is currently modify
+    $lastTopic = getLastPostOfTopic($post['postTopic']);
+
+    if($lastTopic['postId'] != $postId)
+        return "This post cannot be modify because it is not the last post of the topic";
+
     $sql = 'UPDATE posts SET postContent = ?,postDateUpdate = now() WHERE postId = ?';
-    try{
-    $update = $dbh->prepare($sql);
-    $update->execute([$postContent,$postId]); 
-    } catch ( Exception $e ) {
+    try
+    {
+        $update = $dbh->prepare($sql);
+        $update->execute([$postContent,$postId]); 
+    } 
+    catch ( Exception $e ) 
+    {
     return " Erreur ! " . $e->getMessage ();
-  }	
+    }	
 }		
+
+
 
 
 function deletePost ($postId){

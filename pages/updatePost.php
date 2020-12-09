@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION["user"])) { //if user is not connected, he cannot delete a post
+if(!isset($_SESSION["user"])) { //if user is not connected, he cannot update a post
     header("Location: /pages/login.php");
 }
 extract($_POST);
@@ -31,6 +31,8 @@ if($result == "")
 {
     header("Location: /pages/topicRead.php?id=" . $topicId);
 }
+else
+    echo $result;
 
 
 

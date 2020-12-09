@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 require_once "../library/functions.php";
 require_once '../assets/Michelf/Markdown.inc.php';
 $dbh = connect();
