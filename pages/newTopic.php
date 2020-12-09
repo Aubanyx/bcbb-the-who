@@ -55,7 +55,10 @@ if (!empty($_POST)) {
   }
 
 $lasttopics = displayLastT();
-$page = "Home";
+$page = "New Topic";
+
+$topicId = $_GET["id"];
+$topic = getTopicById($topicId);
 
 include_once "../includes/header.php";
 
@@ -67,11 +70,12 @@ include_once "../includes/header.php";
     <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent pt-5">
-                <li class="breadcrumb-item"><a href="/index.php"><i
-                                class="fas fa-home"></i> Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Board Index</li>
+                <li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
+                <li class="breadcrumb-item"><a href="/pages/topicIcon.php?id=<?= $topic['topicBoard'] ?>"></i> Board : <?= $board["boardName"]?></a></li> 
+                <li class="breadcrumb-item active" aria-current="page">New Topic</li>     
             </ol>
         </nav>
+
 
 
         <div class="container-lg">

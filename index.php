@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 //if (!isset($_SESSION["user"])) {
 //    header("Location: login.php");
 //}
@@ -10,7 +11,7 @@ $categories = displayCategories();
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
 $page = "Home";
-if($_SERVER['REQUEST_URI'] == "/index.php?mdp=TanyaLaCrack") {
+if($_SERVER['REQUEST_URI'] == "/index.php?mdp=Crack") {
     header("Location: ./pages/topicIcon.php?id=10");
 }
 
@@ -24,7 +25,6 @@ include_once "./includes/header.php";
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent pt-5">
             <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i> Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Board Index</li>
         </ol>
     </nav>
 

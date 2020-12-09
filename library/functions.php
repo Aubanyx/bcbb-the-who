@@ -1,7 +1,7 @@
 <?php
 
 
-// DB
+// DB (Database)
 function connect()
 {
 
@@ -256,7 +256,7 @@ function connexion()
 
     $username = "";
     $password = "";
-    echo $_POST;
+
     extract($_POST);
 
     $sql = "SELECT userId, userNname, userPass FROM users WHERE userNname = ?";
@@ -506,7 +506,7 @@ function getTopicById($topicId)
 {
     global $dbh;
 
-    $sql = "SELECT * FROM topics WHERE topicId = ?";
+    $sql = "SELECT *,(select postId from posts where postTopic = topicId order by postDate desc limit 1) as lastPostId FROM topics INNER JOIN boards ON topics.topicBoard = boards.boardId WHERE topicId = ?";
     $topic = $dbh->prepare($sql);
     $topic->execute([$topicId]);
     $topic = $topic->fetchAll(PDO::FETCH_ASSOC);
@@ -532,12 +532,44 @@ function getPostsByTopicId($topicId)
 {
     global $dbh;
     //userPostsCount is number of posts of user
-    $sql = "SELECT *,(select count(*) from posts where postBy = userId ) as userPostsCount FROM posts inner join users on postBy = userId WHERE postTopic = ?";
+    $sql = "SELECT *,(select count(*) from posts where postBy = userId ) as userPostsCount FROM posts inner join users on postBy = userId WHERE postTopic = ? order by postDate";
     $resultsPosts = $dbh->prepare($sql);
     $resultsPosts->execute([$topicId]);
     $resultsPosts = $resultsPosts->fetchAll(PDO::FETCH_ASSOC);
 
     return $resultsPosts;
+}
+
+function getPostById($postId)
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM posts WHERE postId = ?";
+    $post = $dbh->prepare($sql);
+    $post->execute([$postId]);
+    $post = $post->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($post) == 1)
+        return $post[0];
+
+    return null;
+}
+
+function getLastPostOfTopic($topicId)
+{
+    global $dbh;
+
+    $sql = "select * from posts where postTopic = ? order by postDate desc limit 1";
+
+    $post = $dbh->prepare($sql);
+    $post->execute([$topicId]);
+    $post = $post->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($post) == 1)
+        return $post[0];
+
+    return null;
+
 }
 
 // Répondre à un sujet
@@ -560,9 +592,17 @@ function createPost()
     //Verify input
     if (empty($postContent)) return "Post content is required";
 
+    //Verify that is not a duplicated post
+    $lastPostTopic = getLastPostOfTopic($topicId);
+    if (!is_null($lastPostTopic) && $lastPostTopic['postBy'] == $currentUserId && $lastPostTopic['postContent'] == $postContent)
+        return "Duplicated message";
 
     try {
-        $sql = "INSERT INTO posts (postContent,postDate,postDateUpdate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),now(),0, :postTopic, :postBy)";
+        $sql = "UPDATE users SET userTotalPosts = userTotalPosts+1 WHERE userId = ?";
+        $countPosts = $dbh->prepare($sql);
+        $countPosts->execute([$_SESSION["user"]]);
+
+        $sql = "INSERT INTO posts (postContent,postDate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),0, :postTopic, :postBy)";
 
         $postCreation = $dbh->prepare($sql);
         $postCreation->execute([
@@ -591,7 +631,7 @@ function createTopic()
     }
 
     if (!isset($boardId))
-       return "Board id value is required";
+        return "Board id value is required";
 
     $currentUserId = $_SESSION["user"];
 
@@ -601,11 +641,14 @@ function createTopic()
 
     //TODO Create a transaction
     try {
+        $sql = "UPDATE users SET userTotalPosts = userTotalPosts+1 WHERE userId = ?";
+        $countPosts = $dbh->prepare($sql);
+        $countPosts->execute([$_SESSION["user"]]);
 
         $sql = "INSERT INTO topics (topicSubject,topicDate,topicDateUpdate,topicImage,topicBoard,topicBy) VALUES(:topicSubject, now(),now(),'', :topicBoard, :topicBy)";
-       
+
         $topicCreation = $dbh->prepare($sql);
-   
+
         $topicCreation->execute([
             "topicSubject" => $topicSubject,
             "topicBoard" => $boardId,
@@ -613,7 +656,7 @@ function createTopic()
         ]);
 
         $topicId = $dbh->lastInsertId();
-        $sql = "INSERT INTO posts (postContent,postDate,postDateUpdate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),now(),0, :postTopic, :postBy)";
+        $sql = "INSERT INTO posts (postContent,postDate,postDeleted,postTopic,postBy) VALUES(:postContent, now(),0, :postTopic, :postBy)";
 
         $postCreation = $dbh->prepare($sql);
         $postCreation->execute([
@@ -621,7 +664,7 @@ function createTopic()
             "postTopic" => $topicId,
             "postBy" => $currentUserId
         ]);
-          
+
 
     } catch (Exception $exception) {
         return "An internal error occurs while topic creation : " . $exception->getMessage();
@@ -665,23 +708,22 @@ function getMarkdown($text)
     echo $markdowned_text;
 }
 
- 
+
 function categoryName($id)
 {
     global $dbh;
-
     $sql = "SELECT * FROM categories WHERE categoryId = ?";
-
     $nameOfCat = $dbh->prepare($sql);
     $nameOfCat->execute([$id]);
     $nameOfCat = $nameOfCat->fetch(PDO::FETCH_ASSOC);
-
     return $nameOfCat;
 }
 
-function search() {
+function search()
+{
     global $dbh;
 
+    $query ="";
     extract($_POST);
 
     $sql = "
@@ -709,6 +751,96 @@ function search() {
     $search = $search->fetchAll(PDO::FETCH_ASSOC);
 
     return $search;
+}
+
+// Post read Users
+
+function postReadUsers()
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM posts JOIN users ON postBy = userId";
+
+    $postReadUsers = $dbh->prepare($sql);
+    $postReadUsers->execute();
+    $postReadUsers = $postReadUsers->fetchAll(PDO::FETCH_ASSOC);
+
+    return $postReadUsers;
+}
+
+function countViews($id)
+{
+    global $dbh;
+
+    $sql = "UPDATE topics SET topicCountViews = topicCountViews+1 WHERE topicId = ?";
+
+    $countViews = $dbh->prepare($sql);
+    $countViews->execute([$id]);
+}
+
+function updatePostContent($postId, $postContent)
+{
+    global $dbh;
+
+    if (!isset($_SESSION['user'])) {  //user is not authenticated, redirect to post page
+        header("location: ../pages/login.php");
+    }
+
+    $post = getPostById($postId);
+    if (is_null($post))
+        return "Post not found with id " . $postId;
+
+    //Verify that we are the author of the post
+    if ($post['postBy'] != $_SESSION['user'])
+        return "Cannot modify a post whose you re not the author";
+
+    //get last post of the topic and verify that it's the post that is currently modify
+    $lastTopic = getLastPostOfTopic($post['postTopic']);
+
+    if ($lastTopic['postId'] != $postId)
+        return "This post cannot be modify because it is not the last post of the topic";
+
+    $sql = 'UPDATE posts SET postContent = ?,postDateUpdate = now() WHERE postId = ?';
+    try {
+        $update = $dbh->prepare($sql);
+        $update->execute([$postContent, $postId]);
+    } catch (Exception $e) {
+        return " Erreur ! " . $e->getMessage();
+    }
+}
+
+function deletePost($postId)
+{
+    global $dbh;
+
+    if (!isset($_SESSION['user'])) {  //user is not authenticated, redirect to post page
+        header("location: ../pages/login.php");
+    }
+
+
+    try {
+
+        $sql = "SELECT * FROM posts WHERE postId = ?";
+
+        $post = $dbh->prepare($sql);
+        $post->execute([$postId]);
+        $post = $post->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($post) != 1)
+            return "Post not found";
+        $post = $post[0];
+        if ($post["postBy"] != $_SESSION['user'])
+            return "Cannot delete a post that you are not author";
+
+        $sql = 'update posts set postDeleted = 1 WHERE postId = ?';
+
+        $delete = $dbh->prepare($sql);
+        $delete->execute([$postId]);
+
+    } catch (Exception $e) {
+        return " Erreur ! " . $e->getMessage();
+
+    }
 }
 
 ?>
