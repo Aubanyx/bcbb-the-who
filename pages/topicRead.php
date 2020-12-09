@@ -185,24 +185,6 @@ include_once "../includes/header.php";
                         while($topicRead = $topicReads->fetch()) {
                             ?>
 
-<!--                                <div class="col-2 flex-column d-flex pt-5 pb-4">-->
-<!--                                    <div class=" text-center">-->
-<!--                                        <img src="--><?php //echo "https://www.gravatar.com/avatar/" . md5(strtolower(trim($post['userEmail']))) . "?" . "&s=80"; ?><!--"-->
-<!--                                             alt="profile-image" class="mx-auto rounded-circle w-75 border">-->
-<!---->
-<!--                                        <p class="h5 pt-3 text-danger">--><?//= $post["userNname"] ?>
-<!--                                            <span class="h6 d-block text-secondary mb-4">--><?//= getUserLevel($post["userLevel"]) ?><!--</span>-->
-<!--                                        </p>-->
-<!--                                    </div>-->
-<!--                                    <p class="h6"><span class="font-weight-bold">Posts :</span><span-->
-<!--                                                class="text-secondary font-weight-lighter"> --><?//= $post["userPostsCount"] ?><!--</span>-->
-<!--                                    </p>-->
-<!--                                    <p class="h6"><span class="font-weight-bold">Location :</span><span-->
-<!--                                                class="text-secondary font-weight-lighter"> --><?//= $post["userLocation"] ?><!--</span>-->
-<!--                                    </p>-->
-<!--                                    <p class="h6"><span class="font-weight-bold">Mood :</span><span-->
-<!--                                                class="text-secondary font-weight-lighter"> --><?//= $post["userMood"] ?><!--</span>-->
-<!--                                    </p>-->
                                 <!-- post-reply -->
                                 <div class="row rounded bg-white p-4 m-0 mb-3">
 
@@ -224,26 +206,7 @@ include_once "../includes/header.php";
 
                                 <div class="col-10 flex-column">
                                     <div class="time-quote">
-<!--<<<<<<< HEAD-->
-<!--                                        <p class="my-4 h6 text-secondary"><i-->
-<!--                                                    class="far fa-clock"></i> --><?//= formatDate($post["postDate"]) ?>
-<!--                                            --><?php
-//                                            if (isset($_SESSION["user"])) :
-//                                            ?>
-<!--                                            <button type="button"-->
-<!--                                                    class="btn bg-light rounded ml-3 rounded-pill border float-right"-->
-<!--                                                    id="quote"><i class="far fa-trash-alt text-secondary"></i> Delete-->
-<!--                                            </button>-->
-<!--                                            <button type="button"-->
-<!--                                                    class="btn bg-light rounded ml-3 rounded-pill border float-right"-->
-<!--                                                    id="quote"><i class="far fa-edit text-secondary"></i> Edit-->
-<!--                                            </button>-->
-<!--                                        --><?php
-//                                        else :
-//                                            ?><!--<p></p>-->
-<!--                                        --><?php
-//                                        endif;
-//=======?>
+
                                         <p class="my-4 h6 text-secondary"><i class="far fa-clock"></i> <?= formatDate($topicRead["postDate"]) ?>
                                             <?php
                                             if(!is_null($topicRead{"postDateUpdate"}))
