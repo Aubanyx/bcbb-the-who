@@ -151,6 +151,5 @@ include_once "../includes/header.php";
         <!-- end main container -->
 
     </div>
-    >>>>>>> development
 
 <?php include_once "../includes/footer.php" ?>
