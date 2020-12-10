@@ -51,20 +51,32 @@ include_once "../includes/header.php";
             endif;
         endif;
         ?>
-        <div class="container d-flex justify-content-center">
+    <div class="container d-flex justify-content-center">
             <div class="card border-0 w-100">
                 <div class="card-body board-util">
                     <form class="p-5" action="" method="post" enctype="multipart/form-data">
                         <div class="d-flex bg-light rounded align-items-center justify-content-center py-3 profilesettings">
                         <img src="
                         <?php
+
+//                        $image = $infos["userImage"];
+//
+//                        $imageData = base64_encode(file_get_contents($image));
+//
+//                        $src = 'data: '.mime_content_type($image).';base64,'.$imageData;
+
+//                        $image = '<img src="data:image/jpeg;base64,'.base64_encode($infos['userImage']).'"/>';
+//                        echo $image;
+//                        echo '<img src="'.$src.'">';
+
                         if (!empty($infos["userImage"])) {
-                            echo "../assets/images/avatar/" . $infos["userImage"];
+//                            echo $image;
                         }
                         else {
                             echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($infos['userEmail'])))."?"."&s=80";
                         }
-                        ?>">
+                        ?>
+                        ">
                             
                             <div class="pl-sm-4 pl-2 img-fluid text-secondary"><p
                                         class="display-4 pb-2 text-dark"><?= $infos["userFname"] . " " . $infos["userLname"] ?></p>

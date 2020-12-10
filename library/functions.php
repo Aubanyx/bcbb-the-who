@@ -300,6 +300,19 @@ function infos()
     return $user;
 }
 
+function infosFile()
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM file WHERE fileUser = ?";
+
+    $file = $dbh->prepare($sql);
+    $file->execute([$_SESSION["user"]]);
+    $file = $file->fetch();
+
+    return $file;
+}
+
 // Profile
 function changeInfosProfile($form)
 {
@@ -308,6 +321,7 @@ function changeInfosProfile($form)
     extract($_POST);
 
     $infos = infos();
+    $file = infosFile();
     $validation = true;
     $validationFile = true;
     $erreur = [];
@@ -376,16 +390,31 @@ function changeInfosProfile($form)
 
     // Upload et changement d'avatar
     if ($validationFile) {
-        $image = basename($_FILES["file"]["name"]);
-        $sql = "UPDATE users
-            SET userImage = ?
-            WHERE userId = ?";
+        $imageName = basename($_FILES["file"]["name"]);
+        $imageType = $_FILES["file"]["type"];
+        $imageData = $_FILES["file"]["tpm_name"];
 
-        move_uploaded_file($_FILES["file"]["tmp_name"], "../assets/images/avatar/" . $image);
+        if ($_SESSION["user"] == $file["fileUser"]) {
+            $sql = "
+            UPDATE files
+            SET fileName = ?,
+                fileType = ?,
+                fileData = ?,
+                fileUser = ?,
+            WHERE userId = ?";
+        }
+        else {
+            $sql = "INSERT INTO files(fileName, fileType, fileData, fileUser) VALUES(?, ?, ?, ?)";
+        }
+
+//        move_uploaded_file($_FILES["file"]["tmp_name"], "../assets/images/avatar/" . $image);
 
         $upload = $dbh->prepare($sql);
         $upload->execute([
-            htmlentities($image),
+            htmlentities($imageName),
+            htmlentities($imageType),
+            $imageData,
+            $_SESSION["user"],
             $_SESSION["user"]
         ]);
     }
