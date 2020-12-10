@@ -217,7 +217,7 @@ function inscription()
     unset($_POST["email"]);
     unset($_POST["password"]);
     unset($_POST["passwordConf"]);
-//
+
     return $erreur;
 }
 
@@ -368,7 +368,7 @@ function changeInfosProfile($form)
             $newSign = empty($form["sign"]) ? htmlentities($infos["userSign"]) : htmlentities($form["sign"]),
             $newMood = empty($form["mood"]) ? htmlentities($infos["userMood"]) : htmlentities($form["mood"]),
             $newLocation = empty($form["location"]) ? htmlentities($infos["userLocation"]) : htmlentities($form["location"]),
-            $newBirthday = empty($form["birthday"]) ? htmlentities($infos["userBirthday"]) : htmlentities($form["birthday"]),
+            $newBirthday = empty($form["birthday"]) ? $infos["userBirthday"] : htmlentities($form["birthday"]),
 
             $_SESSION["user"]
         ]);
@@ -859,5 +859,20 @@ function deletePost($postId)
 
     }
 }
+	
+
+function topicBreadcrumb($id)
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM topics WHERE topicId = ?";
+    $topicBreadCrumb = $dbh->prepare($sql);
+    $topicBreadCrumb->execute([$id]);
+    $topicBreadCrumb = $topicBreadCrumb->fetchAll(PDO::FETCH_ASSOC);
+
+    return $topicBreadCrumb;
+}
+
+
 
 ?>
