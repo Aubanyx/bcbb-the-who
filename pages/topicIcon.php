@@ -52,6 +52,7 @@ $cats = categoryName($_GET["id"]);
                         Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before posting.
                     </div>
 
+
                     <div class="board-util d-flex pt-3">
                         <a href="/pages/newTopic.php?id=<?= $boardId ?>">
                             <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
@@ -59,9 +60,10 @@ $cats = categoryName($_GET["id"]);
                         </a>
                         <!-- searchbar -->
                         <div class="bg-light rounded rounded-pill border w-25 ml-3">
-                            <div class="input-group">
 
-                                <form method="post" action="">
+
+                            <form method="post" action="">
+                                <div class="input-group">
                                     <input type="search" placeholder="Search this forum..." name="query"
                                            aria-describedby="button-addon1"
                                            class="form-control  bg-light rounded rounded-pill border-0">
@@ -74,11 +76,9 @@ $cats = categoryName($_GET["id"]);
                                         <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
                                                     class="fas fa-cog cog"></i></button>
                                     </div>
-                                </form>
-
-                            </div>
+                                </div>
+                            </form>
                         </div>
-                    </div>
 
                         <?php
                         $countTopics = countTopics($_GET["id"]);
@@ -127,7 +127,8 @@ $cats = categoryName($_GET["id"]);
                                 if (isset($_POST['query'])) :
                                     ?>
 
-                                    <h4><?= $topics[0]['countSearch'] ?> résultats trouvés pour la recherche "<?= $_POST['query'] ?>" :</h4>
+                                    <h4><?= $topics[0]['countSearch'] ?> résultats trouvés pour la recherche
+                                        "<?= $_POST['query'] ?>" :</h4>
 
                                 <?php
                                 endif;
