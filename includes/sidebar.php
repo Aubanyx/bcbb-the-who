@@ -4,7 +4,7 @@ if (!empty($_POST) && isset($_POST['username'])) {
     $erreur = connexion();
 }
 if (isset($_POST["search"])) {
-    header('location: ../pages/topicIcon.php?id=1&search=' . $_POST['search']);
+    header('location: /pages/topicIcon.php?id=1&search=' . $_POST['search']);
 }
 
 ?>
