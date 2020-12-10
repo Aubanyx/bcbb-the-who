@@ -155,8 +155,15 @@ if (isset($_POST['query'])) {
                     <div class="card rounded border-0 w-100 m-1 pd-1">
                         <div class="card-body text-center sidebarpic">
 
-                            <img class="rounded-circle"
-                                 src="<?php echo "https://www.gravatar.com/avatar/" . md5(strtolower(trim($lastConnectedUser['userEmail']))) . "?" . "&s=80"; ?>">
+                        <img class="rounded-circle" src="
+                        <?php
+                        if (!empty($lastConnectedUser["userImage"])) {
+                                echo "data:image/jpeg;base64," . $lastConnectedUser['userImage'] ;
+                        }
+                        else {
+                            echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($lastConnectedUser['userEmail'])))."?"."&s=80";
+                        }
+                        ?>">
 
                             <p class="pt-2 pb-2"><span> <?= $lastConnectedUser["userNname"]; ?></span></p>
 

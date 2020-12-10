@@ -174,7 +174,7 @@ include_once "../includes/header.php";
 
                         <?php
                         $getId = $_GET['id'];
-                        $sql = "select * from (SELECT (@row_number:=@row_number + 1) AS num, p.*  FROM posts as p, (SELECT @row_number:=0) AS t WHERE postTopic = '$getId') As T1 JOIN users on postBy = userId WHERE num >= '$depart' AND postId order by postDate LIMIT 10";
+                        $sql = "select * from (SELECT (@row_number:=@row_number + 1) AS num, p.*  FROM posts as p, (SELECT @row_number:=0) AS t WHERE postTopic = '$getId') As T1 JOIN users on postBy = userId WHERE num >= '$depart' order by postDate LIMIT " . $postsParPage;
                         $topicReads = $dbh->prepare($sql);
                         $topicReads->execute();
                         ?>
@@ -190,8 +190,16 @@ include_once "../includes/header.php";
 
                                     <div class="col-2 flex-column d-flex pt-5 pb-4">
                                         <div class=" text-center">
-                                            <img src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($topicRead['userEmail'])))."?"."&s=80";?>" alt="profile-image" class="mx-auto rounded-circle w-75 border">
-
+                                        <img class="mx-auto rounded-circle w-75 border" src="
+                                        <?php
+                                        if (!empty($topicRead["userImage"])) {
+                                                echo "data:image/jpeg;base64," . $topicRead['userImage'] ;
+                                        }
+                                        else {
+                                            echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($topicRead['userEmail'])))."?"."&s=80";
+                                        }
+                                        ?>">
+                                            
                                             <p class="h5 pt-3 text-danger"><?= $topicRead["userNname"]?>
                                                 <span class="h6 d-block text-secondary mb-4"><?= getUserLevel($topicRead["userLevel"]) ?></span></p>
                                         </div>
@@ -253,21 +261,21 @@ include_once "../includes/header.php";
                                         getMarkdown($topicRead["postContent"]); 
                                     }
                                     ?> </div >
-                            <form method="post" id="form_editPost_<?= $topicRead["postId"] ?>" action="/pages/updatePost.php" hidden>
-                            
-                                <!--Edit-->
-                                <div class="form-group">
-                                    <textarea id="my-text-area" name="postContent" cols="40" rows="5" required="required"
-                                            class="form-control" ><?= $topicRead["postContent"]?></textarea>
+                                    <form method="post" id="form_editPost_<?= $topicRead["postId"] ?>" action="/pages/updatePost.php" hidden>
+                                    
+                                        <!--Edit-->
+                                        <div class="form-group">
+                                            <textarea id="my-text-area" name="postContent" cols="40" rows="5" required="required"
+                                                    class="form-control" ><?= $topicRead["postContent"]?></textarea>
 
-                                </div>
-                                <input name="postId" type="hidden" value="<?= $topicRead["postId"] ?>" />
-                                <input name="topicId" type="hidden" value="<?= $topicRead["postTopic"] ?>" />
-                                <div class="text-right board-util d-flex pt-3">
-                                <button class="btn btn_cancel_update_post text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button" data-postId="<?= $topicRead["postId"] ?>">Cancel edition <i class="fas fa-window-close"></i></button>
-                                <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">Update post <i class="fas fa-reply"></i></button>
-                                </div>
-                            </form>
+                                        </div>
+                                        <input name="postId" type="hidden" value="<?= $topicRead["postId"] ?>" />
+                                        <input name="topicId" type="hidden" value="<?= $topicRead["postTopic"] ?>" />
+                                        <div class="text-right board-util d-flex pt-3">
+                                        <button class="btn btn_cancel_update_post text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button" data-postId="<?= $topicRead["postId"] ?>">Cancel edition <i class="fas fa-window-close"></i></button>
+                                        <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="submit">Update post <i class="fas fa-reply"></i></button>
+                                        </div>
+                                    </form>
 
                 
                                     <p class="border-top py-3 mt-5 h6 text-secondary"><?= $topicRead["userSign"] ?></p>

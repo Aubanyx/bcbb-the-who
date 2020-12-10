@@ -390,33 +390,18 @@ function changeInfosProfile($form)
 
     // Upload et changement d'avatar
     if ($validationFile) {
-        $imageName = basename($_FILES["file"]["name"]);
-        $imageType = $_FILES["file"]["type"];
-        $imageData = $_FILES["file"]["tpm_name"];
+        if (is_uploaded_file($_FILES['file']['tmp_name'])) {
 
-        if ($_SESSION["user"] == $file["fileUser"]) {
-            $sql = "
-            UPDATE files
-            SET fileName = ?,
-                fileType = ?,
-                fileData = ?,
-                fileUser = ?,
+            $imgData = $_FILES['file']['tmp_name'];
+            $imgData = base64_encode(file_get_contents(addslashes($imgData)));
+
+            $sql = "UPDATE users
+            SET userImage = ?
             WHERE userId = ?";
-        }
-        else {
-            $sql = "INSERT INTO files(fileName, fileType, fileData, fileUser) VALUES(?, ?, ?, ?)";
-        }
 
-//        move_uploaded_file($_FILES["file"]["tmp_name"], "../assets/images/avatar/" . $image);
-
-        $upload = $dbh->prepare($sql);
-        $upload->execute([
-            htmlentities($imageName),
-            htmlentities($imageType),
-            $imageData,
-            $_SESSION["user"],
-            $_SESSION["user"]
-        ]);
+            $upload = $dbh->prepare($sql);
+            $upload->execute([$imgData,$_SESSION["user"]]);
+        }
     }
 
     unset($_POST["username"]);
