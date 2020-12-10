@@ -61,6 +61,7 @@ $page = "New Topic";
 $topicId = $_GET["id"];
 $topic = getTopicById($topicId);
 $toptop = topicBreadcrumb($topicId);
+$lastConnectedUsers = getLastConnectedUsers();
 include_once "../includes/header.php";
 
 
