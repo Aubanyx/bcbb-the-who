@@ -376,19 +376,36 @@ function changeInfosProfile($form)
 
     // Upload et changement d'avatar
     if ($validationFile) {
-        $image = basename($_FILES["file"]["name"]);
-        $sql = "UPDATE users
+        if (is_uploaded_file($_FILES['file']['tmp_name'])) {
+        
+            //$imgData = addslashes(file_get_contents($_FILES['file']['tmp_name']));
+          
+            $imgData = $_FILES['file']['tmp_name'];
+            $imgData = base64_encode(file_get_contents(addslashes($imgData)));
+
+            $sql = "UPDATE users
             SET userImage = ?
             WHERE userId = ?";
-
-        move_uploaded_file($_FILES["file"]["tmp_name"], "../assets/images/avatar/" . $image);
-
-        $upload = $dbh->prepare($sql);
-        $upload->execute([
-            htmlentities($image),
-            $_SESSION["user"]
-        ]);
+            
+            $upload = $dbh->prepare($sql);
+            $upload->execute([$imgData,$_SESSION["user"]]);
+        }
     }
+
+    // if ($validationFile) {
+    //     $image = basename($_FILES["file"]["name"]);
+    //     $sql = "UPDATE users
+    //         SET userImage = ?
+    //         WHERE userId = ?";
+
+    //     move_uploaded_file($_FILES["file"]["tmp_name"], "../assets/images/avatar/" . $image);
+
+    //     $upload = $dbh->prepare($sql);
+    //     $upload->execute([
+    //         htmlentities($image),
+    //         $_SESSION["user"]
+    //     ]);
+    // }
 
     unset($_POST["username"]);
     unset($_POST["currentPass"]);

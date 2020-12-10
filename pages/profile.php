@@ -56,10 +56,11 @@ include_once "../includes/header.php";
                 <div class="card-body board-util">
                     <form class="p-5" action="" method="post" enctype="multipart/form-data">
                         <div class="d-flex bg-light rounded align-items-center justify-content-center py-3 profilesettings">
+                        
                         <img src="
                         <?php
                         if (!empty($infos["userImage"])) {
-                            echo "../assets/images/avatar/" . $infos["userImage"];
+                                echo "data:image/jpeg;base64," . $infos['userImage'] ;
                         }
                         else {
                             echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($infos['userEmail'])))."?"."&s=80";

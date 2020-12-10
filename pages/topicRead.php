@@ -208,8 +208,16 @@ include_once "../includes/header.php";
 
                                     <div class="col-2 flex-column d-flex pt-5 pb-4">
                                         <div class=" text-center">
-                                            <img src="<?php echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($topicRead['userEmail'])))."?"."&s=80";?>" alt="profile-image" class="mx-auto rounded-circle w-75 border">
-
+                                        <img class="mx-auto rounded-circle w-75 border" src="
+                                        <?php
+                                        if (!empty($topicRead["userImage"])) {
+                                                echo "data:image/jpeg;base64," . $topicRead['userImage'] ;
+                                        }
+                                        else {
+                                            echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($topicRead['userEmail'])))."?"."&s=80";
+                                        }
+                                        ?>">
+                                            
                                             <p class="h5 pt-3 text-danger"><?= $topicRead["userNname"]?>
                                                 <span class="h6 d-block text-secondary mb-4"><?= getUserLevel($topicRead["userLevel"]) ?></span></p>
                                         </div>
