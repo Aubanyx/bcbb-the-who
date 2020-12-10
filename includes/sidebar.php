@@ -1,13 +1,12 @@
 <?php
 
-$page = "Home";
 if (!empty($_POST) && isset($_POST['username'])) {
     $erreur = connexion();
 }
-
-if (isset($_POST['query'])) {
-    header('location: ../pages/topicIcon.php');
+if (isset($_POST["search"])) {
+    header('location: ../pages/topicIcon.php?id=1&search=' . $_POST['search']);
 }
+
 ?>
 
 <div class="col-xl-3 themed-grid-col">
@@ -15,7 +14,7 @@ if (isset($_POST['query'])) {
     <div class="bg-light rounded rounded-pill border mt-5">
         <div class="input-group">
             <form method="post" action="">
-                <input type="search" name="query" placeholder="Search..." aria-describedby="button-addon1"
+                <input type="search" name="search" placeholder="Search..." aria-describedby="button-addon1"
                        class="form-control  bg-light rounded rounded-pill border-0">
                 <div class="input-group-append">
                     <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i

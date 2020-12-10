@@ -1,9 +1,6 @@
 <?php
 session_start();
 ob_start();
-//if (!isset($_SESSION["user"])) {
-//    header("Location: login.php");
-//}
 require_once "./library/functions.php";
 require_once './assets/Michelf/Markdown.inc.php';
 $dbh = connect();

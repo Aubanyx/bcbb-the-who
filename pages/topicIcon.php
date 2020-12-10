@@ -64,7 +64,7 @@ $cats = categoryName($_GET["id"]);
 
                             <form method="post" action="">
                                 <div class="input-group">
-                                    <input type="search" placeholder="Search this forum..." name="query"
+                                    <input type="search" placeholder="Search this forum..." name="search"
                                            aria-describedby="button-addon1"
                                            class="form-control  bg-light rounded rounded-pill border-0">
 
@@ -116,7 +116,7 @@ $cats = categoryName($_GET["id"]);
                                 <!-- sujet -->
 
                                 <?php
-                                if (isset($_POST['query'])) {
+                                if (isset($_GET['search']) OR isset($_POST['search'])) {
                                     $topics = search();
                                 } else if ($_GET['id'] == 8) {
                                     $topics = topicsRandom();
@@ -124,11 +124,11 @@ $cats = categoryName($_GET["id"]);
                                     $topics = topics();
                                 }
 
-                                if (isset($_POST['query'])) :
+                                if (isset($_GET['search']) OR isset($_POST['search'])) :
                                     ?>
 
                                     <h4><?= $topics[0]['countSearch'] ?> résultats trouvés pour la recherche
-                                        "<?= $_POST['query'] ?>" :</h4>
+                                        "<?= $_GET['search'] ?>" :</h4>
 
                                 <?php
                                 endif;

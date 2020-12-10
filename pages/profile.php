@@ -61,7 +61,7 @@ include_once "../includes/header.php";
                         <?php
 
                         if (!empty($infos["userImage"])) {
-                                echo "data:image/jpeg;base64," . $infos['userImage'] ;
+                                echo "data:image/jpeg;base64," . $infos['userImage'];
                         }
                         else {
                             echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($infos['userEmail'])))."?"."&s=80";

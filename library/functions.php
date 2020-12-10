@@ -321,7 +321,6 @@ function changeInfosProfile($form)
     extract($_POST);
 
     $infos = infos();
-    $file = infosFile();
     $validation = true;
     $validationFile = true;
     $erreur = [];
@@ -737,9 +736,6 @@ function search()
 {
     global $dbh;
 
-    $query ="";
-    extract($_POST);
-
     $sql = "
             SELECT DISTINCT t.topicId, t.topicSubject, t.topicDate, t.topicDateUpdate, t.topicImage, t.topicCountViews, t.topicLock, t.topicBoard, t.topicBy,
                 (
@@ -760,9 +756,10 @@ function search()
 
     $search = $dbh->prepare($sql);
     $search->execute([
-        "query" => '%' . $query . '%'
+        "query" => '%' . $_GET["search"] . '%'
     ]);
     $search = $search->fetchAll(PDO::FETCH_ASSOC);
+
 
     return $search;
 }
