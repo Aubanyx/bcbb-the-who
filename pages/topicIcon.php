@@ -26,6 +26,7 @@ include_once "../includes/header.php";
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
 $cats = categoryName($_GET["id"]);
+
 ?>
 
     <!-- forum body -->

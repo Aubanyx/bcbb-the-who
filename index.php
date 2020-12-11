@@ -94,10 +94,16 @@ include_once "./includes/header.php";
                                         $BoardLastTopics=BoardLastPost($board["boardId"]);
                                         foreach($BoardLastTopics as $boardLP) :
                                         ?>
-                                        <th><p><p><span><?php
+                                        <th><p><span>
+                                                    <a href="/pages/topicRead.php?id=<?= $boardLP['topicId']; ?>"> <i class="fas fa-arrow-alt-circle-right"></i>
+                                                    <?php
                                                     $dateSrc = $boardLP['postDate'];
                                                     $dateTime = new DateTime($dateSrc);
-                                                    echo date('D M d', strtotime($dateSrc)); ?></span></p></p></th>
+                                                    echo date('D M d', strtotime($dateSrc)); ?>
+                                                    </a>
+                                                   </span></p></th>
+
+
                                         <?php
                                         endforeach;
                                         ?>
