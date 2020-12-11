@@ -36,11 +36,6 @@ if (isset($_POST["lockTopic"])) {
     unlockTopic();
 }
 
-
-
-
-
-
 $getId = $_GET['id'];
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
@@ -48,7 +43,6 @@ $lastConnectedUsers = getLastConnectedUsers();
 $boardName = boardName($_GET["id"]);
 $cats = categoryName($_GET["id"]);
 $posts = getPostsByTopicId($getId);
-
 
 countViews($_GET["id"]);
 
@@ -67,12 +61,6 @@ include_once "../includes/header.php";
 
     <!-- main container -->
 
-<?php
-$getId = $_GET['id'];
-$sql = "select * from (SELECT (@row_number:=@row_number + 1) AS num, p.*  FROM posts as p, (SELECT @row_number:=0) AS t WHERE postTopic = '$getId') As T1 JOIN users on postBy = userId WHERE num >= '$depart' AND postId order by postDate LIMIT 10";
-$topicReads = $dbh->prepare($sql);
-$topicReads->execute();
-?>
     <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
         <nav aria-label="breadcrumb">
 
@@ -273,14 +261,14 @@ $topicReads->execute();
                                     <p class="my-4 h6 text-secondary"><i
                                                 class="far fa-clock"></i> <?= formatDate($topicRead["postDate"]) ?>
                                         <?php
-                                        if (!is_null($topicRead{"postDateUpdate"})) {
-                                            ?>  </br>Modified at <i
+                                        if (!is_null($topicRead["postDateUpdate"])) :
+                                            ?>  <br>Modified at <i
                                                     class="far fa-clock"></i> <?= formatDate($topicRead["postDateUpdate"]) ?>
                                             <?php
-                                        }
+                                        endif;
 
-                                        if (isset($_SESSION["user"]) && $_SESSION["user"] == $topicRead{"postBy"} && $topicRead{"postDeleted"} == 0)
-                                        {
+                                        if (isset($_SESSION["user"]) && $_SESSION["user"] == $topicRead["postBy"] && $topicRead["postDeleted"] == 0) :
+
 
                                         ?>
                                         <button type="button"
@@ -290,8 +278,8 @@ $topicReads->execute();
                                                     class="far fa-trash-alt text-secondary"></i> Delete
                                         </button>
                                         <?php
-                                        if ($topic{"lastPostId"} == $topicRead{"postId"})
-                                        {
+                                        if ($topic["lastPostId"] == $topicRead["postId"]) :
+
                                         ?>
                                         <button type="button"
                                                 class="btn btn_update_post bg-light rounded ml-3 rounded-pill border float-right"
@@ -301,28 +289,31 @@ $topicReads->execute();
                                         </button>
                                     </p>
                                     <?php
-                                    }
-                                    }
+                                    endif;
 
-                                    else {
+
+                                    else :
 
                                         ?>
                                         <p></p>
                                         <?php
-                                    }
 
+                                    endif;
                                     ?>
 
 
                                 </div>
 
-                                <div id="postContent_<?= $topicRead["postId"] ?>"><?php
-                                    if ($topicRead{"postDeleted"} == 1) {
+                                <div id="postContent_<?= $topicRead["postId"] ?>">
+                                    <?php
+                                    if ($topicRead["postDeleted"] == 1) :
                                         echo "<i>DELETED</i>";
-                                    } else {
+                                     else :
                                         getMarkdown($topicRead["postContent"]);
-                                    }
-                                    ?> </div>
+
+                                    endif;
+                                    ?>
+                                </div>
                                 <form method="post" id="form_editPost_<?= $topicRead["postId"] ?>"
                                       action="/pages/updatePost.php" hidden>
 
@@ -373,11 +364,12 @@ $topicReads->execute();
                             <div class=" text-center">
                                 <img class="mx-auto rounded-circle w-75 border" src="
                                         <?php
-                                if (!empty($topicRead["userImage"])) {
+                                if (!empty($topicRead["userImage"])) :
                                     echo "data:image/jpeg;base64," . $topicRead['userImage'];
-                                } else {
+                                 else :
                                     echo "https://www.gravatar.com/avatar/" . md5(strtolower(trim($topicRead['userEmail']))) . "?" . "&s=80";
-                                }
+
+                                endif;
                                 ?>">
 
                                 <p class="h5 pt-3 text-danger"><?= $topicRead["userNname"] ?>
@@ -401,14 +393,15 @@ $topicReads->execute();
                                 <p class="my-4 h6 text-secondary"><i
                                             class="far fa-clock"></i> <?= formatDate($topicRead["postDate"]) ?>
                                     <?php
-                                    if (!is_null($topicRead{"postDateUpdate"})) {
+                                    if (!is_null($topicRead["postDateUpdate"])) :
                                         ?>  </br>Modified at <i
                                                 class="far fa-clock"></i> <?= formatDate($topicRead["postDateUpdate"]) ?>
                                         <?php
-                                    }
 
-                                    if (isset($_SESSION["user"]) && $_SESSION["user"] == $topicRead{"postBy"} && $topicRead{"postDeleted"} == 0)
-                                    {
+                                    endif;
+
+                                    if (isset($_SESSION["user"]) && $_SESSION["user"] == $topicRead["postBy"] && $topicRead["postDeleted"] == 0) :
+
 
                                     ?>
                                     <button type="button"
@@ -418,8 +411,8 @@ $topicReads->execute();
                                                 class="far fa-trash-alt text-secondary"></i> Delete
                                     </button>
                                     <?php
-                                    if ($topic{"lastPostId"} == $topicRead{"postId"})
-                                    {
+                                    if ($topic["lastPostId"] == $topicRead["postId"]) :
+
                                     ?>
                                     <button type="button"
                                             class="btn btn_update_post bg-light rounded ml-3 rounded-pill border float-right"
@@ -429,27 +422,29 @@ $topicReads->execute();
                                     </button>
                                 </p>
                                 <?php
-                                }
-                                }
+                                endif;
 
-                                else {
+
+                                else :
 
                                     ?>
                                     <p></p>
                                     <?php
-                                }
+                                endif;
 
                                 ?>
 
                             </div>
 
-                            <div id="postContent_<?= $topicRead["postId"] ?>"><?php
-                                if ($topicRead{"postDeleted"} == 1) {
+                            <div id="postContent_<?= $topicRead["postId"] ?>">
+                                <?php
+                                if ($topicRead["postDeleted"] == 1) {
                                     echo "<i>DELETED</i>";
                                 } else {
                                     getMarkdown($topicRead["postContent"]);
                                 }
-                                ?> </div>
+                                ?>
+                            </div>
                             <form method="post" id="form_editPost_<?= $topicRead["postId"] ?>"
                                   action="/pages/updatePost.php" hidden>
 
@@ -476,9 +471,6 @@ $topicReads->execute();
 
 
                             <?php
-
-
-
 
                             if (isset($_POST['happy-' . $topicRead["postId"]])) {
                                 if (reactionsEmojiUserLimit($topicRead["postId"], "happy") == 0) {
@@ -535,11 +527,6 @@ $topicReads->execute();
                             $reactionShocked = countReaction($topicRead["postId"], "shocked");
                             $reactionLove = countReaction($topicRead["postId"], "love");
                             ?>
-
-
-
-
-
 
                             <form method="post" action="">
                                 <div class="containerEmoji">
