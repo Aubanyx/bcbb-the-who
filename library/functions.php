@@ -300,6 +300,19 @@ function infos()
     return $user;
 }
 
+function infosFile()
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM file WHERE fileUser = ?";
+
+    $file = $dbh->prepare($sql);
+    $file->execute([$_SESSION["user"]]);
+    $file = $file->fetch();
+
+    return $file;
+}
+
 // Profile
 function changeInfosProfile($form)
 {
@@ -376,18 +389,18 @@ function changeInfosProfile($form)
 
     // Upload et changement d'avatar
     if ($validationFile) {
-        $image = basename($_FILES["file"]["name"]);
-        $sql = "UPDATE users
+        if (is_uploaded_file($_FILES['file']['tmp_name'])) {
+
+            $imgData = $_FILES['file']['tmp_name'];
+            $imgData = base64_encode(file_get_contents(addslashes($imgData)));
+
+            $sql = "UPDATE users
             SET userImage = ?
             WHERE userId = ?";
 
-        move_uploaded_file($_FILES["file"]["tmp_name"], "../assets/images/avatar/" . $image);
-
-        $upload = $dbh->prepare($sql);
-        $upload->execute([
-            htmlentities($image),
-            $_SESSION["user"]
-        ]);
+            $upload = $dbh->prepare($sql);
+            $upload->execute([$imgData,$_SESSION["user"]]);
+        }
     }
 
     unset($_POST["username"]);
@@ -594,8 +607,8 @@ function createPost()
 
     //Verify that is not a duplicated post
     $lastPostTopic = getLastPostOfTopic($topicId);
-    if (!is_null($lastPostTopic) && $lastPostTopic['postBy'] == $currentUserId && $lastPostTopic['postContent'] == $postContent)
-        return "Duplicated message";
+    if (!is_null($lastPostTopic) && $lastPostTopic['postBy'] == $currentUserId)
+        return "Wait for someone else to post !";
 
     try {
         $sql = "UPDATE users SET userTotalPosts = userTotalPosts+1 WHERE userId = ?";
@@ -719,12 +732,10 @@ function categoryName($id)
     return $nameOfCat;
 }
 
+// Search topics and messages
 function search()
 {
     global $dbh;
-
-    $query ="";
-    extract($_POST);
 
     $sql = "
             SELECT DISTINCT t.topicId, t.topicSubject, t.topicDate, t.topicDateUpdate, t.topicImage, t.topicCountViews, t.topicLock, t.topicBoard, t.topicBy,
@@ -746,9 +757,52 @@ function search()
 
     $search = $dbh->prepare($sql);
     $search->execute([
-        "query" => '%' . $query . '%'
+        "query" => '%' . $_GET["search"] . '%'
     ]);
     $search = $search->fetchAll(PDO::FETCH_ASSOC);
+
+
+    return $search;
+}
+
+// Search only messages
+function searchTopicRead()
+{
+    global $dbh;
+
+    extract($_POST);
+
+    $sql = "
+            SELECT DISTINCT p.postId, p.postContent, p.postDate, p.postDateUpdate, p.postDeleted, p.postTopic, p.postBy, u.userNname, u.userSign, u.userLevel, u.userImage, u.userMood, u.userLocation, u.userTotalPosts,
+                (
+                SELECT DISTINCT COUNT(DISTINCT p.postId)
+                FROM posts p
+                    LEFT JOIN users u
+                	    ON p.postBy = u.userId
+                WHERE (
+                    p.postContent LIKE :query 
+                    OR u.userNname LIKE :query
+                           )
+                    AND p.postTopic = :id
+                )  AS `countSearch`
+            FROM posts p
+            	LEFT JOIN users u
+                	ON p.postBy = u.userId
+            WHERE (
+                p.postContent LIKE :query
+                OR u.userNname LIKE :query
+                       )
+                AND p.postTopic = :id
+            ORDER BY p.postDate DESC
+            ";
+
+    $search = $dbh->prepare($sql);
+    $search->execute([
+        "query" => '%' . $_POST['searchPost'] . '%',
+        "id" => $_GET["id"]
+    ]);
+    $search = $search->fetchAll(PDO::FETCH_ASSOC);
+
 
     return $search;
 }

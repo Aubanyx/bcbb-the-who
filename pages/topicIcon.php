@@ -39,19 +39,13 @@ $cats = categoryName($_GET["id"]);
             </ol>
         </nav>
 
-
         <div class="container-lg">
-
             <div class="row">
-
                 <div class="col-xl-9 themed-grid-col">
-
                     <h4 class="font-weight-light text-black-50 pb-3"> <?= $board["boardName"]; ?> </h4>
-
                     <div class="alert alert-danger border-0 rounded" role="alert">
                         Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before posting.
                     </div>
-
 
                     <div class="board-util d-flex pt-3">
                         <a href="/pages/newTopic.php?id=<?= $boardId ?>">
@@ -60,11 +54,9 @@ $cats = categoryName($_GET["id"]);
                         </a>
                         <!-- searchbar -->
                         <div class="bg-light rounded rounded-pill border w-25 ml-3">
-
-
                             <form method="post" action="">
                                 <div class="input-group">
-                                    <input type="search" placeholder="Search this forum..." name="query"
+                                    <input type="search" placeholder="Search this forum..." name="search"
                                            aria-describedby="button-addon1"
                                            class="form-control  bg-light rounded rounded-pill border-0">
 
@@ -116,7 +108,7 @@ $cats = categoryName($_GET["id"]);
                                 <!-- sujet -->
 
                                 <?php
-                                if (isset($_POST['query'])) {
+                                if (isset($_GET['search']) OR isset($_POST['search'])) {
                                     $topics = search();
                                 } else if ($_GET['id'] == 8) {
                                     $topics = topicsRandom();
@@ -124,13 +116,22 @@ $cats = categoryName($_GET["id"]);
                                     $topics = topics();
                                 }
 
-                                if (isset($_POST['query'])) :
+                                if (isset($_GET['search']) OR isset($_POST['search'])) :
+                                    if ($topics != NULL) :
                                     ?>
 
                                     <h4><?= $topics[0]['countSearch'] ?> résultats trouvés pour la recherche
-                                        "<?= $_POST['query'] ?>" :</h4>
+                                        "<?= $_GET['search'] ?>" :</h4>
 
                                 <?php
+                                    else :
+                                    ?>
+
+                                        <h4> 0 résultats trouvés pour la recherche
+                                            "<?= $_GET['search'] ?>" :</h4>
+
+                                <?php
+                                    endif;
                                 endif;
 
                                 foreach ($topics as $topic) :

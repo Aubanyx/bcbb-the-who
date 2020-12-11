@@ -1,10 +1,11 @@
 <?php
 
-$page = "Home";
 if (!empty($_POST) && isset($_POST['username'])) {
     $erreur = connexion();
 }
-
+if (isset($_POST["search"])) {
+    header('location: ../pages/topicIcon.php?id=1&search=' . $_POST['search']);
+}
 
 ?>
 
@@ -12,12 +13,14 @@ if (!empty($_POST) && isset($_POST['username'])) {
     <!-- searchbar -->
     <div class="bg-light rounded rounded-pill border mt-5">
         <div class="input-group">
-            <input type="search" placeholder="Search..." aria-describedby="button-addon1"
-                   class="form-control  bg-light rounded rounded-pill border-0">
-            <div class="input-group-append">
-                <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
-                            class="fa fa-search magnifying-glass"></i></button>
-            </div>
+            <form method="post" action="">
+                <input type="search" name="search" placeholder="Search..." aria-describedby="button-addon1"
+                       class="form-control  bg-light rounded rounded-pill border-0">
+                <div class="input-group-append">
+                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
+                                class="fa fa-search magnifying-glass"></i></button>
+                </div>
+            </form>
         </div>
     </div>
     <!-- /searchbar -->
@@ -151,8 +154,15 @@ if (!empty($_POST) && isset($_POST['username'])) {
                     <div class="card rounded border-0 w-100 m-1 pd-1">
                         <div class="card-body text-center sidebarpic">
 
-                            <img class="rounded-circle"
-                                 src="<?php echo "https://www.gravatar.com/avatar/" . md5(strtolower(trim($lastConnectedUser['userEmail']))) . "?" . "&s=80"; ?>">
+                        <img class="rounded-circle" src="
+                        <?php
+                        if (!empty($lastConnectedUser["userImage"])) {
+                                echo "data:image/jpeg;base64," . $lastConnectedUser['userImage'] ;
+                        }
+                        else {
+                            echo "https://www.gravatar.com/avatar/".md5(strtolower(trim($lastConnectedUser['userEmail'])))."?"."&s=80";
+                        }
+                        ?>">
 
                             <p class="pt-2 pb-2"><span> <?= $lastConnectedUser["userNname"]; ?></span></p>
 
