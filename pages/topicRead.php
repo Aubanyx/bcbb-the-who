@@ -187,131 +187,138 @@ include_once "../includes/header.php";
                 <?php
                 if (isset($_POST['searchPost'])) :
                     $topicReads = searchTopicRead();
+                    if ($topicReads != NULL) :
                 ?>
 
                     <h4><?= $topicReads[0]['countSearch'] ?> résultats trouvés pour la recherche
                         "<?= $_POST['searchPost'] ?>" :</h4>
 
-                <?php
-                foreach ($topicReads as $topicRead) :
-                ?>
+                        <?php
+                        foreach ($topicReads as $topicRead) :
+                        ?>
 
-                    <div class="row rounded bg-white p-4 m-0 mb-3">
+                        <div class="row rounded bg-white p-4 m-0 mb-3">
 
-                        <div class="col-2 flex-column d-flex pt-5 pb-4">
-                            <div class=" text-center">
-                                <img class="mx-auto rounded-circle w-75 border" src="
+                            <div class="col-2 flex-column d-flex pt-5 pb-4">
+                                <div class=" text-center">
+                                    <img class="mx-auto rounded-circle w-75 border" src="
                                         <?php
-                                if (!empty($topicRead["userImage"])) {
-                                    echo "data:image/jpeg;base64," . $topicRead['userImage'];
-                                } else {
-                                    echo "https://www.gravatar.com/avatar/" . md5(strtolower(trim($topicRead['userEmail']))) . "?" . "&s=80";
-                                }
-                                ?>">
+                                    if (!empty($topicRead["userImage"])) {
+                                        echo "data:image/jpeg;base64," . $topicRead['userImage'];
+                                    } else {
+                                        echo "https://www.gravatar.com/avatar/" . md5(strtolower(trim($topicRead['userEmail']))) . "?" . "&s=80";
+                                    }
+                                    ?>">
 
-                                <p class="h5 pt-3 text-danger"><?= $topicRead["userNname"] ?>
-                                    <span class="h6 d-block text-secondary mb-4"><?= getUserLevel($topicRead["userLevel"]) ?></span>
+                                    <p class="h5 pt-3 text-danger"><?= $topicRead["userNname"] ?>
+                                        <span class="h6 d-block text-secondary mb-4"><?= getUserLevel($topicRead["userLevel"]) ?></span>
+                                    </p>
+                                </div>
+                                <p class="h6"><span class="font-weight-bold">Posts :</span><span
+                                            class="text-secondary font-weight-lighter"> <?= $topicRead["userTotalPosts"] ?></span>
+                                </p>
+                                <p class="h6"><span class="font-weight-bold">Location :</span><span
+                                            class="text-secondary font-weight-lighter"> <?= $topicRead["userLocation"] ?></span>
+                                </p>
+                                <p class="h6"><span class="font-weight-bold">Mood :</span><span
+                                            class="text-secondary font-weight-lighter"> <?= $topicRead["userMood"] ?></span>
                                 </p>
                             </div>
-                            <p class="h6"><span class="font-weight-bold">Posts :</span><span
-                                        class="text-secondary font-weight-lighter"> <?= $topicRead["userTotalPosts"] ?></span>
-                            </p>
-                            <p class="h6"><span class="font-weight-bold">Location :</span><span
-                                        class="text-secondary font-weight-lighter"> <?= $topicRead["userLocation"] ?></span>
-                            </p>
-                            <p class="h6"><span class="font-weight-bold">Mood :</span><span
-                                        class="text-secondary font-weight-lighter"> <?= $topicRead["userMood"] ?></span>
-                            </p>
-                        </div>
 
-                        <div class="col-10 flex-column">
-                            <div class="time-quote">
+                            <div class="col-10 flex-column">
+                                <div class="time-quote">
 
-                                <p class="my-4 h6 text-secondary"><i
-                                            class="far fa-clock"></i> <?= formatDate($topicRead["postDate"]) ?>
+                                    <p class="my-4 h6 text-secondary"><i
+                                                class="far fa-clock"></i> <?= formatDate($topicRead["postDate"]) ?>
+                                        <?php
+                                        if (!is_null($topicRead{"postDateUpdate"})) {
+                                            ?>  </br>Modified at <i
+                                                    class="far fa-clock"></i> <?= formatDate($topicRead["postDateUpdate"]) ?>
+                                            <?php
+                                        }
+
+                                        if (isset($_SESSION["user"]) && $_SESSION["user"] == $topicRead{"postBy"} && $topicRead{"postDeleted"} == 0)
+                                        {
+
+                                        ?>
+                                        <button type="button"
+                                                class="btn btn_delete_post bg-light rounded ml-3 rounded-pill border float-right"
+                                                data-topicId="<?= $topicRead["postTopic"] ?>"
+                                                data-postId="<?= $topicRead["postId"] ?>"><i
+                                                    class="far fa-trash-alt text-secondary"></i> Delete
+                                        </button>
+                                        <?php
+                                        if ($topic{"lastPostId"} == $topicRead{"postId"})
+                                        {
+                                        ?>
+                                        <button type="button"
+                                                class="btn btn_update_post bg-light rounded ml-3 rounded-pill border float-right"
+                                                data-topicId="<?= $topicRead["postTopic"] ?>"
+                                                data-postId="<?= $topicRead["postId"] ?>"><i
+                                                    class="far fa-edit text-secondary"></i> Edit
+                                        </button>
+                                    </p>
                                     <?php
-                                    if (!is_null($topicRead{"postDateUpdate"})) {
-                                        ?>  </br>Modified at <i
-                                                class="far fa-clock"></i> <?= formatDate($topicRead["postDateUpdate"]) ?>
+                                    }
+                                    }
+
+                                    else {
+
+                                        ?>
+                                        <p></p>
                                         <?php
                                     }
 
-                                    if (isset($_SESSION["user"]) && $_SESSION["user"] == $topicRead{"postBy"} && $topicRead{"postDeleted"} == 0)
-                                    {
-
                                     ?>
-                                    <button type="button"
-                                            class="btn btn_delete_post bg-light rounded ml-3 rounded-pill border float-right"
-                                            data-topicId="<?= $topicRead["postTopic"] ?>"
-                                            data-postId="<?= $topicRead["postId"] ?>"><i
-                                                class="far fa-trash-alt text-secondary"></i> Delete
-                                    </button>
-                                    <?php
-                                    if ($topic{"lastPostId"} == $topicRead{"postId"})
-                                    {
-                                    ?>
-                                    <button type="button"
-                                            class="btn btn_update_post bg-light rounded ml-3 rounded-pill border float-right"
-                                            data-topicId="<?= $topicRead["postTopic"] ?>"
-                                            data-postId="<?= $topicRead["postId"] ?>"><i
-                                                class="far fa-edit text-secondary"></i> Edit
-                                    </button>
-                                </p>
-                                <?php
-                                }
-                                }
-
-                                else {
-
-                                    ?>
-                                    <p></p>
-                                    <?php
-                                }
-
-                                ?>
 
 
-                            </div>
+                                </div>
 
-                            <div id="postContent_<?= $topicRead["postId"] ?>"><?php
-                                if ($topicRead{"postDeleted"} == 1) {
-                                    echo "<i>DELETED</i>";
-                                } else {
-                                    getMarkdown($topicRead["postContent"]);
-                                }
-                                ?> </div>
-                            <form method="post" id="form_editPost_<?= $topicRead["postId"] ?>"
-                                  action="/pages/updatePost.php" hidden>
+                                <div id="postContent_<?= $topicRead["postId"] ?>"><?php
+                                    if ($topicRead{"postDeleted"} == 1) {
+                                        echo "<i>DELETED</i>";
+                                    } else {
+                                        getMarkdown($topicRead["postContent"]);
+                                    }
+                                    ?> </div>
+                                <form method="post" id="form_editPost_<?= $topicRead["postId"] ?>"
+                                      action="/pages/updatePost.php" hidden>
 
-                                <!--Edit-->
-                                <div class="form-group">
+                                    <!--Edit-->
+                                    <div class="form-group">
                                             <textarea id="my-text-area" name="postContent" cols="40" rows="5"
                                                       required="required"
                                                       class="form-control"><?= $topicRead["postContent"] ?></textarea>
 
-                                </div>
-                                <input name="postId" type="hidden" value="<?= $topicRead["postId"] ?>"/>
-                                <input name="topicId" type="hidden" value="<?= $topicRead["postTopic"] ?>"/>
-                                <div class="text-right board-util d-flex pt-3">
-                                    <button class="btn btn_cancel_update_post text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
-                                            type="button" data-postId="<?= $topicRead["postId"] ?>">Cancel edition <i
-                                                class="fas fa-window-close"></i></button>
-                                    <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
-                                            type="submit">Update post <i class="fas fa-reply"></i></button>
-                                </div>
-                            </form>
+                                    </div>
+                                    <input name="postId" type="hidden" value="<?= $topicRead["postId"] ?>"/>
+                                    <input name="topicId" type="hidden" value="<?= $topicRead["postTopic"] ?>"/>
+                                    <div class="text-right board-util d-flex pt-3">
+                                        <button class="btn btn_cancel_update_post text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
+                                                type="button" data-postId="<?= $topicRead["postId"] ?>">Cancel edition <i
+                                                    class="fas fa-window-close"></i></button>
+                                        <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
+                                                type="submit">Update post <i class="fas fa-reply"></i></button>
+                                    </div>
+                                </form>
 
 
-                            <p class="border-top py-3 mt-5 h6 text-secondary"><?= $topicRead["userSign"] ?></p>
-                            <!-- <input type="hidden" value="amo" class="demo"> -->
+                                <p class="border-top py-3 mt-5 h6 text-secondary"><?= $topicRead["userSign"] ?></p>
+                                <!-- <input type="hidden" value="amo" class="demo"> -->
+                            </div>
+
+
                         </div>
+                        <?php
+                        endforeach;
+                        else :
+                        ?>
 
+                        <h4> 0 résultats trouvés pour la recherche
+                            "<?= $_POST['searchPost'] ?>" :</h4>
 
-                    </div>
-
-                <?php
-                endforeach;
-
+                    <?php
+                    endif;
                 else :
 
                 while ($topicRead = $topicReads->fetch()) :

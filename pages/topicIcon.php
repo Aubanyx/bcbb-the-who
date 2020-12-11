@@ -117,12 +117,21 @@ $cats = categoryName($_GET["id"]);
                                 }
 
                                 if (isset($_GET['search']) OR isset($_POST['search'])) :
+                                    if ($topics != NULL) :
                                     ?>
 
                                     <h4><?= $topics[0]['countSearch'] ?> résultats trouvés pour la recherche
                                         "<?= $_GET['search'] ?>" :</h4>
 
                                 <?php
+                                    else :
+                                    ?>
+
+                                        <h4> 0 résultats trouvés pour la recherche
+                                            "<?= $_GET['search'] ?>" :</h4>
+
+                                <?php
+                                    endif;
                                 endif;
 
                                 foreach ($topics as $topic) :

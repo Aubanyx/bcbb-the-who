@@ -777,14 +777,22 @@ function searchTopicRead()
                 (
                 SELECT DISTINCT COUNT(DISTINCT p.postId)
                 FROM posts p
-                WHERE p.postContent LIKE :query
+                    LEFT JOIN users u
+                	    ON p.postBy = u.userId
+                WHERE (
+                    p.postContent LIKE :query 
+                    OR u.userNname LIKE :query
+                           )
                     AND p.postTopic = :id
                 )  AS `countSearch`
             FROM posts p
             	LEFT JOIN users u
                 	ON p.postBy = u.userId
-            WHERE p.postContent LIKE :query
-                    AND p.postTopic = :id
+            WHERE (
+                p.postContent LIKE :query
+                OR u.userNname LIKE :query
+                       )
+                AND p.postTopic = :id
             ORDER BY p.postDate DESC
             ";
 
