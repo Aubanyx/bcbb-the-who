@@ -607,8 +607,8 @@ function createPost()
 
     //Verify that is not a duplicated post
     $lastPostTopic = getLastPostOfTopic($topicId);
-    if (!is_null($lastPostTopic) && $lastPostTopic['postBy'] == $currentUserId && $lastPostTopic['postContent'] == $postContent)
-        return "Duplicated message";
+    if (!is_null($lastPostTopic) && $lastPostTopic['postBy'] == $currentUserId)
+        return "Wait for someone else to post !";
 
     try {
         $sql = "UPDATE users SET userTotalPosts = userTotalPosts+1 WHERE userId = ?";
