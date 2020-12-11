@@ -39,19 +39,13 @@ $cats = categoryName($_GET["id"]);
             </ol>
         </nav>
 
-
         <div class="container-lg">
-
             <div class="row">
-
                 <div class="col-xl-9 themed-grid-col">
-
                     <h4 class="font-weight-light text-black-50 pb-3"> <?= $board["boardName"]; ?> </h4>
-
                     <div class="alert alert-danger border-0 rounded" role="alert">
                         Make sure to read the <a href="#!" class="alert-link">the forum rules</a> before posting.
                     </div>
-
 
                     <div class="board-util d-flex pt-3">
                         <a href="/pages/newTopic.php?id=<?= $boardId ?>">
@@ -60,8 +54,6 @@ $cats = categoryName($_GET["id"]);
                         </a>
                         <!-- searchbar -->
                         <div class="bg-light rounded rounded-pill border w-25 ml-3">
-
-
                             <form method="post" action="">
                                 <div class="input-group">
                                     <input type="search" placeholder="Search this forum..." name="search"

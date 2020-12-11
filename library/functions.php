@@ -732,6 +732,7 @@ function categoryName($id)
     return $nameOfCat;
 }
 
+// Search topics and messages
 function search()
 {
     global $dbh;
@@ -757,6 +758,40 @@ function search()
     $search = $dbh->prepare($sql);
     $search->execute([
         "query" => '%' . $_GET["search"] . '%'
+    ]);
+    $search = $search->fetchAll(PDO::FETCH_ASSOC);
+
+
+    return $search;
+}
+
+// Search only messages
+function searchTopicRead()
+{
+    global $dbh;
+
+    extract($_POST);
+
+    $sql = "
+            SELECT DISTINCT p.postId, p.postContent, p.postDate, p.postDateUpdate, p.postDeleted, p.postTopic, p.postBy, u.userNname, u.userSign, u.userLevel, u.userImage, u.userMood, u.userLocation, u.userTotalPosts,
+                (
+                SELECT DISTINCT COUNT(DISTINCT p.postId)
+                FROM posts p
+                WHERE p.postContent LIKE :query
+                    AND p.postTopic = :id
+                )  AS `countSearch`
+            FROM posts p
+            	LEFT JOIN users u
+                	ON p.postBy = u.userId
+            WHERE p.postContent LIKE :query
+                    AND p.postTopic = :id
+            ORDER BY p.postDate DESC
+            ";
+
+    $search = $dbh->prepare($sql);
+    $search->execute([
+        "query" => '%' . $_POST['searchPost'] . '%',
+        "id" => $_GET["id"]
     ]);
     $search = $search->fetchAll(PDO::FETCH_ASSOC);
 
