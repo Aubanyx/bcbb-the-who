@@ -84,7 +84,7 @@ function BoardLastPost($id)
 {
     global $dbh;
 
-    $sql = "SELECT postDate FROM posts  JOIN topics ON postTopic = topicId WHERE topicBoard = ? ORDER BY postDate DESC LIMIT 1";
+    $sql = "SELECT * FROM posts  JOIN topics ON postTopic = topicId WHERE topicBoard = ? ORDER BY postDate DESC LIMIT 1";
 
     $resultsBLP = $dbh->prepare($sql);
     $resultsBLP->execute([$id]);
@@ -943,6 +943,21 @@ function unlockTopic()
 
     $unlockTopic = $dbh->prepare($sql);
     $unlockTopic->execute([$_GET["id"]]);
+}
+
+// Link to last post on Index
+
+function linkLastPost()
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM topics";
+
+    $linkLastPost = $dbh->prepare($sql);
+    $linkLastPost->execute();
+    $linkLastPost = $linkLastPost->fetchAll(PDO::FETCH_ASSOC);
+
+    return $linkLastPost;
 }
 
 
