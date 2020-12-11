@@ -95,7 +95,7 @@ include_once "./includes/header.php";
                                         foreach($BoardLastTopics as $boardLP) :
                                         ?>
                                         <th><p><span>
-                                                    <a href="/pages/topicRead.php?id=<?= $boardLP['postId']; ?>"> <i class="fas fa-arrow-alt-circle-right"></i>
+                                                    <a href="/pages/topicRead.php?id=<?= $boardLP['topicId']; ?>"> <i class="fas fa-arrow-alt-circle-right"></i>
                                                     <?php
                                                     $dateSrc = $boardLP['postDate'];
                                                     $dateTime = new DateTime($dateSrc);
