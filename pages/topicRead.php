@@ -26,6 +26,21 @@ if ($redirect) {
     exit();
 }
 
+// Lock topic
+
+if (isset($_POST["lockTopic"])) {
+    lockTopic();
+
+} elseif(isset($_POST["unlockTopic"]))
+{
+    unlockTopic();
+}
+
+
+
+
+
+
 $getId = $_GET['id'];
 $lasttopics = displayLastT();
 $lastConnectedUsers = getLastConnectedUsers();
@@ -34,9 +49,10 @@ $boardName=boardName($_GET["id"]);
 $cats=categoryName($_GET["id"]);
 $posts = getPostsByTopicId($getId);
 
+
 countViews($_GET["id"]);
 
-$page = "Home";
+$page = "Topic";
 $url = "http://localhost:8888/";
 
 include_once "../includes/header.php";
@@ -50,6 +66,13 @@ include_once "../includes/header.php";
     <!-- /pagination -->
 
     <!-- main container -->
+
+<?php
+$getId = $_GET['id'];
+$sql = "select * from (SELECT (@row_number:=@row_number + 1) AS num, p.*  FROM posts as p, (SELECT @row_number:=0) AS t WHERE postTopic = '$getId') As T1 JOIN users on postBy = userId WHERE num >= '$depart' AND postId order by postDate LIMIT 10";
+$topicReads = $dbh->prepare($sql);
+$topicReads->execute();
+?>
     <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
         <nav aria-label="breadcrumb">
 
@@ -73,53 +96,72 @@ include_once "../includes/header.php";
                     <div class="board-util d-flex pt-3">
 
 
-                        <!-- LOCK TOPIC BUTTON -->
+
+
+                        <!-- lock -->
+
                         <?php
-                        $getId = $_GET['id'];
-                        $query = "SELECT topicSubject, topicBy, topicLock FROM topics WHERE topicId = 6";
-                        $topicLock = $dbh->prepare($query);
-                        $topicLock->execute();
-                        $topicLocked = $topicLock->fetch(PDO::FETCH_ASSOC);
+                        $lock = lock();
+                        if (isset($_SESSION["user"])) :
 
-                        /*BUTTON SCRIPT*/
-                        if(isset($_POST["topicLock"])){
-                            $lockQuery = "UPDATE topics SET topicLock = ? WHERE topicId = 6";
-                            $lockResult = $dbh->prepare($lockQuery);
-                            if($topicLocked["topicLock"]){
-                                $topicLock->execute([0,$getId]);
-                            }else{
-                                $topicLock->execute([1,$getId]);
-                            }
-                            header("Location: topicRead.php?id=$getId");
-                        }
 
-                        if(isset($_SESSION["user"])
-                            AND $topicLocked["topicBy"]==$_SESSION["user"]
-                            AND !$topicLocked["topicLock"]){
-                            ?>
-                                <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button" name="lockTopic">
-                                    Lock Topic
-                                </button>
+                            if ($lock[0]["topicLock"] == "1") :
+                                ?>
+
+
 
                             <?php
-                        } elseif(isset($_SESSION["user"])
-                            AND $topicLocked["topicBy"]==$_SESSION["user"]
-                            AND $topicLocked["topicLock"]){
-                            ?>
-                                <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn" type="button" name="lockTopic">
-                                    Unlock Topic
-                                </button>
+                            else :
+                                ?>
+                                <a href="/pages/replyTopic.php?id=<?= $topicId ?>">
+                                    <button class="btn text-white px-4 py-2 mr-2 border-0 rounded rounded-pill board-util__btn"
+                                            type="button">Post reply <i class="fas fa-reply"></i></button>
+                                </a>
+
+
 
                             <?php
-                        }
+                            endif;
+                        endif;
                         ?>
-                        <!-- / LOCK TOPIC BUTTON -->
 
-                        <a href="/pages/replyTopic.php?id=<?= $topicId ?>">
-                            <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
-                                    type="button">Post reply <i class="fas fa-reply"></i></button>
-                        </a>
-                        <!-- searchbar -->
+                        <form method="post" action="">
+                        <?php
+                        $lock = lock();
+                        if (isset($_SESSION["user"]) && $_SESSION["user"] == $lock[0]["topicBy"]) :
+
+
+                            if ($lock[0]["topicLock"] == "1") :
+                                  ?>
+
+                                <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn1" type="submit" name="unlockTopic">
+                                    Unlock Topic <i class="fas fa-unlock"></i>
+                                </button>
+
+                            <?php
+                            else :
+                                ?>
+
+                                    <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn1" type="submit" name="lockTopic">
+                                        Lock Topic <i class="fas fa-lock"></i>
+                                    </button>
+
+
+                            <?php
+                            endif;
+                        endif;
+                        ?>
+                        </form>
+
+                        <!-- / lock -->
+
+
+
+
+
+
+
+
                         <div class="dropdown">
                             <button class="btn bg-light rounded ml-3 rounded-pill border dropdown-toggle"
                                     type="button" id="dropdownMenu1" data-toggle="dropdown"
@@ -172,12 +214,6 @@ include_once "../includes/header.php";
                         <!-- /searchbar -->
                         <!-- pagination-->
 
-                        <?php
-                        $getId = $_GET['id'];
-                        $sql = "select * from (SELECT (@row_number:=@row_number + 1) AS num, p.*  FROM posts as p, (SELECT @row_number:=0) AS t WHERE postTopic = '$getId') As T1 JOIN users on postBy = userId WHERE num >= '$depart' AND postId order by postDate LIMIT 10";
-                        $topicReads = $dbh->prepare($sql);
-                        $topicReads->execute();
-                        ?>
                     </div>
 
                     <div class="themed-grid-col mt-4 p-3 rounded bg-light">
@@ -239,7 +275,7 @@ include_once "../includes/header.php";
                                             }
                                            
                                         ?>
-                                       
+
 
                                     </div>
 

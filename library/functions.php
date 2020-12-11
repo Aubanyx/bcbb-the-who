@@ -857,5 +857,39 @@ function topicBreadcrumb($id)
 }
 
 
+// Topic Lock (Lock a topic)
+function lock()
+{
+    global $dbh;
+
+    $sql = "SELECT * FROM topics JOIN users ON topicBy = userId WHERE topicId = ?";
+
+    $topicLock = $dbh->prepare($sql);
+    $topicLock->execute([$_GET["id"]]);
+    $topicLock = $topicLock->fetchAll(PDO::FETCH_ASSOC);
+
+    return $topicLock;
+}
+
+function lockTopic()
+{
+    global $dbh;
+
+    $sql = "UPDATE topics SET topicLock = 1 WHERE topicId = ?";
+
+    $lockTopic = $dbh->prepare($sql);
+    $lockTopic->execute([$_GET["id"]]);
+}
+
+function unlockTopic()
+{
+    global $dbh;
+
+    $sql = "UPDATE topics SET topicLock = 0 WHERE topicId = ?";
+
+    $unlockTopic = $dbh->prepare($sql);
+    $unlockTopic->execute([$_GET["id"]]);
+}
+
 
 ?>
