@@ -12,16 +12,18 @@ if (isset($_POST["search"])) {
 <div class="col-xl-3 themed-grid-col">
     <!-- searchbar -->
     <div class="bg-light rounded rounded-pill border mt-5">
+    <form method="post" action="">
         <div class="input-group">
-            <form method="post" action="">
+   
                 <input type="search" name="search" placeholder="Search..." aria-describedby="button-addon1"
                        class="form-control  bg-light rounded rounded-pill border-0">
                 <div class="input-group-append">
                     <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
                                 class="fa fa-search magnifying-glass"></i></button>
                 </div>
-            </form>
+         
         </div>
+        </form>
     </div>
     <!-- /searchbar -->
     <hr class="mb-4">
