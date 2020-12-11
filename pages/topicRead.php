@@ -399,7 +399,6 @@ include_once "../includes/header.php";
 
                                 ?>
 
-
                             </div>
 
                             <div id="postContent_<?= $topicRead["postId"] ?>"><?php
@@ -430,12 +429,101 @@ include_once "../includes/header.php";
                                 </div>
                             </form>
 
-
                             <p class="border-top py-3 mt-5 h6 text-secondary"><?= $topicRead["userSign"] ?></p>
                             <!-- <input type="hidden" value="amo" class="demo"> -->
+
+
+                            <?php
+
+
+
+
+                            if (isset($_POST['happy-' . $topicRead["postId"]])) {
+                                if (reactionsEmojiUserLimit($topicRead["postId"], "happy") == 0) {
+                                    addReaction($topicRead["postId"], 'happy');
+                                }
+                                else {
+                                    deleteReaction($topicRead["postId"], 'happy');
+                                }
+                            }
+                            elseif (isset($_POST['sad-' . $topicRead["postId"]])) {
+                                if (reactionsEmojiUserLimit($topicRead["postId"], "sad") == 0) {
+                                    addReaction($topicRead["postId"], 'sad');
+                                }
+                                else {
+                                    deleteReaction($topicRead["postId"], 'sad');
+                                }
+                            }
+                            elseif (isset($_POST['crying-' . $topicRead["postId"]])) {
+                                if (reactionsEmojiUserLimit($topicRead["postId"], "crying") == 0) {
+                                    addReaction($topicRead["postId"], 'crying');
+                                }
+                                else {
+                                    deleteReaction($topicRead["postId"], 'crying');
+                                }
+                            }
+                            elseif (isset($_POST['laughing-' . $topicRead["postId"]])) {
+                                if (reactionsEmojiUserLimit($topicRead["postId"], "laughing") == 0) {
+                                    addReaction($topicRead["postId"], 'laughing');
+                                }
+                                else {
+                                    deleteReaction($topicRead["postId"], 'laughing');
+                                }
+                            }
+                            elseif (isset($_POST['shocked-' . $topicRead["postId"]])) {
+                                if (reactionsEmojiUserLimit($topicRead["postId"], "shocked") == 0) {
+                                    addReaction($topicRead["postId"], 'shocked');
+                                }
+                                else {
+                                    deleteReaction($topicRead["postId"], 'shocked');
+                                }
+                            }
+                            elseif (isset($_POST['love-' . $topicRead["postId"]])) {
+                                if (reactionsEmojiUserLimit($topicRead["postId"], "love") == 0) {
+                                    addReaction($topicRead["postId"], 'love');
+                                }
+                                else {
+                                    deleteReaction($topicRead["postId"], 'love');
+                                }
+                            }
+                            $reactionHappy = countReaction($topicRead["postId"], "happy");
+                            $reactionSad = countReaction($topicRead["postId"], "sad");
+                            $reactionCrying = countReaction($topicRead["postId"], "crying");
+                            $reactionLaughing = countReaction($topicRead["postId"], "laughing");
+                            $reactionShocked = countReaction($topicRead["postId"], "shocked");
+                            $reactionLove = countReaction($topicRead["postId"], "love");
+                            ?>
+
+
+
+
+
+
+                            <form method="post" action="">
+                                <div class="containerEmoji">
+                                    <div class="divEmoji">
+                                        <button type="submit" class="text-secondary" id="happy" name="happy-<?= $topicRead["postId"] ?>"><img class="emoji" src="../assets/emoji/happy.png" alt="happy"><?= $reactionHappy[0]['countReaction'] ?></button>
+                                    </div>
+                                    <div class="divEmoji">
+                                        <button type="submit" class="text-secondary" id="sad" name="sad-<?= $topicRead["postId"] ?>"><img class="emoji" src="../assets/emoji/sad.png" alt="sad"><?= $reactionSad[0]['countReaction']?></button>
+                                    </div>
+                                    <div class="divEmoji">
+                                        <button type="submit" class="text-secondary" id="crying" name="crying-<?= $topicRead["postId"] ?>"><img class="emoji" src="../assets/emoji/crying.png" alt="crying"><?= $reactionCrying[0]['countReaction']?></button>
+                                    </div>
+                                    <div class="divEmoji">
+                                        <button type="submit" class="text-secondary" id="laughing" name="laughing-<?= $topicRead["postId"] ?>"><img class="emoji" src="../assets/emoji/laughing.png" alt="laughing"><?= $reactionLaughing[0]['countReaction']?></button>
+                                    </div>
+                                    <div class="divEmoji">
+                                        <button type="submit" class="text-secondary" id="shocked" name="shocked-<?= $topicRead["postId"] ?>"><img class="emoji" src="../assets/emoji/shocked.png" alt="shocked"><?= $reactionShocked[0]['countReaction']?></button>
+                                    </div>
+                                    <div class="divEmoji">
+                                        <button type="submit" class="text-secondary" id="love" name="love-<?= $topicRead["postId"] ?>"><img class="emoji" src="../assets/emoji/love.png" alt="love"><?= $reactionLove[0]['countReaction']?></button>
+                                    </div>
+                                </div>
+                            </form>
+
+
                         </div>
-
-
                     </div>
 
                     <?php

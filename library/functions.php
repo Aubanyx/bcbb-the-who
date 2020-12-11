@@ -910,6 +910,78 @@ function topicBreadcrumb($id)
     return $topicBreadCrumb;
 }
 
+function addReaction($postId, $emoji) {
 
+    global $dbh;
+
+    extract($_POST);
+
+    $sql = "INSERT INTO reactions(reactionPostId, reactionEmoji, reactionUserId) VALUES(:reactionPostId, :reactionEmoji, :reactionUserId)";
+
+    $addReaction = $dbh->prepare($sql);
+    $addReaction->execute([
+        "reactionPostId" => $postId,
+        "reactionEmoji" => $emoji,
+        "reactionUserId" => $_SESSION['user']
+    ]);
+}
+
+function reactionsEmojiUserLimit($postId, $reactionEmoji) {
+
+    global $dbh;
+
+
+    $sql = "
+        SELECT *
+        FROM reactions
+        WHERE reactionPostId = :reactionPostId AND reactionUserId = :reactionUserId AND reactionEmoji = :reactionEmoji
+        ";
+
+    $reactionsUser = $dbh->prepare($sql);
+    $reactionsUser->execute([
+        "reactionPostId" => $postId,
+        "reactionEmoji" => $reactionEmoji,
+        "reactionUserId" => $_SESSION['user']
+    ]);
+
+    $count = $reactionsUser->rowCount();
+
+    return $count;
+
+}
+
+function deleteReaction($postId, $reactionEmoji) {
+
+    global $dbh;
+
+    $sql = "DELETE FROM reactions
+            WHERE reactionPostId = :reactionPostId AND reactionUserId = :reactionUserId AND reactionEmoji = :reactionEmoji";
+
+    $deleteReaction = $dbh->prepare($sql);
+    $deleteReaction->execute([
+        "reactionPostId" => $postId,
+        "reactionEmoji" => $reactionEmoji,
+        "reactionUserId" => $_SESSION['user']
+    ]);
+}
+
+function countReaction($postId, $reactionEmoji) {
+
+    global $dbh;
+
+    $sql = "
+        SELECT COUNT(DISTINCT r.reactionId) AS 'countReaction'
+        FROM reactions r
+        WHERE r.reactionPostId = :reactionPostId AND r.reactionEmoji = :reactionEmoji";
+
+    $countReaction = $dbh->prepare($sql);
+    $countReaction->execute([
+        "reactionPostId" => $postId,
+        "reactionEmoji" => $reactionEmoji
+    ]);
+    $countReaction = $countReaction->fetchAll(PDO::FETCH_ASSOC);
+
+    return $countReaction;
+}
 
 ?>

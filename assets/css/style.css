@@ -926,4 +926,22 @@ footer {
   height: 100px;
 }
 
+.containerEmoji {
+  display: flex;
+  width: fit-content;
+}
+
+.divEmoji {
+  width: 40px;
+  text-align: center;
+}
+
+.emoji {
+  width: 20px;
+  transition: 0.1s ease-in-out;
+}
+.emoji:hover {
+  width: 25px;
+}
+
 /*# sourceMappingURL=style.css.map */

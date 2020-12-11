@@ -187,5 +187,23 @@ padding:auto;}}
     height:100px;
 }
 
-  
+.containerEmoji {
+  display: flex;
+  width: fit-content;
+}
+
+.divEmoji {
+  width: 40px;
+  text-align: center;
+
+}
+
+.emoji {
+  width: 20px;
+  transition: .1s ease-in-out;
+
+  &:hover {
+    width: 25px;
+  }
+}
   
