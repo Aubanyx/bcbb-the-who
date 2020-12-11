@@ -93,6 +93,23 @@ $topicReads->execute();
                 <h3><?= getMarkdown($topic["topicSubject"]); ?></h3>
 
 
+                <?php
+                $lock = lock();
+                if (isset($_SESSION["user"])) :
+
+
+                    if ($lock[0]["topicLock"] == "1") :
+                        ?>
+                        <div class="alert alert-warning" role="alert">
+                            <strong>Warning!</strong> This topic is locked.
+                        </div>
+
+                    <?php
+                    endif;
+                endif;
+                ?>
+
+
                 <div class="board-util d-flex pt-3">
 
 
@@ -106,7 +123,6 @@ $topicReads->execute();
 
                             if ($lock[0]["topicLock"] == "1") :
                                 ?>
-
 
 
                             <?php
@@ -128,7 +144,7 @@ $topicReads->execute();
                         <?php
                         $lock = lock();
                         if (isset($_SESSION["user"]) && $_SESSION["user"] == $lock[0]["topicBy"]) :
-
+                        //if(true):
 
                             if ($lock[0]["topicLock"] == "1") :
                                   ?>
