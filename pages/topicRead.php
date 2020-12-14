@@ -231,9 +231,9 @@ include_once "../includes/header.php";
 
                 <div class="row rounded bg-white p-4 m-0 mb-3">
 
-                    <div class="col-2 flex-column d-flex pt-5 pb-4">
+                    <div class="col-sm-2 flex-column d-flex pt-5 pb-4 mr-2">
                         <div class="text-center">
-                            <img class="mx-auto rounded-circle w-75 border" src="
+                            <img class="mx-auto profileimage rounded-circle border" src="
                                         <?php
                             if (!empty($topicRead["userImage"])) {
                                 echo "data:image/jpeg;base64," . $topicRead['userImage'];
@@ -257,7 +257,7 @@ include_once "../includes/header.php";
                         </p>
                     </div>
 
-                    <div class="col-10 flex-column">
+                    <div class="col-sm-10 flex-column">
                         <div class="time-quote">
 
                             <p class="my-4 h6 text-secondary"><i
