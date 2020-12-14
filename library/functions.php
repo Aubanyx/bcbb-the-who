@@ -5,7 +5,7 @@
 function connect()
 {
 
-    $dsn = 'mysql:dbname=tKrWsqaR52;host=remotemysql.com:3306;charset=utf8mb4';
+    $dsn = 'mysql:dbname=tKrWsqaR52;host=remotemysql.com:3306;charset=utf8';
     $user = 'tKrWsqaR52';
     $password = 'KEgiRtJGfk';
 
