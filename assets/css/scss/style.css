@@ -733,6 +733,15 @@ footer {
   border-bottom: none;
 }
 
+.profileimage {
+  width: 7rem;
+}
+
+@media (max-width: 767.98px) {
+  .profileimage {
+    width: 7rem;
+  }
+}
 /* ———————————————————————————————— */
 /* —————— !! INDEX (S)CSS !! —————— */
 /* ———————————————————————————————— */

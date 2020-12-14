@@ -59,10 +59,10 @@ include_once "../includes/header.php";
 
 <!-- /pagination -->
 
-    <!-- main container -->
+<!-- main container -->
 
-    <div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
-        <nav aria-label="breadcrumb">
+<div class="container overlay position-relative shadow-sm rounded-lg bg-white pb-5">
+    <nav aria-label="breadcrumb">
 
         <ol class="breadcrumb bg-transparent pt-5">
             <li class="breadcrumb-item"><a href="/index.php"><i class="fas fa-home"></i> Home</a></li>
@@ -102,40 +102,40 @@ include_once "../includes/header.php";
 
 
 
-                        <!-- lock -->
+                    <!-- lock -->
+
+                    <?php
+                    $lock = lock();
+                    if (isset($_SESSION["user"])) :
+
+
+                        if ($lock[0]["topicLock"] == "1") :
+                            ?>
+
 
                         <?php
-                        $lock = lock();
-                        if (isset($_SESSION["user"])) :
-
-
-                            if ($lock[0]["topicLock"] == "1") :
-                                ?>
-
-
-                            <?php
-                            else :
-                                ?>
-                                <a href="/pages/replyTopic.php?id=<?= $topicId ?>">
-                                    <button class="btn text-white px-4 py-2 mr-2 border-0 rounded rounded-pill board-util__btn"
-                                            type="button">Post reply <i class="fas fa-reply"></i></button>
-                                </a>
+                        else :
+                            ?>
+                            <a href="/pages/replyTopic.php?id=<?= $topicId ?>">
+                                <button class="btn text-white px-4 py-2 mr-2 border-0 rounded rounded-pill board-util__btn"
+                                        type="button">Post reply <i class="fas fa-reply"></i></button>
+                            </a>
 
 
 
-                            <?php
-                            endif;
+                        <?php
                         endif;
-                        ?>
+                    endif;
+                    ?>
 
-                        <form method="post" action="">
+                    <form method="post" action="">
                         <?php
                         $lock = lock();
                         if (isset($_SESSION["user"]) && $_SESSION["user"] == $lock[0]["topicBy"]) :
-                        //if(true):
+                            //if(true):
 
                             if ($lock[0]["topicLock"] == "1") :
-                                  ?>
+                                ?>
 
                                 <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn1" type="submit" name="unlockTopic">
                                     Unlock Topic <i class="fas fa-unlock"></i>
@@ -145,36 +145,36 @@ include_once "../includes/header.php";
                             else :
                                 ?>
 
-                                    <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn1" type="submit" name="lockTopic">
-                                        Lock Topic <i class="fas fa-lock"></i>
-                                    </button>
+                                <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn1" type="submit" name="lockTopic">
+                                    Lock Topic <i class="fas fa-lock"></i>
+                                </button>
 
 
                             <?php
                             endif;
                         endif;
                         ?>
-                        </form>
+                    </form>
 
-                        <!-- / lock -->
+                    <!-- / lock -->
 
                     <!-- searchbar -->
-              
+
 
                     <div class="bg-light rounded rounded-pill border w-25 ml-3">
-                    <form method="post" action="">
-                        <div class="input-group">
-                     
+                        <form method="post" action="">
+                            <div class="input-group">
+
                                 <input type="search" name="searchPost" placeholder="Search this topic..." aria-describedby="button-addon1"
-                                       class="form-control  bg-light rounded rounded-pill border-0">
+                                       class="form-control bg-light rounded rounded-pill border-0">
                                 <div class="input-group-append">
                                     <button id="button-addon1" type="submit"
                                             class="btn btn-link text-primary border-right"><i
                                                 class="fa fa-search magnifying-glass"></i></button>
                                     <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
                                                 class="fas fa-cog cog"></i></button>
-                         
-                        </div>
+
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -212,147 +212,149 @@ include_once "../includes/header.php";
                 ?>
             </div>
 
+
+
             <div class="themed-grid-col mt-4 p-3 rounded bg-light">
                 <?php
                 if (isset($_POST['searchPost'])) :
-                    $topicReads = searchTopicRead();
-                    if ($topicReads != NULL) :
+                $topicReads = searchTopicRead();
+                if ($topicReads != NULL) :
                 ?>
 
-                    <h4><?= $topicReads[0]['countSearch'] ?> résultats trouvés pour la recherche
-                        "<?= $_POST['searchPost'] ?>" :</h4>
+                <h4><?= $topicReads[0]['countSearch'] ?> résultats trouvés pour la recherche
+                    "<?= $_POST['searchPost'] ?>" :</h4>
 
+            </div>
+            <?php
+            foreach ($topicReads as $topicRead) :
+                ?>
+
+                <div class="row rounded bg-white p-4 m-0 mb-3">
+
+                    <div class="col-2 flex-column d-flex pt-5 pb-4">
+                        <div class="text-center">
+                            <img class="mx-auto rounded-circle w-75 border" src="
+                                        <?php
+                            if (!empty($topicRead["userImage"])) {
+                                echo "data:image/jpeg;base64," . $topicRead['userImage'];
+                            } else {
+                                echo "https://www.gravatar.com/avatar/" . md5(strtolower(trim($topicRead['userEmail']))) . "?" . "&s=80";
+                            }
+                            ?>">
+
+                            <p class="h5 pt-3 text-danger"><?= $topicRead["userNname"] ?>
+                                <span class="h6 d-block text-secondary mb-4"><?= getUserLevel($topicRead["userLevel"]) ?></span>
+                            </p>
+                        </div>
+                        <p class="h6"><span class="font-weight-bold">Posts :</span><span
+                                    class="text-secondary font-weight-lighter"> <?= $topicRead["userTotalPosts"] ?></span>
+                        </p>
+                        <p class="h6"><span class="font-weight-bold">Location :</span><span
+                                    class="text-secondary font-weight-lighter"> <?= $topicRead["userLocation"] ?></span>
+                        </p>
+                        <p class="h6"><span class="font-weight-bold">Mood :</span><span
+                                    class="text-secondary font-weight-lighter"> <?= $topicRead["userMood"] ?></span>
+                        </p>
                     </div>
-                        <?php
-                        foreach ($topicReads as $topicRead) :
-                        ?>
 
-                        <div class="row rounded bg-white p-4 m-0 mb-3">
+                    <div class="col-10 flex-column">
+                        <div class="time-quote">
 
-                            <div class="col-2 flex-column d-flex pt-5 pb-4">
-                                <div class=" text-center">
-                                    <img class="mx-auto rounded-circle w-75 border" src="
-                                        <?php
-                                    if (!empty($topicRead["userImage"])) {
-                                        echo "data:image/jpeg;base64," . $topicRead['userImage'];
-                                    } else {
-                                        echo "https://www.gravatar.com/avatar/" . md5(strtolower(trim($topicRead['userEmail']))) . "?" . "&s=80";
-                                    }
-                                    ?>">
+                            <p class="my-4 h6 text-secondary"><i
+                                        class="far fa-clock"></i> <?= formatDate($topicRead["postDate"]) ?>
+                                <?php
+                                if (!is_null($topicRead["postDateUpdate"])) :
+                                    ?>  <br>Modified at <i
+                                        class="far fa-clock"></i> <?= formatDate($topicRead["postDateUpdate"]) ?>
+                                <?php
+                                endif;
 
-                                    <p class="h5 pt-3 text-danger"><?= $topicRead["userNname"] ?>
-                                        <span class="h6 d-block text-secondary mb-4"><?= getUserLevel($topicRead["userLevel"]) ?></span>
-                                    </p>
-                                </div>
-                                <p class="h6"><span class="font-weight-bold">Posts :</span><span
-                                            class="text-secondary font-weight-lighter"> <?= $topicRead["userTotalPosts"] ?></span>
-                                </p>
-                                <p class="h6"><span class="font-weight-bold">Location :</span><span
-                                            class="text-secondary font-weight-lighter"> <?= $topicRead["userLocation"] ?></span>
-                                </p>
-                                <p class="h6"><span class="font-weight-bold">Mood :</span><span
-                                            class="text-secondary font-weight-lighter"> <?= $topicRead["userMood"] ?></span>
-                                </p>
-                            </div>
-
-                            <div class="col-10 flex-column">
-                                <div class="time-quote">
-
-                                    <p class="my-4 h6 text-secondary"><i
-                                                class="far fa-clock"></i> <?= formatDate($topicRead["postDate"]) ?>
-                                        <?php
-                                        if (!is_null($topicRead["postDateUpdate"])) :
-                                            ?>  <br>Modified at <i
-                                                    class="far fa-clock"></i> <?= formatDate($topicRead["postDateUpdate"]) ?>
-                                            <?php
-                                        endif;
-
-                                        if (isset($_SESSION["user"]) && $_SESSION["user"] == $topicRead["postBy"] && $topicRead["postDeleted"] == 0) :
+                                if (isset($_SESSION["user"]) && $_SESSION["user"] == $topicRead["postBy"] && $topicRead["postDeleted"] == 0) :
 
 
-                                        ?>
-                                        <button type="button"
-                                                class="btn btn_delete_post bg-light rounded ml-3 rounded-pill border float-right"
-                                                data-topicId="<?= $topicRead["postTopic"] ?>"
-                                                data-postId="<?= $topicRead["postId"] ?>"><i
-                                                    class="far fa-trash-alt text-secondary"></i> Delete
-                                        </button>
-                                        <?php
-                                        if ($topic["lastPostId"] == $topicRead["postId"]) :
+                                ?>
+                                <button type="button"
+                                        class="btn btn_delete_post bg-light rounded ml-3 rounded-pill border float-right"
+                                        data-topicId="<?= $topicRead["postTopic"] ?>"
+                                        data-postId="<?= $topicRead["postId"] ?>"><i
+                                            class="far fa-trash-alt text-secondary"></i> Delete
+                                </button>
+                                <?php
+                                if ($topic["lastPostId"] == $topicRead["postId"]) :
 
-                                        ?>
-                                        <button type="button"
-                                                class="btn btn_update_post bg-light rounded ml-3 rounded-pill border float-right"
-                                                data-topicId="<?= $topicRead["postTopic"] ?>"
-                                                data-postId="<?= $topicRead["postId"] ?>"><i
-                                                    class="far fa-edit text-secondary"></i> Edit
-                                        </button>
-                                    </p>
-                                    <?php
-                                    endif;
-
-
-                                    else :
-
-                                        ?>
-                                        <p></p>
-                                        <?php
-
-                                    endif;
-                                    ?>
+                                ?>
+                                <button type="button"
+                                        class="btn btn_update_post bg-light rounded ml-3 rounded-pill border float-right"
+                                        data-topicId="<?= $topicRead["postTopic"] ?>"
+                                        data-postId="<?= $topicRead["postId"] ?>"><i
+                                            class="far fa-edit text-secondary"></i> Edit
+                                </button>
+                            </p>
+                            <?php
+                            endif;
 
 
-                                </div>
+                            else :
 
-                                <div id="postContent_<?= $topicRead["postId"] ?>">
-                                    <?php
-                                    if ($topicRead["postDeleted"] == 1) :
-                                        echo "<i>DELETED</i>";
-                                     else :
-                                        getMarkdown($topicRead["postContent"]);
+                                ?>
+                                <p></p>
+                            <?php
 
-                                    endif;
-                                    ?>
-                                </div>
-                                <form method="post" id="form_editPost_<?= $topicRead["postId"] ?>"
-                                      action="/pages/updatePost.php" hidden>
+                            endif;
+                            ?>
 
-                                    <!--Edit-->
-                                    <div class="form-group">
+
+                        </div>
+
+                        <div id="postContent_<?= $topicRead["postId"] ?>">
+                            <?php
+                            if ($topicRead["postDeleted"] == 1) :
+                                echo "<i>DELETED</i>";
+                            else :
+                                getMarkdown($topicRead["postContent"]);
+
+                            endif;
+                            ?>
+                        </div>
+                        <form method="post" id="form_editPost_<?= $topicRead["postId"] ?>"
+                              action="/pages/updatePost.php" hidden>
+
+                            <!--Edit-->
+                            <div class="form-group">
                                             <textarea id="my-text-area" name="postContent" cols="40" rows="5"
                                                       required="required"
                                                       class="form-control"><?= $topicRead["postContent"] ?></textarea>
 
-                                    </div>
-                                    <input name="postId" type="hidden" value="<?= $topicRead["postId"] ?>"/>
-                                    <input name="topicId" type="hidden" value="<?= $topicRead["postTopic"] ?>"/>
-                                    <div class="text-right board-util d-flex pt-3">
-                                        <button class="btn btn_cancel_update_post text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
-                                                type="button" data-postId="<?= $topicRead["postId"] ?>">Cancel edition <i
-                                                    class="fas fa-window-close"></i></button>
-                                        <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
-                                                type="submit">Update post <i class="fas fa-reply"></i></button>
-                                    </div>
-                                </form>
-
-
-                                <p class="border-top py-3 mt-5 h6 text-secondary"><?= $topicRead["userSign"] ?></p>
-                                <!-- <input type="hidden" value="amo" class="demo"> -->
                             </div>
+                            <input name="postId" type="hidden" value="<?= $topicRead["postId"] ?>"/>
+                            <input name="topicId" type="hidden" value="<?= $topicRead["postTopic"] ?>"/>
+                            <div class="text-right board-util d-flex pt-3">
+                                <button class="btn btn_cancel_update_post text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
+                                        type="button" data-postId="<?= $topicRead["postId"] ?>">Cancel edition <i
+                                            class="fas fa-window-close"></i></button>
+                                <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn"
+                                        type="submit">Update post <i class="fas fa-reply"></i></button>
+                            </div>
+                        </form>
 
 
-                        </div>
-                        <?php
-                        endforeach;
-                        else :
-                        ?>
+                        <p class="border-top py-3 mt-5 h6 text-secondary"><?= $topicRead["userSign"] ?></p>
+                        <!-- <input type="hidden" value="amo" class="demo"> -->
+                    </div>
 
-                        <h4> 0 résultats trouvés pour la recherche
-                            "<?= $_POST['searchPost'] ?>" :</h4>
 
-                    <?php
-                    endif;
-                else :
+
+            <?php
+            endforeach;
+            else :
+                ?>
+
+                <h4> 0 résultats trouvés pour la recherche
+                    "<?= $_POST['searchPost'] ?>" :</h4>
+
+            <?php
+            endif;
+            else :
 
                 while ($topicRead = $topicReads->fetch()) :
                     ?>
@@ -360,13 +362,13 @@ include_once "../includes/header.php";
                     <!-- post-reply -->
                     <div class="row rounded bg-white p-4 m-0 mb-3">
 
-                        <div class="col-2 flex-column d-flex pt-5 pb-4">
-                            <div class=" text-center">
-                                <img class="mx-auto rounded-circle w-75 border" src="
+                        <div class="col-sm-2 flex-column d-flex pt-5 pb-4">
+                            <div class="text-center">
+                                <img class="mx-auto rounded-circle border profileimage" src="
                                         <?php
                                 if (!empty($topicRead["userImage"])) :
                                     echo "data:image/jpeg;base64," . $topicRead['userImage'];
-                                 else :
+                                else :
                                     echo "https://www.gravatar.com/avatar/" . md5(strtolower(trim($topicRead['userEmail']))) . "?" . "&s=80";
 
                                 endif;
@@ -387,7 +389,7 @@ include_once "../includes/header.php";
                             </p>
                         </div>
 
-                        <div class="col-10 flex-column">
+                        <div class="col-sm-10 flex-column">
                             <div class="time-quote">
 
                                 <p class="my-4 h6 text-secondary"><i
@@ -395,8 +397,8 @@ include_once "../includes/header.php";
                                     <?php
                                     if (!is_null($topicRead["postDateUpdate"])) :
                                         ?>  </br>Modified at <i
-                                                class="far fa-clock"></i> <?= formatDate($topicRead["postDateUpdate"]) ?>
-                                        <?php
+                                            class="far fa-clock"></i> <?= formatDate($topicRead["postDateUpdate"]) ?>
+                                    <?php
 
                                     endif;
 
@@ -429,7 +431,7 @@ include_once "../includes/header.php";
 
                                     ?>
                                     <p></p>
-                                    <?php
+                                <?php
                                 endif;
 
                                 ?>
@@ -555,117 +557,117 @@ include_once "../includes/header.php";
                         </div>
                     </div>
 
-                    <?php
+                <?php
                 endwhile;
-                endif;
-                ?>
+            endif;
+            ?>
 
-
-            </div>
-
-
-            <div class="board-util d-flex pt-3">
-             
-                        <!-- lock -->
-
-                        <?php
-                        $lock = lock();
-                        if (isset($_SESSION["user"])) :
-
-
-                            if ($lock[0]["topicLock"] == "1") :
-                                ?>
-
-
-
-                            <?php
-                            else :
-                                ?>
-                                <a href="/pages/replyTopic.php?id=<?= $topicId ?>">
-                                    <button class="btn text-white px-4 py-2 mr-2 border-0 rounded rounded-pill board-util__btn"
-                                            type="button">Post reply <i class="fas fa-reply"></i></button>
-                                </a>
-
-
-
-                            <?php
-                            endif;
-                        endif;
-                        ?>
-
-                        <form method="post" action="">
-                        <?php
-                        $lock = lock();
-                        if (isset($_SESSION["user"]) && $_SESSION["user"] == $lock[0]["topicBy"]) :
-
-
-                            if ($lock[0]["topicLock"] == "1") :
-                                  ?>
-
-                                <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn1" type="submit" name="unlockTopic">
-                                    Unlock Topic <i class="fas fa-unlock"></i>
-                                </button>
-
-                            <?php
-                            else :
-                                ?>
-
-                                    <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn1" type="submit" name="lockTopic">
-                                        Lock Topic <i class="fas fa-lock"></i>
-                                    </button>
-
-
-                            <?php
-                            endif;
-                        endif;
-                        ?>
-                        </form>
-
-                        <!-- / lock -->
-
-                <p class="ml-auto font-weight-normal greytext pt-2"> <?= count($posts) ?> replies · Page <?php
-                    for ($i = 1; $i <= $pagesTotal; $i++) {
-                        if ($i == $pageCourante) {
-                            echo $i . ' ';
-                        } else {
-                            echo '<a href="/pages/topicRead.php?id=' . $topic['topicId'] . '&page=' . $i . '">' . $i . '</a> ';
-                        }
-                    }
-                    ?></p>
-
-                <!-- /searchbar -->
-            </div>
-
-
-            <div class="board-util d-flex pt-3">
-                <a href="/index.php">Return to Board Index</a>
-
-                <div class="dropdown ml-auto">
-                    <button class="btn bg-light rounded ml-3 rounded-pill border dropdown-toggle text-black-50"
-                            type="button" id="dropdownMenu1" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                        Jump to
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <a class="dropdown-item" href="#!">Previous topic</a>
-                        <a class="dropdown-item" href="#!">Next topic</a>
-                        <a class="dropdown-item" href="#!">Previous forum</a>
-                        <a class="dropdown-item" href="#!">Next forum</a>
-                        <a class="dropdown-item" href="#!">Forum</a>
-                    </div>
-                </div>
-            </div>
 
         </div>
 
-        <!-- start of right side -->
 
-        <?php include_once "../includes/sidebar.php" ?>
+        <div class="board-util d-flex pt-3">
+
+            <!-- lock -->
+
+            <?php
+            $lock = lock();
+            if (isset($_SESSION["user"])) :
 
 
-        <!-- end of row -->
+                if ($lock[0]["topicLock"] == "1") :
+                    ?>
+
+
+
+                <?php
+                else :
+                    ?>
+                    <a href="/pages/replyTopic.php?id=<?= $topicId ?>">
+                        <button class="btn text-white px-4 py-2 mr-2 border-0 rounded rounded-pill board-util__btn"
+                                type="button">Post reply <i class="fas fa-reply"></i></button>
+                    </a>
+
+
+
+                <?php
+                endif;
+            endif;
+            ?>
+
+            <form method="post" action="">
+                <?php
+                $lock = lock();
+                if (isset($_SESSION["user"]) && $_SESSION["user"] == $lock[0]["topicBy"]) :
+
+
+                    if ($lock[0]["topicLock"] == "1") :
+                        ?>
+
+                        <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn1" type="submit" name="unlockTopic">
+                            Unlock Topic <i class="fas fa-unlock"></i>
+                        </button>
+
+                    <?php
+                    else :
+                        ?>
+
+                        <button class="btn text-white px-4 py-2 border-0 rounded rounded-pill board-util__btn1" type="submit" name="lockTopic">
+                            Lock Topic <i class="fas fa-lock"></i>
+                        </button>
+
+
+                    <?php
+                    endif;
+                endif;
+                ?>
+            </form>
+
+            <!-- / lock -->
+
+            <p class="ml-auto font-weight-normal greytext pt-2"> <?= count($posts) ?> replies · Page <?php
+                for ($i = 1; $i <= $pagesTotal; $i++) {
+                    if ($i == $pageCourante) {
+                        echo $i . ' ';
+                    } else {
+                        echo '<a href="/pages/topicRead.php?id=' . $topic['topicId'] . '&page=' . $i . '">' . $i . '</a> ';
+                    }
+                }
+                ?></p>
+
+            <!-- /searchbar -->
+        </div>
+
+
+        <div class="board-util d-flex pt-3">
+            <a href="/index.php">Return to Board Index</a>
+
+            <div class="dropdown ml-auto">
+                <button class="btn bg-light rounded ml-3 rounded-pill border dropdown-toggle text-black-50"
+                        type="button" id="dropdownMenu1" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    Jump to
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <a class="dropdown-item" href="#!">Previous topic</a>
+                    <a class="dropdown-item" href="#!">Next topic</a>
+                    <a class="dropdown-item" href="#!">Previous forum</a>
+                    <a class="dropdown-item" href="#!">Next forum</a>
+                    <a class="dropdown-item" href="#!">Forum</a>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <!-- end container-lg -->
+
+    <!-- start of right side -->
+
+    <?php include_once "../includes/sidebar.php" ?>
+
+
+    <!-- end of row -->
+</div>
+<!-- end container-lg -->
 </div>
 
 
