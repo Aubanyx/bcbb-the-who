@@ -5,7 +5,7 @@
 ### The duration of the project ?
 The duration of the project was **one month**, and one person joined the group after two weeks.
 
-### wich technologies and languages you use ? 
+### Wich technologies and languages we used :
 For this project, we learn and use about : 
 - [x] MySQL
 - [x] remoteMySQL
