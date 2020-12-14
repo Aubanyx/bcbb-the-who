@@ -142,7 +142,7 @@ $cats = categoryName($_GET["id"]);
                                     ?>
 
                                     <div class="row no-gutters py-3 text-black-50 align-items-center">
-                                        <div class="col-1 text-center"><i class="fas fa-check forumslist__green"></i>
+                                        <div class="col-1 text-center mr-4"><i class="fas fa-check forumslist__green"></i>
                                         </div>
                                         <div class="col"><a
                                                     href="/pages/topicRead.php?id=<?= $topic['topicId']; ?>"> <?= getMarkdown($topic['topicSubject']); ?></a>

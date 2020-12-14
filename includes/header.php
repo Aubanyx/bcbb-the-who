@@ -16,44 +16,67 @@
 </head>
 <body class="bg-light">
 <header class="header">
-    <nav class="navbar navbar-expand-lg navbar-light justify-content-end p-5">
-        <div class="" id="navbarNavAltMarkup">
-            <div class=" h4 navbar-nav">
+
+
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-end p-5 ">
+        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+    aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
+        class="fas fa-bars fa-1x"></i></span></button>
+        <div class="collapse navbar-collapse text-right" id="navbarSupportedContent1">
+            <div class="w-100 h4 navbar-nav">
+            <ul class="navbar-nav mr-auto d-flex justify-content-end w-100">
                 <?php
                 if (isset($_SESSION["user"])) :
                     $infos = infos();
                     if ($infos["userLevel"] == "2") :
                         ?>
+                        <li class="nav-item">
                         <a class="nav-item nav-link text-light mx-3" href="#"><i class="fas fa-user-shield"></i> Admin </a>
-                    <?php
+                        </li>
+                   <?php
                     endif;
                 endif;
                 ?>
+                <li class="nav-item">
                 <a class="nav-item nav-link active text-light mx-3" href="/index.php">
                     <i class="fas fa-home"></i> Home</a>
-                <?php
+                </li>
+              <?php
                 if (isset($_SESSION["user"])) :
                     ?>
+                 
+                 <li class="nav-item">
                     <a class="nav-item nav-link active text-light mx-3" href="/pages/profile.php"><i
                                 class="far fa-id-card"></i> Profile</a>
-                    <p class="nav-item nav-link active text-light mx-3" href="#"><i
+                 </li>
+                 <p class="nav-item nav-link active text-light mx-3" href="#"><i
                                 class="fas fa-user"></i> Welcome <?php $infos = infos();
                         echo $infos["userNname"];?></p>
+                 <li class="nav-item">
                     <a class="nav-item nav-link text-light mx-3" href="/pages/logout.php"><i
                                 class="fas fa-sign-out-alt"></i> Logout</a>
+                 </li>
                 <?php
                 else :
                     ?>
+                 <li class="nav-item">
                     <a class="nav-item nav-link text-light mx-3" href="/pages/register.php">
                         <i class="far fa-arrow-alt-circle-right"></i> Register</a>
+                 </li>
+                 <li class="nav-item">
                     <a class="nav-item nav-link text-light mx-3" href="/pages/login.php">
                         <i class="far fa-clipboard"></i> Login</a>
+                 </li>
+                 </ul>
                 <?php
                 endif;
                 ?>
 
             </div>
-        </div>
+        </a>
     </nav>
     <h1 class="text-center titre__Header align-items-center">COFFEE STORIES</h1>
 </header>

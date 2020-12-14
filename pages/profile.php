@@ -54,7 +54,7 @@ include_once "../includes/header.php";
     <div class="container d-flex justify-content-center">
             <div class="card border-0 w-100">
                 <div class="card-body board-util">
-                    <form class="p-5" action="" method="post" enctype="multipart/form-data">
+                    <form class="p-1" action="" method="post" enctype="multipart/form-data">
                         <div class="d-flex bg-light rounded align-items-center justify-content-center py-3 profilesettings">
                         
                         <img src="
@@ -97,7 +97,7 @@ include_once "../includes/header.php";
                         </div>
 
                         <!-- personal infos + contact infos -->
-                        <div class="d-flex flex-row">
+                        <div class="d-flex flex-sm-row flex-column">
                             <div class="personalinfos p-5 flex-fill border-right">
                                 <label class="w-100 mt-3 text-secondary" for="first-name"><h5>Your name</h5></label>
 

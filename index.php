@@ -51,7 +51,7 @@ include_once "./includes/header.php";
 
 
                             <div class="card-body">
-                                <img src="assets/images/icons-coffee/<?= $board['boardImage']; ?>" class="float-left"/>
+                                <img src="assets/images/icons-coffee/<?= $board['boardImage']; ?>" class="float-left mr-5"/>
                                
                                
                                 <h4 class="card-title">
@@ -94,7 +94,7 @@ include_once "./includes/header.php";
                                         $BoardLastTopics=BoardLastPost($board["boardId"]);
                                         foreach($BoardLastTopics as $boardLP) :
                                         ?>
-                                        <th><p><span>
+                                        <th><p class="d-none d-sm-block"><span>
                                                     <a href="/pages/topicRead.php?id=<?= $boardLP['topicId']; ?>"> <i class="fas fa-arrow-alt-circle-right"></i>
                                                     <?php
                                                     $dateSrc = $boardLP['postDate'];
@@ -111,9 +111,9 @@ include_once "./includes/header.php";
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td><p>Topics</p></td>
-                                        <td><p>Posts</p></td>
-                                        <td><p>Last Post</p></td>
+                                        <td><p class="mt-3">Topics</p></td>
+                                        <td><p class="mt-3">Posts</p></td>
+                                        <td><p class="d-none d-sm-block mt-3">Last Post</p></td>
                                     </tr>
                                     </tbody>
                                 </table>
