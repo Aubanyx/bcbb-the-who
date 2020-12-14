@@ -691,7 +691,7 @@ function topicsRandom()
 {
     global $dbh;
 
-    $sql = "SELECT * FROM topics WHERE topicBoard = 8 ORDER BY topicDate ASC LIMIT 5";
+    $sql = "SELECT * FROM topics WHERE topicBoard = 8 ORDER BY topicDate DESC LIMIT 5";
 
     $topicRand = $dbh->prepare($sql);
     $topicRand->execute();
