@@ -16,14 +16,15 @@ For this project, we learn and use about :
 - [x] Apache
 - [x] SASS
 - [x] Heroku
+- [x] Some library to implant on the project
 
-### What should we do?
+### Instructions : 
 The **rules** of this project are here :
 https://github.com/becodeorg/LIE-Hamilton-4.25/tree/master/01-main-course/02-the-hills/02-bcbb
 
 
 The goal of this project was to build a PHP forum in teams of 4.
-For most of us, it was the first time that we worked with PHP and other technology and languages.
+For most of us, it was the first time that we worked with PHP and others technologies and languages.
 
 We encountered some **difficulties** during this project, such as getting started with PHP and MySQL, server logic, ...
 We were also **3** instead of 4 for the first two weeks.
